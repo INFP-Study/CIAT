@@ -1,4 +1,12 @@
-# Project 명
+# 씨앗(CIAT) 🌱
+
+<h6 align="center">
+
+  <img alt="banner" src="README_image/team-title.png">
+
+![License](https://img.shields.io/badge/License-MIT-red)
+
+</h6>
 
 ## Contributors
 
