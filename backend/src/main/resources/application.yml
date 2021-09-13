@@ -1,1 +1,8 @@
+server:
+  port: 9400
 
+logging:
+  level:
+    com:
+      infp:
+        ciat: debug
