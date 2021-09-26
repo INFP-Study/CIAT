@@ -1,7 +1,7 @@
 import React from 'react';
 
-function index() {
+function Login() {
   return <div>login</div>;
 }
 
-export default index;
+export default Login;

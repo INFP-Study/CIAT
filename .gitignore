@@ -37,7 +37,7 @@ backend/.nb-gradle/
 backend/.vscode/
 
 
-### frontend
+### frontend ###
 
 frontend/node_modules
 frontend/dist/*
