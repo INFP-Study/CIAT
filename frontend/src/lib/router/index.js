@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import App from '../App';
-import Menu from '../components/menu';
-import Home from '../pages/home';
-import Login from '../pages/login';
+import App from 'App';
+import Menu from '../../components/menu';
+import Home from '../../pages/home';
+import Login from '../../pages/login';
 
 function index() {
   return (
