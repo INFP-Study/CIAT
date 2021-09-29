@@ -3,14 +3,15 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ["eslint:recommended", "plugin:prettier/recommended"],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
-    sourceType: "module",
+    ecmaVersion: 6,
+    sourceType: 'module',
+    parser: 'babel-eslint',
   },
-  plugins: ["react"],
+  plugins: ['react', 'prettier'],
   rules: {},
 };

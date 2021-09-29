@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Checkbox, version, DatePicker } from 'antd';
 import 'antd/dist/antd.less';
+import './App.css';
 
 function App() {
   function onChange(e) {

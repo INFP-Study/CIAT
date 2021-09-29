@@ -1,0 +1,22 @@
+server:
+  port: 9400
+
+logging:
+  level:
+    com:
+      infp:
+        ciat: debug
+
+spring:
+  datasource:
+    url: ENC(k0LDmCtzrFfqWHag/q4FDHr1sAsTipWHEML6wH6hgG43fDmoTJGlCKmk4iOCw/lpZuI3PCeGO4yMNgtmOf0CEH6RCQyyOldEvsaMg/XsCbpih7yOrM78pl0SZqZe9WxMA2dFzYtnuOrMZmeaQ9l2dA==)
+    driver-class-name: ENC(oxBFRuSb4koRfQC9Gf0sxTwdrHOYkUj4WEin05x4Shye5KO3Z4GDhj8Og40V7uhUEbKg+nLdIKcZ9Nvys9Z3jA==)
+    username: ENC(ZkOJwQDP0e0TmKw1nGbX7Ba1o6KYQW3wBLovkvlRV9jM2+XUYA8JP8sgv5k5ND2c)
+    password: ENC(pTR+Lp1bqtulUeZR8siprgfFg7Sjsz4nl1aOd4HqEG4lrUB3OUacN9ZwtvfVuPlNFv58HeodTi2mh2kB73K/Ww==)
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      database-platform: ENC(Aig0iPZvJyD6FXVBfrCD6FgvfUkiHKqlF9bshJ6LQGuD4MnBsryj71pstaL9rFtoY/YBvgFMtg9KafpZON4KYztVqW0mYG7ZdHo1PpxCLXs=)
