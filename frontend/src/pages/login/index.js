@@ -10,7 +10,7 @@ const Title = styled.h2`
   margin-right: auto;
 `;
 
-const EmailArea = styled.div`
+const LoginEmailDiv = styled.div`
   padding: 10px;
   width: 500px;
   display: table;
@@ -18,7 +18,7 @@ const EmailArea = styled.div`
   margin-right: auto;
 `;
 
-const PasswordArea = styled.div`
+const LoginPasswordDiv = styled.div`
   padding: 10px;
   width: 500px;
   display: table;
@@ -26,26 +26,26 @@ const PasswordArea = styled.div`
   margin-right: auto;
 `;
 
-const StyledEmail = styled(Input)`
+const LoginEmailInput = styled(Input)`
   border-radius: 10px 10px 10px 10px;
 `;
 
-const StyledPassword = styled(Input.Password)`
+const LoginPasswordInput = styled(Input.Password)`
   border-radius: 10px 10px 10px 10px;
 `;
 
-const StyledSpan = styled.span`
+const LoginSpan = styled.span`
   
 `;
 
-const EnterArea = styled.div`
+const LoginEnterDiv = styled.div`
   padding: 10px;
   display: table;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const StyledButton = styled(Button)`
+const LoginEnterButton = styled(Button)`
   background: #7EA592;
   color: white;
   width: 480px;
@@ -64,23 +64,23 @@ const StyledHr = styled.hr`
   margin-right: auto;
 `;
 
-const LinkArea = styled.div`
+const LoginLinkDiv = styled.div`
   padding: 20px;
   display: table;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const StyledLink = styled(Link)`
+const LoginLink = styled(Link)`
   color: #000000;
 `;
 
-const StyledCenter = styled.div`
+/* const StyledCenter = styled.div`
   padding: 20px;
   display: table;
   margin-left: auto;
   margin-right: auto;
-`;
+`; */
 
 
 function Login() {
@@ -91,26 +91,26 @@ function Login() {
         <Title>LOGIN</Title>
       </div>
       <div className="login-body">
-        <EmailArea>
-          <StyledSpan>E-MAIL</StyledSpan>
-          <StyledEmail />
-        </EmailArea>  
-        <PasswordArea>
-          <StyledSpan>PASSWORD</StyledSpan>
-          <StyledPassword />
-        </PasswordArea>
-        <EnterArea>
-          <StyledButton>ENTER</StyledButton>
-        </EnterArea>
+        <LoginEmailDiv>
+          <LoginSpan>E-MAIL</LoginSpan>
+          <LoginEmailInput />
+        </LoginEmailDiv>  
+        <LoginPasswordDiv>
+          <LoginSpan>PASSWORD</LoginSpan>
+          <LoginPasswordInput />
+        </LoginPasswordDiv>
+        <LoginEnterDiv>
+          <LoginEnterButton>ENTER</LoginEnterButton>
+        </LoginEnterDiv>
       </div>
-      <LinkArea>
-        <StyledLink to="/join">JOIN </StyledLink>/
-        <StyledLink to="/join"> FIND ID </StyledLink>/
-        <StyledLink to="/join"> FIND PASSWORD</StyledLink>
-      </LinkArea>
+      <LoginLinkDiv>
+        <LoginLink to="/join">JOIN </LoginLink>/
+        <LoginLink to="/join"> FIND ID </LoginLink>/
+        <LoginLink to="/join"> FIND PASSWORD</LoginLink>
+      </LoginLinkDiv>
       <div className="login-footer">
         <StyledHr />
-        <StyledCenter>KAKAO&nbsp;&nbsp;NAVER&nbsp;&nbsp;GITHUB&nbsp;&nbsp;INSTAGRAM</StyledCenter>
+        {/* 로그인 API 향후 개발 */}
       </div>
     </>
   );
