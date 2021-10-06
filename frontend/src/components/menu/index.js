@@ -1,18 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MAIN_URL, SIGNIN_URL } from '../../constants/urls';
 
 function index() {
   return (
     <div>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to={MAIN_URL}>Home</Link>
         </li>
         <li>
-          <Link to="/login">login</Link>
-        </li>
-        <li>
-          <Link to="/app">app</Link>
+          <Link to={SIGNIN_URL}>login</Link>
         </li>
       </ul>
       <hr />
