@@ -1,22 +1,60 @@
 import { put } from 'redux-saga/effects';
 import * as counterStore from '../store/counter';
+import axios, { AxiosResponse } from 'axios';
 
-function* incrementSaga() {
+import { INNER_ERROR } from '../constants';
+import { finishLoading, startLoading } from '../store/loding';
+
+function* getIncrementSaga() {
   try {
-    yield console.log('incrementSaga test!');
-    yield put({ type: counterStore.increment.type });
-  } catch (err) {
-    console.log('incrementSaga error!');
+    yield put(startLoading(counterStore.getIncrement));
+    const data = 'getIncrementSuccess!';
+    yield put({
+      type: counterStore.getIncrementSuccess,
+      payload: data,
+    });
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      const errorMessage = 'getIncrementAxiosError';
+      yield put({
+        type: counterStore.getIncrementFail,
+        payload: errorMessage,
+      });
+    } else {
+      yield put({
+        type: counterStore.getIncrementFail,
+        payload: INNER_ERROR,
+      });
+    }
+  } finally {
+    yield put(finishLoading(counterStore.getIncrement));
   }
 }
 
-function* decrementSaga() {
+function* getDecrementSaga() {
   try {
-    yield console.log('decrementSaga test!');
-    yield put({ type: counterStore.decrement.type });
-  } catch (err) {
-    console.log('decrementSaga error!');
+    yield put(startLoading(counterStore.getDecrement));
+    const data = 'getDecrementSuccess!';
+    yield put({
+      type: counterStore.getDecrementSuccess,
+      payload: data,
+    });
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      const errorMessage = 'getDecrementAxiosError';
+      yield put({
+        type: counterStore.getDecrementFail,
+        payload: errorMessage,
+      });
+    } else {
+      yield put({
+        type: counterStore.getDecrementFail,
+        payload: INNER_ERROR,
+      });
+    }
+  } finally {
+    yield put(finishLoading(counterStore.getDecrement));
   }
 }
 
-export { incrementSaga, decrementSaga };
+export { getIncrementSaga, getDecrementSaga };

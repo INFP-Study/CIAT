@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { takeLatest } from 'redux-saga/effects';
-import { decrementSaga, incrementSaga } from '../saga/counterSaga';
+import { getDecrementSaga, getIncrementSaga } from '../saga/counterSaga';
 
 const initialState = {
   value: 0,
+  error: null,
 };
 
 const counterSlice = createSlice({
@@ -11,17 +12,27 @@ const counterSlice = createSlice({
   initialState,
   reducers: {
     getIncrement: (state) => state,
-    increment: (state) => {
+    getIncrementSuccess: (state, action) => {
       state.value += 1;
+      state.error = null;
+      console.debug('success', action.payload); //success
+      return state;
+    },
+    getIncrementFail: (state, action) => {
+      state.error = action.payload;
+      console.debug('error', action.payload); //error
       return state;
     },
     getDecrement: (state) => state,
-    decrement: (state) => {
+    getDecrementSuccess: (state, action) => {
       state.value -= 1;
+      state.error = null;
+      console.debug('success', action.payload); //success
       return state;
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    getDecrementFail: (state, action) => {
+      state.error = action.payload;
+      console.debug('error', action.payload); //error
       return state;
     },
   },
@@ -31,15 +42,16 @@ const { actions, reducer: counterReducer } = counterSlice;
 
 export const {
   getIncrement,
-  increment,
+  getIncrementSuccess,
+  getIncrementFail,
   getDecrement,
-  decrement,
-  incrementByAmount,
+  getDecrementSuccess,
+  getDecrementFail,
 } = actions;
 
 export { counterReducer };
 
 export function* counterSaga() {
-  yield takeLatest(getIncrement.type, incrementSaga);
-  yield takeLatest(getDecrement.type, decrementSaga);
+  yield takeLatest(getIncrement.type, getIncrementSaga);
+  yield takeLatest(getDecrement.type, getDecrementSaga);
 }
