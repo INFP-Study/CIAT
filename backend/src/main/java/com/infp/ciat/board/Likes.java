@@ -1,7 +1,6 @@
 package com.infp.ciat.board;
 
 import com.infp.ciat.common.BaseTimeEntity;
-import com.infp.ciat.user.Account;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
