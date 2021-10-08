@@ -1,10 +1,7 @@
 package com.infp.ciat.user.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@ToString
 public class Account extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

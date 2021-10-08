@@ -6,6 +6,7 @@ import com.infp.ciat.user.entity.Account;
 import com.infp.ciat.user.entity.Role;
 import com.infp.ciat.user.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class AccountService implements UserDetailsService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
@@ -42,7 +44,7 @@ public class AccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Account find_user = accountRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자가 없습니다"));
-
+        log.debug(String.format("%s 계정 로그인 시도", email));
         return AccountContext.FromAccountToAccountContext(find_user);
     }
 }
