@@ -19,7 +19,7 @@ import javax.validation.Valid;
 public class AccountController {
     private final AccountService accountService;
 
-    @PostMapping("/users")
+    @PostMapping("/signup")
     public ResponseEntity<SignUpResponse> SignUp(@Valid @RequestBody SignupRequestDTO requestDTO) {
         log.info("------------------- 회원가입 요청 -----------------------");
 

@@ -46,7 +46,6 @@ public class Loginfilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.debug("로그인 성공");
         // todo - jwt토큰 발급
-        super.successfulAuthentication(request, response, chain, authResult);
     }
 
     @Override
