@@ -1,4 +1,4 @@
-package com.infp.ciat.config;
+package com.infp.ciat.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
