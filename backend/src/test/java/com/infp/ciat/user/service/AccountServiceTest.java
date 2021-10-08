@@ -2,21 +2,18 @@ package com.infp.ciat.user.service;
 
 import com.infp.ciat.user.controller.dto.request.SignupRequestDTO;
 import static org.junit.jupiter.api.Assertions.*;
-
-import com.infp.ciat.user.entity.Account;
 import com.infp.ciat.user.repository.AccountRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-
-//@ExtendWith(SpringExtension.class)
-@SpringBootTest(properties = "spring.config.location=classpath:application-test.yml")
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class AccountServiceTest {
 
