@@ -21,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccountService customUserDetailService;
+    @Autowired
+    private JWTUtil jwtUtil;
 
     /***
      * default 패스워드 암호화알고리즘 사용 설정
@@ -38,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        Loginfilter loginfilter = new Loginfilter(authenticationManagerBean());
+        Loginfilter loginfilter = new Loginfilter(authenticationManagerBean(), jwtUtil);
         loginfilter.setFilterProcessesUrl("/signin");
 
         http

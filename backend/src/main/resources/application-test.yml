@@ -12,6 +12,11 @@ spring:
         format_sql: true
         ddl-auto: update
 
+jwt:
+  secret: testsecret
+  # hour
+  lifetime: 12
+
 logging:
   level:
     com:

@@ -21,9 +21,11 @@ import java.io.IOException;
 @Slf4j
 public class Loginfilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
 
-    public Loginfilter(AuthenticationManager authenticationManager) {
+    public Loginfilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
     }
 
     @SneakyThrows
@@ -45,7 +47,8 @@ public class Loginfilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.debug("로그인 성공");
-        // todo - jwt토큰 발급
+        // jwt토큰 발급
+        response.addHeader("Authorization", "Bearer " + jwtUtil.GenerateToken(authResult.getName()));
     }
 
     @Override
