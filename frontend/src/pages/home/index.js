@@ -7,9 +7,10 @@ import { getDecrement, getIncrement } from '../../store/counter';
 import { TITLE } from '../../constants';
 
 const TitleTest = styled.h1`
-  font-size: 1.5em;
+  font-size: 3em;
   text-align: center;
-  color: green;
+  font-family: 'Galdeano';
+  color: #7ea592;
 `;
 
 function Home() {

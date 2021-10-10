@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import rootReducer, { rootSaga } from './store';
-import 'antd/dist/antd.less';
+import './style/theme.less';
 
 const sagaMiddleware = createSagaMiddleware();
 
