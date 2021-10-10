@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: update
+
+fileserver:
+  token: ENC(lpQnVzxYt5RYQfHU2aB50g9XHMsyFyZKF1PbTzkiyTyxLNioX44bkNo2VgaH4F1CK2yK14wT3PKZa0NMthM/6Q==)
+  host: ENC(k3tmhbeB0P8X1diQm8rOaos8WDukKF0Y2do8eeBTniRop33Smr5TzedPQPjL6cFuEOED6QPQSexYrO5198uJ+w==)
+
+jwt:
+  secret: testsecret
+  # hour
+  lifetime: 1
+
+logging:
+  level:
+    com:
+      infp:
+        ciat: debug

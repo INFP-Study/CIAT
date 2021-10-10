@@ -7,6 +7,15 @@ logging:
       infp:
         ciat: debug
 
+fileserver:
+  token: ENC(lpQnVzxYt5RYQfHU2aB50g9XHMsyFyZKF1PbTzkiyTyxLNioX44bkNo2VgaH4F1CK2yK14wT3PKZa0NMthM/6Q==)
+  host: ENC(k3tmhbeB0P8X1diQm8rOaos8WDukKF0Y2do8eeBTniRop33Smr5TzedPQPjL6cFuEOED6QPQSexYrO5198uJ+w==)
+
+jwt:
+  secret: ENC(Cl3BCNpeRSj6N+1+TG34TJhNHLjnsRVXzm+cRmItlJWh4HEzErp2SX+05e9F5wys1OewnGWMWb3eJ06jUbcnOw==)
+  # hour
+  lifetime: 12
+
 spring:
   datasource:
     url: ENC(k0LDmCtzrFfqWHag/q4FDHr1sAsTipWHEML6wH6hgG43fDmoTJGlCKmk4iOCw/lpZuI3PCeGO4yMNgtmOf0CEH6RCQyyOldEvsaMg/XsCbpih7yOrM78pl0SZqZe9WxMA2dFzYtnuOrMZmeaQ9l2dA==)
