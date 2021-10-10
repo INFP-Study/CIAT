@@ -4,6 +4,7 @@ import com.infp.ciat.user.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 /***
  * 스프링시큐리티 설정
@@ -21,6 +23,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccountService customUserDetailService;
+    @Autowired
+    private JWTUtil jwtUtil;
+    @Autowired
+    JWTLogoutHandler jwtLogoutHandler;
 
     /***
      * default 패스워드 암호화알고리즘 사용 설정
@@ -38,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        Loginfilter loginfilter = new Loginfilter(authenticationManagerBean());
+        Loginfilter loginfilter = new Loginfilter(authenticationManagerBean(), jwtUtil);
         loginfilter.setFilterProcessesUrl("/signin");
 
         http
@@ -46,6 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+            .logout()
+                .logoutUrl("/logout")
+                .addLogoutHandler(jwtLogoutHandler)
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                .permitAll()
                 .and()
             .csrf().disable()
             .addFilter(loginfilter);
