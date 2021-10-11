@@ -1,15 +1,33 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Menu from '../../components/menu';
-import { MAIN_URL, SIGNIN_URL } from '../../constants/urls';
+import {
+  DOCUMENT_URL,
+  FEED_ROUTE,
+  FEED_URL,
+  MAIN_URL,
+  PLANT_MANAGEMENT_URL,
+  SETTING_URL,
+  SIGN_IN_URL,
+  SIGN_UP_URL,
+} from '../../constants/urls';
+import Document from '../../pages/document';
+import Feed from '../../pages/feed';
 import Home from '../../pages/home';
-import Login from '../../pages/login';
+import SignIn from '../../pages/auth/sign-in';
+import PlantManagement from '../../pages/plant-management';
+import Setting from '../../pages/setting';
+import SignUp from '../../pages/auth/sign-up';
 
 function index() {
   return (
     <BrowserRouter>
-      <Menu />
-      <Route exact path={SIGNIN_URL} component={Login} />
+      <Route exact path={SIGN_IN_URL} component={SignIn} />
+      <Route exact path={SIGN_UP_URL} component={SignUp} />
+      <Route exact path={PLANT_MANAGEMENT_URL} component={PlantManagement} />
+      <Route exact path={FEED_URL} component={Feed} />
+      <Route path={FEED_ROUTE} component={Feed} />
+      <Route exact path={SETTING_URL} component={Setting} />
+      <Route exact path={DOCUMENT_URL} component={Document} />
       <Route exact path={MAIN_URL} component={Home} />
     </BrowserRouter>
   );
