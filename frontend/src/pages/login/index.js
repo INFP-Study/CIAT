@@ -10,38 +10,21 @@ const Title = styled.h2`
   margin-right: auto;
 `;
 
-const EmailDiv = styled.div`
-  padding: 10px;
-  width: 500px;
+const Div = styled.div`
   display: table;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const PasswordDiv = styled.div`
-  padding: 10px;
-  width: 500px;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
+const Span = styled.span`
+  /* 향후 글꼴 적용 */
 `;
 
-const EmailInput = styled(Input)`
+const InputAntd = styled(Input)`
   border-radius: 10px 10px 10px 10px;
 `;
 
-const PasswordInput = styled(Input.Password)`
-  border-radius: 10px 10px 10px 10px;
-`;
-
-const EnterDiv = styled.div`
-  padding: 10px;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const EnterButton = styled(Button)`
+const ButtonAntd = styled(Button)`
   background: #7EA592;
   color: white;
   width: 480px;
@@ -50,7 +33,11 @@ const EnterButton = styled(Button)`
   border-radius: 6px 6px 6px 6px;
 `;
 
-const StyledHr = styled.hr`
+const LinkAntd = styled(Link)`
+  color: #000000;
+`;
+
+const Hr = styled.hr`
   width: 700px;
   border-bottom: 0px;
   text-align: left;
@@ -60,43 +47,28 @@ const StyledHr = styled.hr`
   margin-right: auto;
 `;
 
-const LinkDiv = styled.div`
-  padding: 20px;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const StyledSpan = styled.span`
-  /* 향후 글꼴 적용 */
-`;
-
-const StyledLink = styled(Link)`
-  color: #000000;
-`;
-
 function Login() {
 
   return (
     <>
       <Title>LOGIN</Title>
-      <EmailDiv>
-        <StyledSpan>E-MAIL</StyledSpan>
-        <EmailInput />
-      </EmailDiv>  
-      <PasswordDiv>
-        <StyledSpan>PASSWORD</StyledSpan>
-        <PasswordInput />
-      </PasswordDiv>
-      <EnterDiv>
-        <EnterButton>ENTER</EnterButton>
-      </EnterDiv>
-      <LinkDiv>
-        <StyledLink to="/join">JOIN </StyledLink>/
-        <StyledLink to="/join"> FIND ID </StyledLink>/
-        <StyledLink to="/join"> FIND PASSWORD</StyledLink>
-      </LinkDiv>
-      <StyledHr />
+      <Div style={{ width: '500px', padding: '10px'}}>
+        <Span>E-MAIL</Span>
+        <InputAntd />
+      </Div>  
+      <Div style={{ width: '500px', padding: '10px'}}>
+        <Span>PASSWORD</Span>
+        <InputAntd />
+      </Div>
+      <Div style={{ padding: '10px' }}>
+        <ButtonAntd>ENTER</ButtonAntd>
+      </Div>
+      <Div style={{ padding: '20px' }}>
+        <LinkAntd to="/join">JOIN </LinkAntd>/
+        <LinkAntd to="/join"> FIND ID </LinkAntd>/
+        <LinkAntd to="/join"> FIND PASSWORD</LinkAntd>
+      </Div>
+      <Hr />
       {/* 로그인 API 향후 개발 */}
     </>
   );
