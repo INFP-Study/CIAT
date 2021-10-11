@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { MAIN_URL, SIGNIN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
 
-const Wrapper = styled(Header)`
+const HeaderAntd = styled(Header)`
   display: flex;
   justify-content: space-between;
   height: 70px;
@@ -39,7 +39,7 @@ const UserInfo = styled(Link)`
 
 function SiteHeader() {
   return (
-    <Wrapper>
+    <HeaderAntd>
       <Logo to={MAIN_URL}>{TITLE}</Logo>
       <UserInfo to={SIGNIN_URL}>
         <MdAccountCircle
@@ -47,7 +47,7 @@ function SiteHeader() {
         />
         {SIGN_IN}
       </UserInfo>
-    </Wrapper>
+    </HeaderAntd>
   );
 }
 
