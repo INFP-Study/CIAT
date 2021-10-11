@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { FOOTER } from '../../../constants';
 import { theme } from '../../../constants/theme';
 
-const Wrapper = styled(Footer)`
+const FooterAntd = styled(Footer)`
   text-align: center;
   background-color: ${theme.colorWhite};
 `;
 
 function SiteFooter() {
-  return <Wrapper>{FOOTER}</Wrapper>;
+  return <FooterAntd>{FOOTER}</FooterAntd>;
 }
 
 export default SiteFooter;
