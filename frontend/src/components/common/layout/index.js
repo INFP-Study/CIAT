@@ -9,12 +9,12 @@ import { theme } from '../../../constants/theme';
 import Category from './category';
 import { FEED_URL } from '../../../constants/urls';
 
-const Wapper = styled(Layout)`
+const LayoutAntd = styled(Layout)`
   display: flex;
   flex-direction: row;
 `;
 
-const ContentWrapper = styled(Content)`
+const ContentAntd = styled(Content)`
   margin: 24px 16px 0px;
 `;
 const ContentInner = styled.div`
@@ -27,19 +27,19 @@ const ContentInner = styled.div`
 
 function SiteLayout({ children }) {
   return (
-    <Wapper>
+    <LayoutAntd>
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
         <Nav />
         {location.pathname.includes(FEED_URL) && <Category />}
       </Layout>
       <Layout style={{ background: theme.colorWhite, width: '100%' }}>
         <SiteHeader />
-        <ContentWrapper>
+        <ContentAntd>
           <ContentInner>{children}</ContentInner>
-        </ContentWrapper>
+        </ContentAntd>
         <SiteFooter />
       </Layout>
-    </Wapper>
+    </LayoutAntd>
   );
 }
 

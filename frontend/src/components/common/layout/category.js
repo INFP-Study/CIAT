@@ -9,20 +9,17 @@ import {
 import styled from 'styled-components';
 import { theme } from '../../../constants/theme';
 import { FEED } from '../../../constants';
-import { Typography } from 'antd';
 import { MdAccountCircle } from 'react-icons/md';
 import { FEED_DAILY_URL } from '../../../constants/urls';
 import { Link } from 'react-router-dom';
 
-const { Title } = Typography;
-
-const Wapper = styled(Sider)`
+const SiderAntd = styled(Sider)`
   width: 200px;
   background-color: ${theme.colorCategory};
   padding: 30px 0px;
 `;
 
-const MenuWapper = styled(Menu)`
+const MenuAntd = styled(Menu)`
   background-color: ${theme.colorCategory};
   .ant-menu-item-selected,
   .ant-menu-item-active,
@@ -49,9 +46,9 @@ function Category() {
   };
 
   return (
-    <Wapper trigger={null} collapsible collapsed={collapsed}>
+    <SiderAntd trigger={null} collapsible collapsed={collapsed}>
       <CategoryTitle>{FEED}</CategoryTitle>
-      <MenuWapper mode="inline" defaultSelectedKeys={['0']}>
+      <MenuAntd mode="inline" defaultSelectedKeys={['0']}>
         <Menu.Item
           key="0"
           icon={<MdAccountCircle style={{ fontSize: theme.fontSizeIcon }} />}
@@ -84,8 +81,8 @@ function Category() {
         >
           인테리어
         </Menu.Item>
-      </MenuWapper>
-    </Wapper>
+      </MenuAntd>
+    </SiderAntd>
   );
 }
 

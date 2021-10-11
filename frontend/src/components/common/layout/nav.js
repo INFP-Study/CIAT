@@ -20,7 +20,7 @@ import {
   SETTING_URL,
 } from '../../../constants/urls';
 
-const Wapper = styled.div`
+const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,11 +29,11 @@ const Wapper = styled.div`
   border-right: ${theme.colorLine};
   padding: 30px 0px;
 `;
-const MenuTop = styled.div``;
+const TopMenu = styled.div``;
 
-const MenuBottom = styled.div``;
+const BottomMenu = styled.div``;
 
-const MenuWapper = styled(Menu)`
+const MenuAntd = styled(Menu)`
   background-color: ${theme.colorNav};
   .ant-menu-item:hover,
   .ant-menu-submenu:hover,
@@ -52,10 +52,10 @@ const MenuWapper = styled(Menu)`
 
 function Nav() {
   return (
-    <Wapper>
-      <MenuTop>
+    <Wrapper>
+      <TopMenu>
         {/* 상단 메뉴 */}
-        <MenuWapper
+        <MenuAntd
           mode="inline"
           selectedKeys={window.location.pathname}
           defaultSelectedKeys={window.location.pathname}
@@ -78,12 +78,12 @@ function Nav() {
           >
             <Link to={FEED_URL} />
           </Menu.Item>
-        </MenuWapper>
-      </MenuTop>
+        </MenuAntd>
+      </TopMenu>
 
       {/* 하단 메뉴*/}
-      <MenuBottom>
-        <MenuWapper
+      <BottomMenu>
+        <MenuAntd
           mode="inline"
           selectedKeys={window.location.pathname}
           defaultSelectedKeys={window.location.pathname}
@@ -106,9 +106,9 @@ function Nav() {
           >
             <Link to={{ pathname: GITHUB_URL }} target="_blank" />
           </Menu.Item>
-        </MenuWapper>
-      </MenuBottom>
-    </Wapper>
+        </MenuAntd>
+      </BottomMenu>
+    </Wrapper>
   );
 }
 
