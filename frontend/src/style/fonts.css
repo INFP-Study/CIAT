@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Galdeano';
+  src: url(../assets/fonts/galdeano-v12-latin-regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'NotoSansKR';
+  src: url(../assets/fonts/noto-sans-kr-v21-latin-regular.woff) format('woff');
+}
+@font-face {
+  font-family: 'NotoSans';
+  src: url(../assets/fonts/noto-sans-v21-latin-regular.woff) format('woff');
+}
