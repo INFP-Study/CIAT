@@ -10,7 +10,7 @@ const Title = styled.h2`
   margin-right: auto;
 `;
 
-const LoginEmailDiv = styled.div`
+const EmailDiv = styled.div`
   padding: 10px;
   width: 500px;
   display: table;
@@ -18,7 +18,7 @@ const LoginEmailDiv = styled.div`
   margin-right: auto;
 `;
 
-const LoginPasswordDiv = styled.div`
+const PasswordDiv = styled.div`
   padding: 10px;
   width: 500px;
   display: table;
@@ -26,26 +26,22 @@ const LoginPasswordDiv = styled.div`
   margin-right: auto;
 `;
 
-const LoginEmailInput = styled(Input)`
+const EmailInput = styled(Input)`
   border-radius: 10px 10px 10px 10px;
 `;
 
-const LoginPasswordInput = styled(Input.Password)`
+const PasswordInput = styled(Input.Password)`
   border-radius: 10px 10px 10px 10px;
 `;
 
-const LoginSpan = styled.span`
-  
-`;
-
-const LoginEnterDiv = styled.div`
+const EnterDiv = styled.div`
   padding: 10px;
   display: table;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const LoginEnterButton = styled(Button)`
+const EnterButton = styled(Button)`
   background: #7EA592;
   color: white;
   width: 480px;
@@ -64,54 +60,44 @@ const StyledHr = styled.hr`
   margin-right: auto;
 `;
 
-const LoginLinkDiv = styled.div`
+const LinkDiv = styled.div`
   padding: 20px;
   display: table;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const LoginLink = styled(Link)`
+const StyledSpan = styled.span`
+  /* 향후 글꼴 적용 */
+`;
+
+const StyledLink = styled(Link)`
   color: #000000;
 `;
-
-/* const StyledCenter = styled.div`
-  padding: 20px;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-`; */
-
 
 function Login() {
 
   return (
     <>
-      <div className="login-header">
-        <Title>LOGIN</Title>
-      </div>
-      <div className="login-body">
-        <LoginEmailDiv>
-          <LoginSpan>E-MAIL</LoginSpan>
-          <LoginEmailInput />
-        </LoginEmailDiv>  
-        <LoginPasswordDiv>
-          <LoginSpan>PASSWORD</LoginSpan>
-          <LoginPasswordInput />
-        </LoginPasswordDiv>
-        <LoginEnterDiv>
-          <LoginEnterButton>ENTER</LoginEnterButton>
-        </LoginEnterDiv>
-      </div>
-      <LoginLinkDiv>
-        <LoginLink to="/join">JOIN </LoginLink>/
-        <LoginLink to="/join"> FIND ID </LoginLink>/
-        <LoginLink to="/join"> FIND PASSWORD</LoginLink>
-      </LoginLinkDiv>
-      <div className="login-footer">
-        <StyledHr />
-        {/* 로그인 API 향후 개발 */}
-      </div>
+      <Title>LOGIN</Title>
+      <EmailDiv>
+        <StyledSpan>E-MAIL</StyledSpan>
+        <EmailInput />
+      </EmailDiv>  
+      <PasswordDiv>
+        <StyledSpan>PASSWORD</StyledSpan>
+        <PasswordInput />
+      </PasswordDiv>
+      <EnterDiv>
+        <EnterButton>ENTER</EnterButton>
+      </EnterDiv>
+      <LinkDiv>
+        <StyledLink to="/join">JOIN </StyledLink>/
+        <StyledLink to="/join"> FIND ID </StyledLink>/
+        <StyledLink to="/join"> FIND PASSWORD</StyledLink>
+      </LinkDiv>
+      <StyledHr />
+      {/* 로그인 API 향후 개발 */}
     </>
   );
 };
