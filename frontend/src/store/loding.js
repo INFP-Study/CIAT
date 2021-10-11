@@ -6,7 +6,7 @@ const loadingSlice = createSlice({
     'counter/getIncrement': false,
     'counter/getDecrement': false,
 
-    'auth/getLogin': false,
+    'auth/getSignIn': false,
     'auth/getUser': false,
     'auth/getSignup': false,
 
