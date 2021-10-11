@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Header } from 'antd/lib/layout/layout';
 import { theme } from '../../../constants/theme';
 import { Link } from 'react-router-dom';
-import { MAIN_URL, SIGNIN_URL } from '../../../constants/urls';
+import { MAIN_URL, SIGN_IN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
 
 const HeaderAntd = styled(Header)`
@@ -31,9 +31,9 @@ const UserInfo = styled(Link)`
   align-items: center;
   font-family: ${theme.fontBasic};
   font-size: ${theme.fontSizeBody01};
-  color: ${theme.colorBlack};
+  color: ${theme.colorText};
   :hover {
-    color: ${theme.colorBlack};
+    color: ${theme.colorText};
   }
 `;
 
@@ -41,7 +41,7 @@ function SiteHeader() {
   return (
     <HeaderAntd>
       <Logo to={MAIN_URL}>{TITLE}</Logo>
-      <UserInfo to={SIGNIN_URL}>
+      <UserInfo to={SIGN_IN_URL}>
         <MdAccountCircle
           style={{ fontSize: theme.fontSizeIcon, margin: '0px 10px' }}
         />

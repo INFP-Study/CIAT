@@ -11,6 +11,6 @@ export const SETTING_URL = '/setting';
 export const DOCUMENT_URL = '/document';
 export const GITHUB_URL = 'https://github.com/INFP-Study/CIAT';
 
-export const SIGNIN_URL = '/signin';
-export const SIGNUP_URL = '/signup';
+export const SIGN_IN_URL = '/signin';
+export const SIGN_UP_URL = '/signup';
 export const AUTH_URL = '/auth';

@@ -15,8 +15,8 @@ export const theme = {
   //   colorPlaceholder: '#7E7E7E',
   //   colorError: '#F45452',
 
-  colorLine: '#E4E4E4',
-  colorText: 'rgba(0, 0, 0, 0.65)',
+  colorLine: '#AAAAAA',
+  colorText: '#3F3D3D',
   //   colorTextBrown: '#665946',
   //   colorTextBrownLight: '#F7EAD7',
   //   colorTextBeige: '#C2B39C',
@@ -38,6 +38,7 @@ export const theme = {
 
   fontBasic: '"Noto Sans KR", Noto Sans',
   fontLogo: 'Galdeano',
+  fontNotoSans: 'Noto Sans',
   //   fontEuljiro: '"BMEULJIRO", sans-serif',
   //   fontEuljiro10: '"BMEULJIRO10", sans-serif',
   //   fontHanna: '"BMHANNA", sans-serif',
@@ -45,7 +46,7 @@ export const theme = {
 
   weightReg: '400',
   weightMid: '500',
-  weightSemiBold: '500',
+  weightSemiBold: '600',
   weightBold: '700',
 
   fontSizeLogo: '48px',
