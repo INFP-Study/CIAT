@@ -46,7 +46,7 @@ pipeline {
                 dir('backend'){
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
                         sh 'sed -i "s/__IMAGENAME__/${dockerID}\\/${DOCKER_IMAGE}/g" charts/values.yaml'
-                        sh 'sed -i "s/__TAGNAME__/${dockerID}\\/${TAG}/g" charts/values.yaml'
+                        sh 'sed -i "s/__TAGNAME__/${TAG}/g" charts/values.yaml'
                         sh 'sed -i "s/__JASYPT__/${JASYPT_KEY}/g" charts/values.yaml'
                         sh 'sed -i "s/__SVCTYPE__/${SVCTYPE}/g" charts/values.yaml'
                         sh 'sed -i "s/__NODEPORT__/${NODEPORT}/g" charts/values.yaml'
