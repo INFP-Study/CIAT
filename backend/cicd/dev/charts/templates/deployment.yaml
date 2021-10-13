@@ -42,11 +42,11 @@ spec:
               value: -Djasypt.encryptor.password={{ .Values.application.secret.jasypt }} -Dspring.profiles.active={{ .Values.application.mode }}"
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthcheck
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthcheck
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
