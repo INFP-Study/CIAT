@@ -3,7 +3,7 @@ pipeline {
     tools {gradle "gradle"}
 
     environment {
-        APP_NAME = "siat"
+        APP_NAME = "siat-backend-dev"
         NAMESPACE = "infp"
         DOCKER_IMAGE = "siat-dev-backend"
         TAG = "${BUILD_NUMBER}"
@@ -32,6 +32,7 @@ pipeline {
         stage('docker build&push'){
             steps{
                 dir('backend'){
+                    sh 'rm -rf ./Dockerfile Jenkinsfile charts'
                     sh 'cp -rf cicd/dev/* ./'
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
                         script{
