@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {gradle "gradle"}
+    tools {nodejs "node1415"}
 
     environment {
         APP_NAME = "siat-frontend-dev"
