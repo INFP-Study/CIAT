@@ -17,9 +17,8 @@ pipeline {
         stage('project build'){
             steps{
                 dir('frontend'){
-                    withGradle {
-                        sh 'gradle clean build --exclude-task test'
-                    }
+                    sh 'yarn install'
+                    sh 'yarn build'
                 }
             }
         }
