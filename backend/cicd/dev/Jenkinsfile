@@ -3,6 +3,8 @@ pipeline {
     tools {gradle "gradle"}
 
     environment {
+        APP_NAME = "siat"
+        NAMESPACE = "infp"
         DOCKER_IMAGE = "siat-dev-backend"
         TAG = "${BUILD_NUMBER}"
         DOCKER_IMAGENAME = "${DOCKER_IMAGE}:${TAG}"
@@ -13,11 +15,11 @@ pipeline {
     }
 
     stages {
-        // stage('git checkout') {
-        //     steps {
-        //         checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/INFP-Study/CIAT.git']]]
-        //     }
-        // }
+        stage('git checkout') {
+            steps {
+                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/INFP-Study/CIAT.git']]]
+            }
+        }
         stage('project build'){
             steps{
                 dir('backend'){
@@ -30,7 +32,7 @@ pipeline {
         stage('docker build&push'){
             steps{
                 dir('backend'){
-                    sh 'cp -rf cicd/dev ./'
+                    sh 'cp -rf cicd/dev/* ./'
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
                         script{
                             sh 'docker build -t ${dockerID}/${DOCKER_IMAGENAME} .'
@@ -53,7 +55,7 @@ pipeline {
                         sh 'sed -i "s/__SVCTYPE__/${SVCTYPE}/g" charts/values.yaml'
                         sh 'sed -i "s/__NODEPORT__/${NODEPORT}/g" charts/values.yaml'
                         sh 'sed -i "s/__MODE__/${MODE}/g" charts/values.yaml'
-                        helm upgrade  --install ./charts
+                        sh "helm upgrade --install --namespace ${NAMESPACE} ${APP_NAME} ./charts"
                     }
                 }
             }
