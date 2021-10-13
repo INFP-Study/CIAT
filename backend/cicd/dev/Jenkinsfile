@@ -15,11 +15,6 @@ pipeline {
     }
 
     stages {
-        stage('git checkout') {
-            steps {
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/INFP-Study/CIAT.git']]]
-            }
-        }
         stage('project build'){
             steps{
                 dir('backend'){
