@@ -48,4 +48,15 @@ public class Category extends BaseTimeEntity {
         this.isActivated = isActivated;
     }
 
+    public CategoryDto fromEntity() {
+        return CategoryDto.builder()
+                .uid(uid)
+                .name(name)
+                .icon(icon)
+                .url(url)
+                .orders(orders)
+                .isActivated(isActivated)
+                .build();
+    }
+
 }

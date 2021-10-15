@@ -1,5 +1,6 @@
 package com.infp.ciat.category.service;
 
+import com.infp.ciat.category.controller.dto.CategoryDto;
 import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.repository.CategoryRepository;
@@ -22,7 +23,7 @@ class CategoryServiceTest {
     @Autowired
     private CategoryService categoryService;
 
-    @Mock
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @AfterEach
@@ -50,16 +51,49 @@ class CategoryServiceTest {
                 .build();
 
         // when
-        categoryService.createNewCategory(requestDto);
+        CategoryDto newCategory = categoryService.createNewCategory(requestDto);
+        System.out.println(newCategory);
 
         // then
         List<Category> all = categoryRepository.findAll();
+
         assertThat(all.get(0).getUid()).isEqualTo(uid);
         assertThat(all.get(0).getName()).isEqualTo(name);
         assertThat(all.get(0).getIcon()).isEqualTo(icon);
         assertThat(all.get(0).getUrl()).isEqualTo(url);
         assertThat(all.get(0).getOrders()).isEqualTo(orders);
         assertThat(all.get(0).getIsActivated()).isEqualTo(isActivated);
+    }
+
+    @Test
+    public void 카테고리_전체_조회() {
+        // given
+        CategorySaveRequestDto requestDto = CategorySaveRequestDto.builder()
+                .uid("M001C001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated("Y")
+                .build();
+        CategorySaveRequestDto requestDto2 = CategorySaveRequestDto.builder()
+                .uid("M001C002")
+                .name("테스트2")
+                .icon("test2")
+                .url("/test2")
+                .orders(2L)
+                .isActivated("N")
+                .build();
+
+        categoryService.createNewCategory(requestDto);
+        categoryService.createNewCategory(requestDto2);
+
+        // when
+        List<CategoryDto> all = categoryService.getAllCategories();
+
+        // then
+
+        assertThat(all.size()).isEqualTo(2);
     }
 
 }
