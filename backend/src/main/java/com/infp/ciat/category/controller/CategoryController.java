@@ -19,19 +19,19 @@ public class CategoryController {
 
     @PostMapping("/category")
     public ResponseEntity<CategoryDto> newCategory(@RequestBody CategorySaveRequestDto requestDto) {
-        CategoryDto newCategory = categoryService.createNewCategory(requestDto);
+        CategoryDto newCategory = categoryService.create(requestDto);
 
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
     @GetMapping("/category")
     public ResponseEntity<List<CategoryDto>> categoryList() {
-        return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.getList(), HttpStatus.OK);
     }
 
     @PutMapping("/category/{id}")
     public ResponseEntity<Long> updateCategory(@PathVariable Long id, @RequestBody CategoryUpdateRequestDto requestDto) {
-        return new ResponseEntity<>(categoryService.updateCategory(id, requestDto), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.update(id, requestDto), HttpStatus.OK);
     }
 
 

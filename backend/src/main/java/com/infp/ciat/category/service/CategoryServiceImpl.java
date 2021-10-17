@@ -19,12 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public CategoryDto createNewCategory(CategorySaveRequestDto requestDto) {
+    public CategoryDto create(CategorySaveRequestDto requestDto) {
         return new CategoryDto(categoryRepository.save(requestDto.toEntity()));
     }
 
     @Override
-    public List<CategoryDto> getAllCategories() {
+    public List<CategoryDto> getList() {
         return categoryRepository.findAll()
                 .stream()
                 .map(c -> CategoryDto.builder()
@@ -40,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public Long updateCategory(Long id, CategoryUpdateRequestDto requestDto) {
+    public Long update(Long id, CategoryUpdateRequestDto requestDto) {
         Category targetCategory = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
         targetCategory.update(requestDto);
 

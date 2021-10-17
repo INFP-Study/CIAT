@@ -54,7 +54,7 @@ class CategoryServiceTest {
                 .build();
 
         // when
-        CategoryDto newCategory = categoryService.createNewCategory(requestDto);
+        CategoryDto newCategory = categoryService.create(requestDto);
         System.out.println(newCategory);
 
         // then
@@ -89,11 +89,11 @@ class CategoryServiceTest {
                 .isActivated("N")
                 .build();
 
-        categoryService.createNewCategory(requestDto);
-        categoryService.createNewCategory(requestDto2);
+        categoryService.create(requestDto);
+        categoryService.create(requestDto2);
 
         // when
-        List<CategoryDto> all = categoryService.getAllCategories();
+        List<CategoryDto> all = categoryService.getList();
 
         // then
 
@@ -126,7 +126,7 @@ class CategoryServiceTest {
                 .build();
 
         // when
-        categoryService.updateCategory(updateId, requestDto);
+        categoryService.update(updateId, requestDto);
 
         // then
         List<Category> all = categoryRepository.findAll();
