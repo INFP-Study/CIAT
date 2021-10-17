@@ -1,80 +1,69 @@
 package com.infp.ciat.user.service;
 
 import com.infp.ciat.user.controller.dto.request.SignupRequestDTO;
-import static org.junit.jupiter.api.Assertions.*;
+import com.infp.ciat.user.entity.Account;
 import com.infp.ciat.user.repository.AccountRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.transaction.Transactional;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class AccountServiceTest {
 
-    @Autowired
-    AccountService accountService;
+  @Autowired
+  AccountService accountService;
 
-    @Autowired
-    AccountRepository accountRepository;
+  @Autowired
+  AccountRepository accountRepository;
 
-    @AfterEach
-    public void aftereach() {
-        try {
-            accountRepository.deleteAllInBatch();
-        } catch (Exception e){
-            // hibernate error 무시
-        }
+  @Autowired
+  PasswordEncoder passwordEncoder;
+
+  @AfterEach
+  public void aftereach() {
+    try {
+      accountRepository.deleteAllInBatch();
+    } catch (Exception e){
+      // hibernate error 무시
     }
+  }
 
-    @Test
-    @DisplayName("한명 회원가입 테스트")
-    public void signin_one(){
-        SignupRequestDTO signup_requestdto = create_signup_requestdto("test1@test.com", "test1", "password");
-        accountService.SignUp(signup_requestdto);
+  @Test
+  void 회원가입() {
 
-    }
+    String email = "test@test.com";
+    String password = "test_password";
+    String nickname = "test_nickname";
 
-    @Test
-    @DisplayName("두명 회원가입 테스트")
-    public void signin_two(){
-        SignupRequestDTO signup_requestdto1 = create_signup_requestdto("test1@test.com", "test1", "password");
-        accountService.SignUp(signup_requestdto1);
 
-        SignupRequestDTO signup_requestdto2 = create_signup_requestdto("test2@test.com", "test2", "password");
-//        assertThrows(DataIntegrityViolationException.class, () -> accountService.SignUp(signup_requestdto2));
-        accountService.SignUp(signup_requestdto2);
-    }
+    //given
+    SignupRequestDTO signupRequestDTO = SignupRequestDTO.builder()
+      .email(email)
+      .password(password)
+      .nickname(nickname)
+      .build();
 
-    @Test
-    @DisplayName("중복 회원가입")
-    public void signin_duplicate(){
-        SignupRequestDTO signup_requestdto1 = create_signup_requestdto("test1@test.com", "test1", "password");
-        accountService.SignUp(signup_requestdto1);
+    //when
+    accountService.signUp(signupRequestDTO);
+    List<Account> all = accountRepository.findAll();
 
-        SignupRequestDTO signup_requestdto2 = create_signup_requestdto("test1@test.com", "test1", "password");
-        assertThrows(DataIntegrityViolationException.class, () -> accountService.SignUp(signup_requestdto2));
-    }
+    //then
+    assertThat(all.get(0).getEmail()).isEqualTo(email);
+    assertThat(passwordEncoder.matches(password, all.get(0).getPassword())).isTrue();
+    assertThat(all.get(0).getNickname()).isEqualTo(nickname);
 
-    /***
-     * 회원가입 요청 DTO 생성
-     * @param email
-     * @param nickname
-     * @param password
-     * @return
-     */
-    private SignupRequestDTO create_signup_requestdto(String email, String nickname, String password) {
-        SignupRequestDTO signupRequestDTO = new SignupRequestDTO();
-        signupRequestDTO.setEmail(email);
-        signupRequestDTO.setNickname(nickname);
-        signupRequestDTO.setPassword(password);
-
-        return signupRequestDTO;
-    }
+  }
 
 }
