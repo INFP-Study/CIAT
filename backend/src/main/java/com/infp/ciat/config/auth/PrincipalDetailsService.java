@@ -20,12 +20,12 @@ public class PrincipalDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Account accountEntity = accountRepository.findByEmail(email);
 
-    log.info(email);
-    log.info(accountEntity.toString());
-
     if (accountEntity != null) {
+      log.info("로그인 성공: " + email);
       return new PrincipalDetails(accountEntity);
     }
+
+    log.error("로그인 실패: " + email);
     return null;
   }
 
