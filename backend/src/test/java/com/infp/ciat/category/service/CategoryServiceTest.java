@@ -6,6 +6,7 @@ import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.repository.CategoryRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -132,6 +133,36 @@ class CategoryServiceTest {
         List<Category> all = categoryRepository.findAll();
         assertThat(all.get(0).getName()).isEqualTo(newName);
         assertThat(all.get(0).getIsActivated()).isEqualTo(inactivate);
+    }
+
+    @Test
+    @DisplayName("카테고리 삭제")
+    public void deleteCategory() {
+        // given
+        Category savedCat1 = categoryRepository.save(Category.builder()
+                .uid("M001C001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated("Y")
+                .build());
+        Category savedCat2 = categoryRepository.save(Category.builder()
+                .uid("M001C002")
+                .name("테스트2")
+                .icon("test2")
+                .url("/test2")
+                .orders(2L)
+                .isActivated("Y")
+                .build());
+
+        // when
+        categoryService.delete(savedCat1.getId());
+
+        // then
+        List<Category> all = categoryRepository.findAll();
+        assertThat(all.size()).isEqualTo(1);
+        assertThat(all.get(0).getUid()).isEqualTo("M001C002");
     }
 
 }
