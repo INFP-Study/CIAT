@@ -29,6 +29,11 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getList(), HttpStatus.OK);
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<CategoryDto> getOneCategory(@PathVariable Long id) {
+        return new ResponseEntity<>(categoryService.getDetail(id), HttpStatus.OK);
+    }
+
     @PutMapping("/category/{id}")
     public ResponseEntity<Long> updateCategory(@PathVariable Long id, @RequestBody CategoryUpdateRequestDto requestDto) {
         return new ResponseEntity<>(categoryService.update(id, requestDto), HttpStatus.OK);

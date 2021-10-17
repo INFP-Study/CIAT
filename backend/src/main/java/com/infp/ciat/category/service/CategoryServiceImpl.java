@@ -38,6 +38,13 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public CategoryDto getDetail(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new)
+                .fromEntity();
+    }
+
     @Transactional
     @Override
     public Long update(Long id, CategoryUpdateRequestDto requestDto) {

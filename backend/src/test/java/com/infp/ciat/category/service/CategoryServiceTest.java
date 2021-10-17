@@ -102,6 +102,38 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("카테고리 하나 조회")
+    public void getOneCategory() {
+        // given
+        String uid = "M001C001";
+        String name = "테스트1";
+        String icon = "test";
+        String url = "/test";
+        Long orders = 1L;
+        String isActivated = "Y";
+
+        Category savedCat = categoryRepository.save(Category.builder()
+                .uid(uid)
+                .name(name)
+                .icon(icon)
+                .url(url)
+                .orders(orders)
+                .isActivated(isActivated)
+                .build());
+
+        // when
+        CategoryDto detail = categoryService.getDetail(savedCat.getId());
+
+        // then
+        assertThat(detail.getUid()).isEqualTo(uid);
+        assertThat(detail.getName()).isEqualTo(name);
+        assertThat(detail.getIcon()).isEqualTo(icon);
+        assertThat(detail.getUrl()).isEqualTo(url);
+        assertThat(detail.getOrders()).isEqualTo(orders);
+        assertThat(detail.getIsActivated()).isEqualTo(isActivated);
+    }
+
+    @Test
     @DisplayName("카테고리 수정")
     public void updateCategory() {
         // given
