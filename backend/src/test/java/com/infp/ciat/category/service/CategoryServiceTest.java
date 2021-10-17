@@ -2,9 +2,11 @@ package com.infp.ciat.category.service;
 
 import com.infp.ciat.category.controller.dto.CategoryDto;
 import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
+import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.repository.CategoryRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,8 @@ class CategoryServiceTest {
     }
 
     @Test
-    public void 카테고리_생성() {
+    @DisplayName("카테고리 생성")
+    public void createCategory() {
         // given
         String uid = "M001C001";
         String name = "test category";
@@ -66,7 +69,8 @@ class CategoryServiceTest {
     }
 
     @Test
-    public void 카테고리_전체_조회() {
+    @DisplayName("카테고리 전체 조회")
+    public void getCategoryList() {
         // given
         CategorySaveRequestDto requestDto = CategorySaveRequestDto.builder()
                 .uid("M001C001")
@@ -94,6 +98,40 @@ class CategoryServiceTest {
         // then
 
         assertThat(all.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("카테고리 수정")
+    public void updateCategory() {
+        // given
+        Category savedCat = categoryRepository.save(Category.builder()
+                .uid("M001C001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated("Y")
+                .build());
+
+        Long updateId = savedCat.getId();
+        String newName = "test22";
+        String inactivate = "N";
+
+        CategoryUpdateRequestDto requestDto = CategoryUpdateRequestDto.builder()
+                .name(newName)
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated(inactivate)
+                .build();
+
+        // when
+        categoryService.updateCategory(updateId, requestDto);
+
+        // then
+        List<Category> all = categoryRepository.findAll();
+        assertThat(all.get(0).getName()).isEqualTo(newName);
+        assertThat(all.get(0).getIsActivated()).isEqualTo(inactivate);
     }
 
 }

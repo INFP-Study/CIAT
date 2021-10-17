@@ -1,6 +1,7 @@
 package com.infp.ciat.category.entity;
 
 import com.infp.ciat.category.controller.dto.CategoryDto;
+import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.common.BaseTimeEntity;
 import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
@@ -57,6 +58,14 @@ public class Category extends BaseTimeEntity {
                 .orders(orders)
                 .isActivated(isActivated)
                 .build();
+    }
+
+    public void update(CategoryUpdateRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.icon = requestDto.getIcon();
+        this.url = requestDto.getUrl();
+        this.orders = requestDto.getOrders();
+        this.isActivated = requestDto.getIsActivated();
     }
 
 }
