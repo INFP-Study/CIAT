@@ -6,6 +6,7 @@ import { theme } from '../../../constants/theme';
 import { Link } from 'react-router-dom';
 import { MAIN_URL, SIGN_IN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
+import { Affix } from 'antd';
 
 const HeaderAntd = styled(Header)`
   display: flex;
@@ -14,7 +15,7 @@ const HeaderAntd = styled(Header)`
   padding: 10px 40px;
   align-items: center;
   background-color: ${theme.colorWhite};
-  border-bottom: solid 1px ${theme.colorLine};
+  border-bottom: solid 0.5px ${theme.colorLine};
 `;
 
 const Logo = styled(Link)`
@@ -39,15 +40,17 @@ const UserInfo = styled(Link)`
 
 function SiteHeader() {
   return (
-    <HeaderAntd>
-      <Logo to={MAIN_URL}>{TITLE}</Logo>
-      <UserInfo to={SIGN_IN_URL}>
-        <MdAccountCircle
-          style={{ fontSize: theme.fontSizeIcon, margin: '0px 10px' }}
-        />
-        {SIGN_IN}
-      </UserInfo>
-    </HeaderAntd>
+    <Affix offsetTop={0}>
+      <HeaderAntd>
+        <Logo to={MAIN_URL}>{TITLE}</Logo>
+        <UserInfo to={SIGN_IN_URL}>
+          <MdAccountCircle
+            style={{ fontSize: theme.fontSizeIcon, margin: '0px 10px' }}
+          />
+          {SIGN_IN}
+        </UserInfo>
+      </HeaderAntd>
+    </Affix>
   );
 }
 
