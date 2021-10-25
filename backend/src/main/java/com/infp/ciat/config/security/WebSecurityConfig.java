@@ -1,26 +1,28 @@
 package com.infp.ciat.config.security;
 
-import com.infp.ciat.user.service.AccountService;
+//import com.infp.ciat.user.service.OAuth2DetailesService;
+//import com.infp.ciat.user.service.OAuth2DetailesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 /***
  * 스프링시큐리티 설정
  */
+
+@Transactional(readOnly = true)
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private AccountService customUserDetailService;
+
+//    @Autowired
+//    private OAuth2DetailesService oAuth2DetailesService;
 
     /***
      * default 패스워드 암호화알고리즘 사용 설정
@@ -38,37 +40,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        Loginfilter loginfilter = new Loginfilter(authenticationManagerBean());
-        loginfilter.setFilterProcessesUrl("/signin");
-
+        http.csrf().disable();
         http
             .authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-            .csrf().disable()
-            .addFilter(loginfilter);
-    }
+//          .antMatchers("/user/**").authenticated() // Q
+            .anyRequest().permitAll()
+            .and()
+        .formLogin()
+            .usernameParameter("email")
+            .passwordParameter("password");
 
-    /***
-     * 사용자 userdetailservice 등록
-     * @param auth
-     * @throws Exception
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailService);
-    }
-
-    /***
-     * login 필터를 위한 authenticationManager Bean으로 등록
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+//
+//        http
+//          .oauth2Login()
+//          .userInfoEndpoint()
+//          .userService(oAuth2DetailesService);
     }
 }

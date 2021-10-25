@@ -1,24 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { Button, Card, Input, Space } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { getDecrement, getIncrement } from '../../store/counter';
-import { TITLE } from '../../constants';
-
-const TitleTest = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: green;
-`;
+import SiteLayout from '../../components/common/layout';
 
 function Home() {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <TitleTest>{TITLE}</TitleTest>
+    <SiteLayout>
       <Space align="center">
         <Card title="Count Saga Test" style={{ width: 300 }}>
           <Space size="middle">
@@ -39,7 +31,7 @@ function Home() {
           </Space>
         </Card>
       </Space>
-    </div>
+    </SiteLayout>
   );
 }
 

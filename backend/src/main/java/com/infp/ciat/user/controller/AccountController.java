@@ -20,10 +20,11 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponse> SignUp(@Valid @RequestBody SignupRequestDTO requestDTO) {
+    public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignupRequestDTO requestDTO) {
+
         log.info("------------------- 회원가입 요청 -----------------------");
 
-        Long created_id = accountService.SignUp(requestDTO);
+        Long created_id = accountService.signUp(requestDTO);
         return new ResponseEntity<>(new SignUpResponse(created_id), HttpStatus.CREATED);
     }
 }
