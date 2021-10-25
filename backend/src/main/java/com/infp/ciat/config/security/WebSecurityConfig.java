@@ -3,6 +3,7 @@ package com.infp.ciat.config.security;
 //import com.infp.ciat.user.service.OAuth2DetailesService;
 //import com.infp.ciat.user.service.OAuth2DetailesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 /***
  * 스프링시큐리티 설정
@@ -20,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Value("${cors.iplist}")
+    private String[] cors;
 
 //    @Autowired
 //    private OAuth2DetailesService oAuth2DetailesService;
@@ -48,12 +56,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
         .formLogin()
             .usernameParameter("email")
-            .passwordParameter("password");
-
+            .passwordParameter("password")
+            .and()
+        .cors()
+            .configurationSource(corsConfigurationSource())
+            .and();
 //
 //        http
 //          .oauth2Login()
 //          .userInfoEndpoint()
 //          .userService(oAuth2DetailesService);
+    }
+
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addExposedHeader("JSESSIONID");
+        corsConfiguration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+
+        return urlBasedCorsConfigurationSource;
     }
 }
