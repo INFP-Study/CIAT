@@ -2,18 +2,26 @@ package com.infp.ciat.config.security;
 
 //import com.infp.ciat.user.service.OAuth2DetailesService;
 //import com.infp.ciat.user.service.OAuth2DetailesService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /***
  * 스프링시큐리티 설정
@@ -22,6 +30,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Transactional(readOnly = true)
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired
 //    private OAuth2DetailesService oAuth2DetailesService;
@@ -51,7 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .usernameParameter("email")
             .passwordParameter("password")
             .failureHandler(new LoginFailHandler())
-            .successHandler(new LoginSuccessHandler())
+            .successHandler(new AuthenticationSuccessHandler() {
+                @Override
+                public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                    log.debug("[로그인 성공] -> " + authentication.getName());
+                }
+            })
             .and()
         .cors()
             .configurationSource(corsConfigurationSource())
