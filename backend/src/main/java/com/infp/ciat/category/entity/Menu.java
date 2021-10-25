@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -25,24 +23,30 @@ public class Menu extends BaseTimeEntity {
 
     private String icon;
 
+    private String url;
+
     private Long orders;
 
     private String isActivated;
 
-    private String isGetCategory;
+    //categoryList.size() == 0 일 경우
+    //private String isGetCategory;
+
+    @OneToMany(mappedBy = "category_uid", fetch = FetchType.EAGER)
+    private List<Category> categoryList;
 
 //    @ManyToOne
 //    @JoinColumn(name = "accountId")
 //    private Account account;
 
     @Builder
-    public Menu(String uid, String name, String icon, Long orders, String isActivated, String isGetCategory) {
+    public Menu(String uid, String name, String icon, String url, Long orders, String isActivated) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
+        this.url = url;
         this.orders = orders;
         this.isActivated = isActivated;
-        this.isGetCategory = isGetCategory;
     }
 
 }
