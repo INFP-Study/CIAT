@@ -9,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 @Data
 @Configuration
 @EnableConfigurationProperties
-@PropertySource("classpath:properties/url-${spring.profiles.active}.properties")
 public class UrlProperties {
 
     @Value("${forest.public}")

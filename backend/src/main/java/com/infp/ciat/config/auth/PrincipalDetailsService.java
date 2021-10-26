@@ -21,12 +21,10 @@ public class PrincipalDetailsService implements UserDetailsService {
     Account accountEntity = accountRepository.findByEmail(email);
 
     if (accountEntity != null) {
-      log.info("로그인 성공: " + email);
       return new PrincipalDetails(accountEntity);
     }
 
-    log.error("로그인 실패: " + email);
-    return null;
+    throw new UsernameNotFoundException("회원이 존재하지 않습니다 -> " + email);
   }
 
 }
