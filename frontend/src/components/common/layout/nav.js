@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Affix, Menu } from 'antd';
 import {
   CommentOutlined,
   FileTextOutlined,
@@ -9,7 +9,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
-import { theme } from '../../../constants/theme';
+import { theme } from '../../../style/theme';
 import { Link } from 'react-router-dom';
 import {
   DOCUMENT_URL,
@@ -52,63 +52,71 @@ const MenuAntd = styled(Menu)`
 
 function Nav() {
   return (
-    <Wrapper>
-      <TopMenu>
-        {/* 상단 메뉴 */}
-        <MenuAntd
-          mode="inline"
-          selectedKeys={window.location.pathname}
-          defaultSelectedKeys={window.location.pathname}
-        >
-          <Menu.Item
-            key={MAIN_URL}
-            icon={<HomeOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+    <Affix offsetTop={0}>
+      <Wrapper>
+        <TopMenu>
+          {/* 상단 메뉴 */}
+          <MenuAntd
+            mode="inline"
+            selectedKeys={window.location.pathname}
+            defaultSelectedKeys={window.location.pathname}
           >
-            <Link to={MAIN_URL} />
-          </Menu.Item>
-          <Menu.Item
-            key={PLANT_MANAGEMENT_URL}
-            icon={<FundOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-          >
-            <Link to={PLANT_MANAGEMENT_URL} />
-          </Menu.Item>
-          <Menu.Item
-            key={FEED_URL}
-            icon={<CommentOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-          >
-            <Link to={FEED_URL} />
-          </Menu.Item>
-        </MenuAntd>
-      </TopMenu>
+            <Menu.Item
+              key={MAIN_URL}
+              icon={<HomeOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+            >
+              <Link to={MAIN_URL} />
+            </Menu.Item>
+            <Menu.Item
+              key={PLANT_MANAGEMENT_URL}
+              icon={<FundOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+            >
+              <Link to={PLANT_MANAGEMENT_URL} />
+            </Menu.Item>
+            <Menu.Item
+              key={FEED_URL}
+              icon={
+                <CommentOutlined style={{ fontSize: theme.fontSizeIcon }} />
+              }
+            >
+              <Link to={FEED_URL} />
+            </Menu.Item>
+          </MenuAntd>
+        </TopMenu>
 
-      {/* 하단 메뉴*/}
-      <BottomMenu>
-        <MenuAntd
-          mode="inline"
-          selectedKeys={window.location.pathname}
-          defaultSelectedKeys={window.location.pathname}
-        >
-          <Menu.Item
-            key={SETTING_URL}
-            icon={<SettingOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+        {/* 하단 메뉴*/}
+        <BottomMenu>
+          <MenuAntd
+            mode="inline"
+            selectedKeys={window.location.pathname}
+            defaultSelectedKeys={window.location.pathname}
           >
-            <Link to={SETTING_URL} />
-          </Menu.Item>
-          <Menu.Item
-            key={DOCUMENT_URL}
-            icon={<FileTextOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-          >
-            <Link to={DOCUMENT_URL} />
-          </Menu.Item>
-          <Menu.Item
-            key={GITHUB_URL}
-            icon={<GithubOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-          >
-            <Link to={{ pathname: GITHUB_URL }} target="_blank" />
-          </Menu.Item>
-        </MenuAntd>
-      </BottomMenu>
-    </Wrapper>
+            <Menu.Item
+              key={SETTING_URL}
+              icon={
+                <SettingOutlined style={{ fontSize: theme.fontSizeIcon }} />
+              }
+            >
+              <Link to={SETTING_URL} />
+            </Menu.Item>
+            <Menu.Item
+              key={DOCUMENT_URL}
+              icon={
+                <FileTextOutlined style={{ fontSize: theme.fontSizeIcon }} />
+              }
+            >
+              <Link to={DOCUMENT_URL} />
+            </Menu.Item>
+            <Menu.Item
+              key={GITHUB_URL}
+              icon={<GithubOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+            >
+              <Link to={{ pathname: GITHUB_URL }} target="_blank" />
+            </Menu.Item>
+          </MenuAntd>
+        </BottomMenu>
+      </Wrapper>
+    </Affix>
   );
 }
 

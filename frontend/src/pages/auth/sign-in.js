@@ -11,7 +11,6 @@ import {
   SIGN_IN,
   SIGN_UP,
 } from '../../constants';
-import { theme } from '../../constants/theme';
 import { SIGN_UP_URL } from '../../constants/urls';
 import {
   AppleOutlined,
@@ -19,6 +18,7 @@ import {
   GithubOutlined,
   InstagramOutlined,
 } from '@ant-design/icons';
+import { theme } from '../../style/theme';
 
 const Title = styled.p`
   font-family: ${theme.fontNotoSans};

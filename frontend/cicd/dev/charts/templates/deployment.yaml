@@ -35,23 +35,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 9400
+              containerPort: 80
               protocol: TCP
-          env:
-            - name: JAVA_OPTS
-              value: -Djasypt.encryptor.password={{ .Values.application.secret.jasypt }} -Dspring.profiles.active={{ .Values.application.mode }}
-          livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: http
-            initialDelaySeconds: 150
-            periodSeconds: 60
-          readinessProbe:
-            httpGet:
-              path: /healthcheck
-              port: http
-            initialDelaySeconds: 150
-            periodSeconds: 60
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

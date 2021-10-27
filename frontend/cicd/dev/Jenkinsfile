@@ -1,32 +1,30 @@
 pipeline {
     agent any
-    tools {gradle "gradle"}
+    tools {nodejs "node1415"}
 
     environment {
-        APP_NAME = "siat-backend-dev"
+        APP_NAME = "siat-frontend-dev"
         NAMESPACE = "infp"
-        DOCKER_IMAGE = "siat-dev-backend"
+        DOCKER_IMAGE = "siat-frontend-dev"
         TAG = "${BUILD_NUMBER}"
         DOCKER_IMAGENAME = "${DOCKER_IMAGE}:${TAG}"
         SVCTYPE = "NodePort"
-        NODEPORT = "30506"
-        JASYPT_KEY = credentials('SIAT_DEV_JASYPT')
+        NODEPORT = "30507"
         MODE = "dev"
     }
 
     stages {
         stage('project build'){
             steps{
-                dir('backend'){
-                    withGradle {
-                        sh 'gradle clean build --exclude-task test'
-                    }
+                dir('frontend'){
+                    sh 'yarn install'
+                    sh 'yarn build'
                 }
             }
         }
         stage('docker build&push'){
             steps{
-                dir('backend'){
+                dir('frontend'){
                     sh 'rm -rf ./Dockerfile Jenkinsfile charts'
                     sh 'cp -rf cicd/dev/* ./'
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
@@ -43,11 +41,10 @@ pipeline {
         }
         stage('deploy'){
             steps{
-                dir('backend'){
+                dir('frontend'){
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
                         sh 'sed -i "s/__IMAGENAME__/${dockerID}\\/${DOCKER_IMAGE}/g" charts/values.yaml'
                         sh 'sed -i "s/__TAGNAME__/${TAG}/g" charts/values.yaml'
-                        sh 'sed -i "s/__JASYPT__/${JASYPT_KEY}/g" charts/values.yaml'
                         sh 'sed -i "s/__SVCTYPE__/${SVCTYPE}/g" charts/values.yaml'
                         sh 'sed -i "s/__NODEPORT__/${NODEPORT}/g" charts/values.yaml'
                         sh 'sed -i "s/__MODE__/${MODE}/g" charts/values.yaml'

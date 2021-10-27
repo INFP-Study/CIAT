@@ -26,3 +26,9 @@ logging:
     com:
       infp:
         ciat: debug
+
+
+#공공포탈 api service key, public url
+forest:
+  public: ENC(S9uh+jA+zZaejBjNJaIT4B7HQpv6QYqSVp//6MHWyM5MA9hOEd1LZWaRtvaMqd5jIatENDOp00cu/YhT8lrf9KlCmVQ5h20JT4CWHNUiz3Lxnr3OXUuU80UPdGhXgYiM)
+  serviceKey: ENC(aFEsybz29ctGAqxPNnPdFTixfvFe3EenJFOyBWsHtDB6AtqZ0TOgqoOPSokjSo9syTREbCaN6/NXsLSnv4ml+UQsusSxaaACfM9JE5dDigAQLHNALMlr4K4GqageYzcRjcZF6PGDGpQkAqYOMsJLoc6ra8dURKlyIVQpGpgbAHNCKORnDir/6mlkZdRxqR1q)

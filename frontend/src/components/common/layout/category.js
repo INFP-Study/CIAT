@@ -1,5 +1,5 @@
 import Sider from 'antd/lib/layout/Sider';
-import { Menu } from 'antd';
+import { Affix, Menu } from 'antd';
 import React, { useState } from 'react';
 import {
   UploadOutlined,
@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
-import { theme } from '../../../constants/theme';
+import { theme } from '../../../style/theme';
 import { FEED } from '../../../constants';
 import { MdAccountCircle } from 'react-icons/md';
 import { FEED_DAILY_URL } from '../../../constants/urls';
@@ -15,8 +15,11 @@ import { Link } from 'react-router-dom';
 
 const SiderAntd = styled(Sider)`
   width: 200px;
+  height: 100vh;
   background-color: ${theme.colorCategory};
   padding: 30px 0px;
+  border-right: ${theme.borderLine};
+  border-left: ${theme.borderLine};
 `;
 
 const MenuAntd = styled(Menu)`
@@ -46,43 +49,46 @@ function Category() {
   };
 
   return (
-    <SiderAntd trigger={null} collapsible collapsed={collapsed}>
-      <CategoryTitle>{FEED}</CategoryTitle>
-      <MenuAntd mode="inline" defaultSelectedKeys={['0']}>
-        <Menu.Item
-          key="0"
-          icon={<MdAccountCircle style={{ fontSize: theme.fontSizeIcon }} />}
-        >
-          <Link to={FEED_DAILY_URL}> 일상</Link>
-        </Menu.Item>
-        <Menu.Item
-          key="1"
-          icon={<UserOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-        >
-          맛집
-        </Menu.Item>
-        <Menu.Item
-          key="2"
-          icon={
-            <VideoCameraOutlined style={{ fontSize: theme.fontSizeIcon }} />
-          }
-        >
-          취미생활
-        </Menu.Item>
-        <Menu.Item
-          key="3"
-          icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-        >
-          건강
-        </Menu.Item>
-        <Menu.Item
-          key="4"
-          icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-        >
-          인테리어
-        </Menu.Item>
-      </MenuAntd>
-    </SiderAntd>
+    <Affix offsetTop={0}>
+      <SiderAntd trigger={null} collapsible collapsed={collapsed}>
+        <CategoryTitle>{FEED}</CategoryTitle>
+        <MenuAntd mode="inline" defaultSelectedKeys={['0']}>
+          <Menu.Item
+            key="0"
+            icon={<MdAccountCircle style={{ fontSize: theme.fontSizeIcon }} />}
+          >
+            {/* <Link to={FEED_DAILY_URL}> 일상</Link> */}
+            일상
+          </Menu.Item>
+          <Menu.Item
+            key="1"
+            icon={<UserOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+          >
+            맛집
+          </Menu.Item>
+          <Menu.Item
+            key="2"
+            icon={
+              <VideoCameraOutlined style={{ fontSize: theme.fontSizeIcon }} />
+            }
+          >
+            취미생활
+          </Menu.Item>
+          <Menu.Item
+            key="3"
+            icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+          >
+            건강
+          </Menu.Item>
+          <Menu.Item
+            key="4"
+            icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+          >
+            인테리어
+          </Menu.Item>
+        </MenuAntd>
+      </SiderAntd>
+    </Affix>
   );
 }
 
