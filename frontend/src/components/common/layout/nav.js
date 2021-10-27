@@ -9,7 +9,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
-import { theme } from '../../../constants/theme';
+import { theme } from '../../../style/theme';
 import { Link } from 'react-router-dom';
 import {
   DOCUMENT_URL,

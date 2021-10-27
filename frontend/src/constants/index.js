@@ -19,3 +19,5 @@ export const ESSENTIAL = '필수입력항목';
 export const TERMS_OF_USE = '이용약관';
 export const FULL_CONSENT = '전체동의';
 export const ESSENTIAL_TEXT = '*위 항목은 필수항목입니다.';
+
+export const POST_SUBMIT = '게시하기';

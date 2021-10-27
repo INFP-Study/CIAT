@@ -5,9 +5,9 @@ import SiteHeader from './header';
 import SiteFooter from './footer';
 import Nav from './nav';
 import styled from 'styled-components';
-import { theme } from '../../../constants/theme';
 import Category from './category';
 import { FEED_URL } from '../../../constants/urls';
+import { theme } from '../../../style/theme';
 
 const LayoutAntd = styled(Layout)`
   display: flex;

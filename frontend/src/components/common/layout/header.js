@@ -2,11 +2,11 @@ import React from 'react';
 import { SIGN_IN, TITLE } from '../../../constants';
 import styled from 'styled-components';
 import { Header } from 'antd/lib/layout/layout';
-import { theme } from '../../../constants/theme';
 import { Link } from 'react-router-dom';
 import { MAIN_URL, SIGN_IN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
 import { Affix } from 'antd';
+import { theme } from '../../../style/theme';
 
 const HeaderAntd = styled(Header)`
   display: flex;
@@ -15,7 +15,7 @@ const HeaderAntd = styled(Header)`
   padding: 10px 40px;
   align-items: center;
   background-color: ${theme.colorWhite};
-  border-bottom: solid 0.5px ${theme.colorLine};
+  border-bottom: ${theme.borderLine};
 `;
 
 const Logo = styled(Link)`
