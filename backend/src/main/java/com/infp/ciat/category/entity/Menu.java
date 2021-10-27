@@ -30,9 +30,11 @@ public class Menu extends BaseTimeEntity {
     private String isActivated;
 
     //categoryList.size() == 0 일 경우
-    //private String isGetCategory;
+    //private String isGetCategory; // T or F
+    //menu 0 category 0 F > T
+    //menu 0
 
-    @OneToMany(mappedBy = "category_uid", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
     private List<Category> categoryList;
 
 //    @ManyToOne
