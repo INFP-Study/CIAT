@@ -15,7 +15,8 @@ export const theme = {
   //   colorPlaceholder: '#7E7E7E',
   //   colorError: '#F45452',
 
-  colorLine: '#AAAAAA',
+  colorLine: '#E4E4E4',
+  colorLine2: '#C4C4C4',
   colorText: '#3F3D3D',
   //   colorTextBrown: '#665946',
   //   colorTextBrownLight: '#F7EAD7',
@@ -56,4 +57,7 @@ export const theme = {
   fontSizeBody02: '14px',
   fontSizeBody03: '12px',
   fontSizeIcon: '22px',
+  fontSizeUserIcon: 40,
+
+  borderLine: '0.5px solid #E4E4E4',
 };
