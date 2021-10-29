@@ -1,4 +1,4 @@
-package com.infp.ciat.common.forest.model;
+package com.infp.ciat.forest.model;
 
 import lombok.Data;
 

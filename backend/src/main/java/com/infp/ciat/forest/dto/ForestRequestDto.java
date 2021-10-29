@@ -1,4 +1,4 @@
-package com.infp.ciat.common.forest.dto;
+package com.infp.ciat.forest.dto;
 
 import lombok.Builder;
 import lombok.Data;
