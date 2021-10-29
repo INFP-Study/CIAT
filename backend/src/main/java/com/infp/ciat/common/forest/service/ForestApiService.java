@@ -1,12 +1,13 @@
-package com.infp.ciat.forest.service;
+package com.infp.ciat.common.forest.service;
 
-import com.infp.ciat.forest.dto.ForestRequestDto;
-import com.infp.ciat.forest.model.ForestDetailIntro;
-import com.infp.ciat.forest.model.ForestListSearch;
+import com.infp.ciat.common.forest.dto.ForestRequestDto;
+import com.infp.ciat.common.forest.model.ForestDetailIntro;
+import com.infp.ciat.common.forest.model.ForestListSearch;
+import com.infp.ciat.common.properties.KeyProperties;
+import com.infp.ciat.common.properties.UrlProperties;
 import com.infp.ciat.common.util.CiatStringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
@@ -21,22 +22,19 @@ import java.net.URLEncoder;
 import java.util.List;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
+@Service
 public class ForestApiService {
 
-    @Value("${forest.public}")
-    private String publicUrl;
-
-    @Value("${forest.serviceKey}")
-    private String forestServiceKey;
+    private final KeyProperties keyProperties;
+    private final UrlProperties urlProperties;
 
     public List<ForestListSearch.Item> forestSearchList(ForestRequestDto dto) {
         List<ForestListSearch.Item> list = null;
         try {
 
-            String url = publicUrl
-                    + "plntIlstrSearch?serviceKey=" + forestServiceKey
+            String url = urlProperties.getPublicUrl()
+                    + "plntIlstrSearch?serviceKey=" + keyProperties.getForestServiceKey()
                     + "&st="        + URLEncoder.encode(dto.getSt(), "UTF-8")
                     + "&sw="        + URLEncoder.encode(dto.getSw(), "UTF-8")
                     + "&dateGbn="   + URLEncoder.encode(CiatStringUtils.StringNullToEmpty(dto.getDateGbn()), "UTF-8")
@@ -75,8 +73,8 @@ public class ForestApiService {
     public ForestDetailIntro forestDetailIntro(String q1) {
 
         ForestDetailIntro forest = null;
-        String url = publicUrl
-                + "plntIlstrInfo?serviceKey=" + forestServiceKey
+        String url = urlProperties.getPublicUrl()
+                + "plntIlstrInfo?serviceKey=" + keyProperties.getForestServiceKey()
                 + "&q1=" + q1;
 
         try {
