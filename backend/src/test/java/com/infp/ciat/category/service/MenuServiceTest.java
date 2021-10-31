@@ -1,9 +1,7 @@
 package com.infp.ciat.category.service;
 
-import com.infp.ciat.category.controller.dto.CategoryDto;
-import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
-import com.infp.ciat.category.controller.dto.MenuDto;
-import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
+import com.infp.ciat.category.controller.dto.*;
+import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.MenuRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -97,5 +95,39 @@ public class MenuServiceTest {
 
         // then
         assertThat(all.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("메뉴 수정")
+    public void updateMenu() {
+        // given
+        Menu savedMenu = menuRepository.save(Menu.builder()
+                .uid("M001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated("Y")
+                .build());
+
+        Long updateId = savedMenu.getId();
+        String newName = "test22";
+        String inactivate = "N";
+
+        MenuUpdateRequestDto requestDto = MenuUpdateRequestDto.builder()
+                .name(newName)
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated(inactivate)
+                .build();
+
+        // when
+        menuService.update(updateId, requestDto);
+
+        // then
+        List<Menu> all = menuRepository.findAll();
+        assertThat(all.get(0).getName()).isEqualTo(newName);
+        assertThat(all.get(0).getIsActivated()).isEqualTo(inactivate);
     }
 }

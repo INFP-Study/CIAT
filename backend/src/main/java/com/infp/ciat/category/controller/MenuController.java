@@ -2,15 +2,13 @@ package com.infp.ciat.category.controller;
 
 import com.infp.ciat.category.controller.dto.MenuDto;
 import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
+import com.infp.ciat.category.controller.dto.MenuUpdateRequestDto;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,13 +19,18 @@ public class MenuController {
     MenuService menuService;
 
     @PostMapping("/menu")
-    public ResponseEntity<MenuDto> newCategory(@RequestBody MenuSaveRequestDto requestDto) {
+    public ResponseEntity<MenuDto> newMenu(@RequestBody MenuSaveRequestDto requestDto) {
         MenuDto newMenu = menuService.create(requestDto);
         return new ResponseEntity<>(newMenu, HttpStatus.CREATED);
     }
 
     @GetMapping("/menu")
-    public ResponseEntity<List<MenuDto>> categoryList() {
+    public ResponseEntity<List<MenuDto>> menuList() {
         return new ResponseEntity<>(menuService.getList(), HttpStatus.OK);
+    }
+
+    @PutMapping("/menu/{id}")
+    public ResponseEntity<Long> updateMenu(@PathVariable Long id, @RequestBody MenuUpdateRequestDto requestDto) {
+        return new ResponseEntity<>(menuService.update(id, requestDto), HttpStatus.OK);
     }
 }
