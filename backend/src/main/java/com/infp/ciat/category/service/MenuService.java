@@ -22,10 +22,12 @@ public class MenuService {
     @Autowired
     MenuRepository menuRepository;
 
+    @Transactional
     public MenuDto create(MenuSaveRequestDto requestDto) {
         return new MenuDto(menuRepository.save(requestDto.toEntity()));
     }
 
+    @Transactional(readOnly = true)
     public List<MenuDto> getList() {
         return menuRepository.findAll()
                 .stream()
@@ -48,4 +50,10 @@ public class MenuService {
         return targetMenu.getId();
     }
 
+    @Transactional
+    public Long delete(Long id) {
+        menuRepository.deleteById(id);
+
+        return id;
+    }
 }

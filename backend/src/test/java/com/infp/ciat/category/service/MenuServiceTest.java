@@ -130,4 +130,34 @@ public class MenuServiceTest {
         assertThat(all.get(0).getName()).isEqualTo(newName);
         assertThat(all.get(0).getIsActivated()).isEqualTo(inactivate);
     }
+
+    @Test
+    @DisplayName("메뉴 삭제")
+    public void deleteMenu() {
+        // given
+        Menu savedMenu1 = menuRepository.save(Menu.builder()
+                .uid("M001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated("Y")
+                .build());
+        Menu savedMenu2 = menuRepository.save(Menu.builder()
+                .uid("M002")
+                .name("테스트2")
+                .icon("test2")
+                .url("/test2")
+                .orders(2L)
+                .isActivated("Y")
+                .build());
+
+        // when
+        menuService.delete(savedMenu1.getId());
+
+        // then
+        List<Menu> all = menuRepository.findAll();
+        assertThat(all.size()).isEqualTo(1);
+        assertThat(all.get(0).getUid()).isEqualTo("M002");
+    }
 }

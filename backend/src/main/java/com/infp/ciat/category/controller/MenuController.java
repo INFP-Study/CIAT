@@ -33,4 +33,9 @@ public class MenuController {
     public ResponseEntity<Long> updateMenu(@PathVariable Long id, @RequestBody MenuUpdateRequestDto requestDto) {
         return new ResponseEntity<>(menuService.update(id, requestDto), HttpStatus.OK);
     }
+
+    @DeleteMapping("/menu/{id}")
+    public ResponseEntity<Long> deleteMenu(@PathVariable Long id) {
+        return new ResponseEntity<>(menuService.delete(id), HttpStatus.OK);
+    }
 }
