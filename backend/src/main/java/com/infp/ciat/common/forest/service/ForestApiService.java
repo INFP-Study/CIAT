@@ -3,10 +3,9 @@ package com.infp.ciat.common.forest.service;
 import com.infp.ciat.common.forest.dto.ForestRequestDto;
 import com.infp.ciat.common.forest.model.ForestDetailIntro;
 import com.infp.ciat.common.forest.model.ForestListSearch;
-import com.infp.ciat.common.properties.ForestProperties;
 import com.infp.ciat.common.util.CiatStringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
@@ -24,17 +23,15 @@ import java.util.List;
 @Service
 public class ForestApiService {
 
-    private final ForestProperties forestProperties;
+    @Value("${forest.key}")
+    private String forestKey;
 
-    public ForestApiService(ForestProperties forestProperties) {
-        this.forestProperties = forestProperties;
-    }
+    @Value("${forest.url}")
+    private String forestUrl;
 
     public List<ForestListSearch.Item> forestSearchList(ForestRequestDto dto) {
         List<ForestListSearch.Item> list = null;
-        String forestUrl = forestProperties.getUrl();
-        String forestKey = forestProperties.getKey();
-        
+
         try {
 
             String url = forestUrl
@@ -75,8 +72,6 @@ public class ForestApiService {
     }
 
     public ForestDetailIntro forestDetailIntro(String q1) {
-        String forestUrl = forestProperties.getUrl();
-        String forestKey = forestProperties.getKey();
 
         ForestDetailIntro forest = null;
         String url = forestUrl
