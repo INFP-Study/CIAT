@@ -6,6 +6,9 @@ import com.infp.ciat.category.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class MenuService {
 
@@ -14,6 +17,20 @@ public class MenuService {
 
     public MenuDto create(MenuSaveRequestDto requestDto) {
         return new MenuDto(menuRepository.save(requestDto.toEntity()));
+    }
+
+    public List<MenuDto> getList() {
+        return menuRepository.findAll()
+                .stream()
+                .map(m -> MenuDto.builder()
+                        .id(m.getId())
+                        .uid(m.getUid())
+                        .name(m.getName())
+                        .icon(m.getIcon())
+                        .orders(m.getOrders())
+                        .isActivated(m.getIsActivated())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }

@@ -7,9 +7,12 @@ import com.infp.ciat.category.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class MenuController {
@@ -21,5 +24,10 @@ public class MenuController {
     public ResponseEntity<MenuDto> newCategory(@RequestBody MenuSaveRequestDto requestDto) {
         MenuDto newMenu = menuService.create(requestDto);
         return new ResponseEntity<>(newMenu, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/menu")
+    public ResponseEntity<List<MenuDto>> categoryList() {
+        return new ResponseEntity<>(menuService.getList(), HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package com.infp.ciat.category.service;
 
+import com.infp.ciat.category.controller.dto.CategoryDto;
+import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.controller.dto.MenuDto;
 import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
 import com.infp.ciat.category.entity.Menu;
@@ -64,5 +66,36 @@ public class MenuServiceTest {
         assertThat(all.get(0).getUrl()).isEqualTo(url);
         assertThat(all.get(0).getOrders()).isEqualTo(orders);
         assertThat(all.get(0).getIsActivated()).isEqualTo(isActivated);
+    }
+
+    @Test
+    @DisplayName("메뉴 전체 조회")
+    public void getMenuList() {
+        // given
+        MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
+                .uid("M001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(1L)
+                .isActivated("Y")
+                .build();
+        MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
+                .uid("M001")
+                .name("테스트2")
+                .icon("test2")
+                .url("/test2")
+                .orders(2L)
+                .isActivated("N")
+                .build();
+
+        menuService.create(requestDto);
+        menuService.create(requestDto2);
+
+        // when
+        List<MenuDto> all = menuService.getList();
+
+        // then
+        assertThat(all.size()).isEqualTo(2);
     }
 }
