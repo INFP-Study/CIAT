@@ -1,13 +1,12 @@
 package com.infp.ciat.user.service;
 
-import com.infp.ciat.common.properties.ForestProperties;
 import com.infp.ciat.user.controller.dto.request.SignupRequestDTO;
 import com.infp.ciat.user.entity.Account;
 import com.infp.ciat.user.repository.AccountRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
@@ -18,13 +17,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
-@EnableConfigurationProperties(ForestProperties.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ForestProperties.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class AccountServiceTest {
-
-  @Autowired
-  private ForestProperties forestProperties;
 
   @Autowired
   AccountService accountService;
@@ -34,6 +29,11 @@ class AccountServiceTest {
 
   @Autowired
   PasswordEncoder passwordEncoder;
+
+  @BeforeAll
+  public static void before() {
+    System.setProperty("jasypt.encryptor.password", "xiQ7bRtKmkaA1vY826Av21yV");
+  }
 
   @AfterEach
   public void aftereach() {
