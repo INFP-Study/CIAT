@@ -36,8 +36,6 @@ public class Account extends BaseTimeEntity {
 //    private String provider;
 //    private String providerId;
 
-
-
     @Builder
     public Account(String email, String nickname, String password, Role role) {
         this.email = email;
@@ -45,4 +43,11 @@ public class Account extends BaseTimeEntity {
         this.password = password;
         this.role = role;
     }
+
+  public Account update(String name) {
+    this.nickname = name;
+
+    return this;
+  }
+
 }

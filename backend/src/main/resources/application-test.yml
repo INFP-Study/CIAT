@@ -10,7 +10,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        ddl-auto: update
+        ddl-auto: create
+
+  profiles:
+    include: oauth
+  session:
+    store-type: jdbc
+    jdbc.initialize-schema: always
 
 fileserver:
   token: ENC(lpQnVzxYt5RYQfHU2aB50g9XHMsyFyZKF1PbTzkiyTyxLNioX44bkNo2VgaH4F1CK2yK14wT3PKZa0NMthM/6Q==)

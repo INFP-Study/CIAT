@@ -1,7 +1,6 @@
 package com.infp.ciat.config.security;
 
-//import com.infp.ciat.user.service.OAuth2DetailesService;
-//import com.infp.ciat.user.service.OAuth2DetailesService;
+import com.infp.ciat.config.auth.OAuth2DetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +31,9 @@ import java.io.IOException;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    private OAuth2DetailesService oAuth2DetailesService;
+
+    @Autowired
+    private OAuth2DetailsService oAuth2DetailesService;
 
     /***
      * default 패스워드 암호화알고리즘 사용 설정
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
             .authorizeRequests()
-            .antMatchers("/user/signup").authenticated()
+            .antMatchers("/user/signup").permitAll()
             .and()
         .formLogin()
             .usernameParameter("email")
@@ -70,18 +70,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .cors()
             .configurationSource(corsConfigurationSource())
             .and();
-//
-//        http
-//          .oauth2Login()
-//          .userInfoEndpoint()
-//          .userService(oAuth2DetailesService);
+
+        http
+          .oauth2Login()
+            .authorizationEndpoint()
+             .and()
+            .userInfoEndpoint() // oauth2 최종응답으로 회원정보를 바로 받는다.
+            .userService(oAuth2DetailesService);
     }
 
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOriginPattern("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addExposedHeader("JSESSIONID");
@@ -93,3 +95,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return urlBasedCorsConfigurationSource;
     }
 }
+
