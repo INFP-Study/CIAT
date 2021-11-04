@@ -5,12 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
 // Authentication 객체에 저장할 수 있는 유일한 타입
-public class PrincipalDetails implements UserDetails, OAuth2User {
+public class PrincipalDetails implements UserDetails, OAuth2User, Serializable {
 
   private Account account;
   private Map<String, Object> attributes;
@@ -19,8 +20,15 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     this.account = account;
   }
 
+  /***
+   * ouath2 회원가입 생성자
+   * @param account
+   * @param attributes
+   */
   public PrincipalDetails(Account account, Map<String, Object> attributes) {
+    this.attributes = attributes;
     this.account = account;
+
   }
 
   // OAuth2User 타입 Map으로 저장된다.
@@ -28,6 +36,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
   public Map<String, Object> getAttributes() {
     return attributes; // {id:~~~~, name:~~~~, email: ~~~~}
   }
+
 
   @Override
   public String getName() {

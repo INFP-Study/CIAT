@@ -51,10 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http
+            .csrf().disable()
             .authorizeRequests()
             .antMatchers("/user/signup").permitAll()
+            .anyRequest().authenticated()
             .and()
         .formLogin()
             .usernameParameter("email")
@@ -69,14 +70,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
         .cors()
             .configurationSource(corsConfigurationSource())
-            .and();
-
-        http
-          .oauth2Login()
-            .authorizationEndpoint()
-             .and()
-            .userInfoEndpoint() // oauth2 최종응답으로 회원정보를 바로 받는다.
-            .userService(oAuth2DetailesService);
+            .and()
+        .oauth2Login()
+                .userInfoEndpoint()
+                    .userService(oAuth2DetailesService);
     }
 
 
