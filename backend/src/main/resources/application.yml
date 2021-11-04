@@ -31,9 +31,6 @@ spring:
       database-platform: ENC(Aig0iPZvJyD6FXVBfrCD6FgvfUkiHKqlF9bshJ6LQGuD4MnBsryj71pstaL9rFtoY/YBvgFMtg9KafpZON4KYztVqW0mYG7ZdHo1PpxCLXs=)
   profiles:
     include: oauth
-  session:
-    store-type: jdbc
-    jdbc.initialize-schema: always
 
 #공공포탈 api service key, public url
 forest:
