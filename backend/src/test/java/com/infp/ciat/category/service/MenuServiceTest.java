@@ -1,7 +1,6 @@
 package com.infp.ciat.category.service;
 
 import com.infp.ciat.category.controller.dto.*;
-import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.MenuRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -22,6 +20,9 @@ public class MenuServiceTest {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private MenuRepository menuRepository;
@@ -95,6 +96,38 @@ public class MenuServiceTest {
 
         // then
         assertThat(all.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("메뉴 하나 조회")
+    public void getOneMenu() {
+        // given
+        String uid = "M001";
+        String name = "테스트1";
+        String icon = "test";
+        String url = "/test";
+        Long orders = 1L;
+        String isActivated = "Y";
+
+        Menu savedMenu = menuRepository.save(Menu.builder()
+                .uid(uid)
+                .name(name)
+                .icon(icon)
+                .url(url)
+                .orders(orders)
+                .isActivated(isActivated)
+                .build());
+
+        // when
+        MenuDto detail = menuService.getDetail(savedMenu.getId());
+
+        // then
+        assertThat(detail.getUid()).isEqualTo(uid);
+        assertThat(detail.getName()).isEqualTo(name);
+        assertThat(detail.getIcon()).isEqualTo(icon);
+        assertThat(detail.getUrl()).isEqualTo(url);
+        assertThat(detail.getOrders()).isEqualTo(orders);
+        assertThat(detail.getIsActivated()).isEqualTo(isActivated);
     }
 
     @Test

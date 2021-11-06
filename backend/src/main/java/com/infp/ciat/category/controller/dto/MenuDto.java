@@ -3,9 +3,13 @@ package com.infp.ciat.category.controller.dto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
 public class MenuDto {
 
     private Long id;
@@ -30,7 +34,7 @@ public class MenuDto {
     }
 
     @Builder
-    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String isActivated) {
+    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String isActivated, List<Category> categoryList) {
         this.id = id;
         this.uid = uid;
         this.name = name;
@@ -38,5 +42,6 @@ public class MenuDto {
         this.url = url;
         this.orders = orders;
         this.isActivated = isActivated;
+        this.categoryList = categoryList;
     }
 }

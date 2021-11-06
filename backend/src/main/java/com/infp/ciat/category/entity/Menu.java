@@ -1,6 +1,8 @@
 package com.infp.ciat.category.entity;
 
+import com.infp.ciat.category.controller.dto.CategoryDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
+import com.infp.ciat.category.controller.dto.MenuDto;
 import com.infp.ciat.category.controller.dto.MenuUpdateRequestDto;
 import com.infp.ciat.common.BaseTimeEntity;
 import lombok.Builder;
@@ -51,6 +53,18 @@ public class Menu extends BaseTimeEntity {
         this.url = url;
         this.orders = orders;
         this.isActivated = isActivated;
+    }
+
+    public MenuDto fromEntity() {
+        return MenuDto.builder()
+                .uid(uid)
+                .name(name)
+                .icon(icon)
+                .url(url)
+                .orders(orders)
+                .isActivated(isActivated)
+                .categoryList(categoryList)
+                .build();
     }
 
     public void update(MenuUpdateRequestDto requestDto) {

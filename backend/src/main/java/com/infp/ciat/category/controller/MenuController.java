@@ -29,6 +29,11 @@ public class MenuController {
         return new ResponseEntity<>(menuService.getList(), HttpStatus.OK);
     }
 
+    @GetMapping("/menu/{id}")
+    public ResponseEntity<MenuDto> getOneMenu(@PathVariable Long id) {
+        return new ResponseEntity<>(menuService.getDetail(id), HttpStatus.OK);
+    }
+
     @PutMapping("/menu/{id}")
     public ResponseEntity<Long> updateMenu(@PathVariable Long id, @RequestBody MenuUpdateRequestDto requestDto) {
         return new ResponseEntity<>(menuService.update(id, requestDto), HttpStatus.OK);

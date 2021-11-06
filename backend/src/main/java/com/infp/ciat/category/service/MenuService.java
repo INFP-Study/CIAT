@@ -1,9 +1,6 @@
 package com.infp.ciat.category.service;
 
-import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
-import com.infp.ciat.category.controller.dto.MenuDto;
-import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
-import com.infp.ciat.category.controller.dto.MenuUpdateRequestDto;
+import com.infp.ciat.category.controller.dto.*;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.MenuRepository;
@@ -40,6 +37,13 @@ public class MenuService {
                         .isActivated(m.getIsActivated())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public MenuDto getDetail(Long id) {
+        return menuRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."))
+                .fromEntity();
     }
 
     @Transactional
