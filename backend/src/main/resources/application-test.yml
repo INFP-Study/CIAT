@@ -13,13 +13,8 @@ spring:
         ddl-auto: update
 
 fileserver:
-  token: ENC(lpQnVzxYt5RYQfHU2aB50g9XHMsyFyZKF1PbTzkiyTyxLNioX44bkNo2VgaH4F1CK2yK14wT3PKZa0NMthM/6Q==)
-  host: ENC(k3tmhbeB0P8X1diQm8rOaos8WDukKF0Y2do8eeBTniRop33Smr5TzedPQPjL6cFuEOED6QPQSexYrO5198uJ+w==)
-
-jwt:
-  secret: testsecret
-  # hour
-  lifetime: 1
+  token: ENC(4i+napZ2o691GlpQnKcg0InhWJRGZlN4KpHujh1eXNEgJ+6JVnAAe4w9KT2tZxazqwbzvZ9uBaYjY6vKzoiGAQ==)
+  host: ENC(trUz6cwx6VCVf3LZC2T2aCbBTCyKb92tXJukH9yPL6KZiWPNFHsCWC0eZQUz2nfOul95hRBM5NE3D0xx0uYcjg==)
 
 logging:
   level:
@@ -27,8 +22,7 @@ logging:
       infp:
         ciat: debug
 
-
 #공공포탈 api service key, public url
 forest:
-  url: ENC(S9uh+jA+zZaejBjNJaIT4B7HQpv6QYqSVp//6MHWyM5MA9hOEd1LZWaRtvaMqd5jIatENDOp00cu/YhT8lrf9KlCmVQ5h20JT4CWHNUiz3Lxnr3OXUuU80UPdGhXgYiM)
-  key: ENC(aFEsybz29ctGAqxPNnPdFTixfvFe3EenJFOyBWsHtDB6AtqZ0TOgqoOPSokjSo9syTREbCaN6/NXsLSnv4ml+UQsusSxaaACfM9JE5dDigAQLHNALMlr4K4GqageYzcRjcZF6PGDGpQkAqYOMsJLoc6ra8dURKlyIVQpGpgbAHNCKORnDir/6mlkZdRxqR1q)
+  url: http://openapi.nature.go.kr/openapi/service/rest/PlantService/
+  key: ENC(MdrFVAlwH9q22dxui/hBNU+NfR/Co0MZ+uJsApaszAEHSMkbay050trrzbEZXNqpWUxpPkJdEHZqpRuzWw65X568JeC+mNDLGcvAWuCoRAGlXHoBm1iFsDlrEI4s7FZB7xh87r9OswyBW7IQKMxLLlfPFeH/PX6nsEBNZNlyV2ULB8zAA7YZaLFMRvUdwbQK)
