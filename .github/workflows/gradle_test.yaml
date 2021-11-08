@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      jasypt_password: ${{ secrets.JASYPT_PASSWORD }}
     defaults:
       run:
         working-directory: ./backend
@@ -22,8 +24,6 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: gradle test
-      env:
-        jasypt_password: ${{ secrets.JASYPT_PASSWORD }}
       run: gradle test
 
     - name: Discord Alert Success
