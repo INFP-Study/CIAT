@@ -60,6 +60,7 @@ public class Menu extends BaseTimeEntity {
 
     public MenuDto fromEntity() {
         return MenuDto.builder()
+                .id(id)
                 .uid(uid)
                 .name(name)
                 .icon(icon)

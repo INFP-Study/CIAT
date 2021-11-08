@@ -6,8 +6,10 @@ import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
                         .uid(c.getUid())
                         .name(c.getName())
                         .icon(c.getIcon())
+                        .url(c.getUrl())
                         .orders(c.getOrders())
                         .isActivated(c.getIsActivated())
                         .menu(c.getMenu())
@@ -42,19 +45,20 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getDetail(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."))
                 .fromEntity();
     }
 
     @Transactional
     @Override
     public Long update(Long id, CategoryUpdateRequestDto requestDto) {
-        Category targetCategory = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
+        Category targetCategory = categoryRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
         targetCategory.update(requestDto);
 
         return targetCategory.getId();
     }
 
+    @Transactional
     @Override
     public Long delete(Long id) {
         categoryRepository.deleteById(id);

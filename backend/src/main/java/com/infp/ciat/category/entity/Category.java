@@ -32,7 +32,7 @@ public class Category extends BaseTimeEntity {
     private String isActivated;
 
     @ManyToOne
-    @JoinColumn(name = "menu_uid")
+    @JoinColumn(name = "menu_id")
     private Menu menu;
 
 //    @ManyToOne

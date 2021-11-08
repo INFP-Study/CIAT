@@ -37,6 +37,7 @@ public class MenuService {
                         .uid(m.getUid())
                         .name(m.getName())
                         .icon(m.getIcon())
+                        .url(m.getUrl())
                         .orders(m.getOrders())
                         .isActivated(m.getIsActivated())
                         .categoryList(m.getCategoryList())
