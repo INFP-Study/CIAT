@@ -1,7 +1,9 @@
 package com.infp.ciat.category.service;
 
 import com.infp.ciat.category.controller.dto.*;
+import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
+import com.infp.ciat.category.repository.CategoryRepository;
 import com.infp.ciat.category.repository.MenuRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,11 +27,14 @@ public class MenuServiceTest {
     private CategoryService categoryService;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private MenuRepository menuRepository;
 
     @AfterEach
     void tearDown() {
-        menuRepository.deleteAllInBatch();
+        menuRepository.deleteAll();
     }
 
     @Test
@@ -192,5 +197,75 @@ public class MenuServiceTest {
         List<Menu> all = menuRepository.findAll();
         assertThat(all.size()).isEqualTo(1);
         assertThat(all.get(0).getUid()).isEqualTo("M002");
+    }
+
+    @Test
+    @DisplayName("메뉴 및 카테고리 순서대로 조회")
+    public void getMenuAndCatInOrder() {
+        // given
+        MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
+                .uid("M001")
+                .name("hello")
+                .icon("icon")
+                .url("/url")
+                .orders(2L)
+                .isActivated("Y")
+                .build();
+        MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
+                .uid("M002")
+                .name("hello")
+                .icon("icon")
+                .url("/url")
+                .orders(1L)
+                .isActivated("Y")
+                .build();
+        menuService.create(requestDto);
+        menuService.create(requestDto2);
+
+        Menu menu = menuRepository.findAll().get(0);
+
+        CategorySaveRequestDto catRequestDto = CategorySaveRequestDto.builder()
+                .uid("M001C001")
+                .name("테스트1")
+                .icon("test")
+                .url("/test")
+                .orders(2L)
+                .isActivated("Y")
+                .menu(menu)
+                .build();
+        CategorySaveRequestDto catRequestDto2 = CategorySaveRequestDto.builder()
+                .uid("M001C002")
+                .name("테스트2")
+                .icon("test2")
+                .url("/test2")
+                .orders(3L)
+                .isActivated("N")
+                .menu(menu)
+                .build();
+        CategorySaveRequestDto catRequestDto3 = CategorySaveRequestDto.builder()
+                .uid("M001C003")
+                .name("테스트2")
+                .icon("test2")
+                .url("/test2")
+                .orders(1L)
+                .isActivated("N")
+                .menu(menu)
+                .build();
+
+        categoryRepository.save(catRequestDto.toEntity());
+        categoryRepository.save(catRequestDto2.toEntity());
+        categoryRepository.save(catRequestDto3.toEntity());
+
+        // when
+        List<MenuDto> list = menuService.getList();
+        List<Category> categoryList = list.get(1).getCategoryList();
+
+        // then
+        assertThat(list.get(0).getUid()).isEqualTo("M002");
+        assertThat(list.get(1).getUid()).isEqualTo("M001");
+
+        assertThat(categoryList.get(0).getUid()).isEqualTo("M001C003");
+        assertThat(categoryList.get(1).getUid()).isEqualTo("M001C001");
+        assertThat(categoryList.get(2).getUid()).isEqualTo("M001C002");
     }
 }

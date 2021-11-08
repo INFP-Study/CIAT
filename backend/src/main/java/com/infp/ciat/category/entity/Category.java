@@ -35,9 +35,9 @@ public class Category extends BaseTimeEntity {
     @JoinColumn(name = "menu_uid")
     private Menu menu;
 
-    @ManyToOne
-    @JoinColumn(name = "accountId")
-    private Account account;
+//    @ManyToOne
+//    @JoinColumn(name = "accountId")
+//    private Account account;
 
     @Builder
     public Category(String uid, String name, String icon, String url, Long orders, String isActivated, Menu menu/*, Account account*/) {

@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -39,8 +40,8 @@ public class Menu extends BaseTimeEntity {
     //menu 0 category 0 F > T
     //menu 0
 
-    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
-//    @JsonIgnoreProperties({"menu"})
+    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"menu"})
     private List<Category> categoryList;
 
 //    @ManyToOne
