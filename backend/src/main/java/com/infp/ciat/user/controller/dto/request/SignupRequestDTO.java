@@ -23,11 +23,17 @@ public class SignupRequestDTO {
     @NotEmpty
     private String nickname;
 
+    private String provider;
+
+    private String providerId;
+
     @Builder
-    public SignupRequestDTO(String email, String password, String nickname) {
+    public SignupRequestDTO(String email, String password, String nickname, String provider, String providerId) {
       this.email = email;
       this.password = password;
       this.nickname = nickname;
+      this.provider = provider;
+      this.providerId = providerId;
     }
 
   public Account toEntity() {
@@ -35,6 +41,8 @@ public class SignupRequestDTO {
         .email(email)
         .password(password)
         .nickname(nickname)
+        .provider(provider)
+        .providerId(providerId)
         .role(Role.ROLE_USER)
         .build();
     }

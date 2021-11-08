@@ -33,16 +33,24 @@ public class Account extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-//    private String provider;
-//    private String providerId;
+    @Column
+    private String provider;
 
-
+    @Column(name="providerId")
+    private String providerId;
 
     @Builder
-    public Account(String email, String nickname, String password, Role role) {
+    public Account(String email, String nickname, String password, Role role, String provider, String providerId) {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
         this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
     }
+
+  public Account update(String name) {
+    this.nickname = name;
+    return this;
+  }
 }
