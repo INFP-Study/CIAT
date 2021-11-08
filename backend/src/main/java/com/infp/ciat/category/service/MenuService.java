@@ -5,11 +5,14 @@ import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +29,8 @@ public class MenuService {
 
     @Transactional(readOnly = true)
     public List<MenuDto> getList() {
-        return menuRepository.findAll()
+        //메뉴 order 순으로 오름차순 정렬
+        List<MenuDto> menuDtoList = menuRepository.findAll(Sort.by(Sort.Direction.ASC, "orders"))
                 .stream()
                 .map(m -> MenuDto.builder()
                         .id(m.getId())
@@ -35,8 +39,17 @@ public class MenuService {
                         .icon(m.getIcon())
                         .orders(m.getOrders())
                         .isActivated(m.getIsActivated())
+                        .categoryList(m.getCategoryList())
                         .build())
                 .collect(Collectors.toList());
+
+        //메뉴에 속한 Category order 기준으로 오름차순 정렬
+        for (MenuDto menuDto : menuDtoList) {
+            List<Category> curCategoryList = menuDto.getCategoryList();
+            Collections.sort(curCategoryList, Comparator.comparing(Category::getOrders));
+        }
+
+        return menuDtoList;
     }
 
     @Transactional(readOnly = true)
