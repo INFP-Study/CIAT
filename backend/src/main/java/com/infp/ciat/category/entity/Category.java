@@ -34,19 +34,21 @@ public class Category extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "menu_uid")
     private Menu menu;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "accountId")
-//    private Account account;
+
+    @ManyToOne
+    @JoinColumn(name = "accountId")
+    private Account account;
 
     @Builder
-    public Category(String uid, String name, String icon, String url, Long orders, String isActivated) {
+    public Category(String uid, String name, String icon, String url, Long orders, String isActivated, Menu menu/*, Account account*/) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
         this.isActivated = isActivated;
+        this.menu = menu;
+//        this.account = account;
     }
 
     public CategoryDto fromEntity() {
@@ -57,6 +59,8 @@ public class Category extends BaseTimeEntity {
                 .url(url)
                 .orders(orders)
                 .isActivated(isActivated)
+                .menu(menu)
+//                .account(account)
                 .build();
     }
 
@@ -66,6 +70,8 @@ public class Category extends BaseTimeEntity {
         this.url = requestDto.getUrl();
         this.orders = requestDto.getOrders();
         this.isActivated = requestDto.getIsActivated();
+        this.menu = requestDto.getMenu();
+//        this.account = requestDto.getAccount();
     }
 
 }

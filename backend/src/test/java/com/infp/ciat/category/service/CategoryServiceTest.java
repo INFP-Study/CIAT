@@ -3,13 +3,12 @@ package com.infp.ciat.category.service;
 import com.infp.ciat.category.controller.dto.CategoryDto;
 import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
+import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
 import com.infp.ciat.category.entity.Category;
+import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.CategoryRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import com.infp.ciat.category.repository.MenuRepository;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -27,7 +25,24 @@ class CategoryServiceTest {
     private CategoryService categoryService;
 
     @Autowired
+    private MenuRepository menuRepository;
+
+    @Autowired
     private CategoryRepository categoryRepository;
+
+    @BeforeEach
+    void createMenu() {
+        MenuSaveRequestDto menuSaveRequestDto = MenuSaveRequestDto.builder()
+                .uid("M001")
+                .name("test menu")
+                .icon("test")
+                .url("https://www.naver.com")
+                .orders(1L)
+                .isActivated("Y")
+                .build();
+
+        menuRepository.save(menuSaveRequestDto.toEntity());
+    }
 
     @AfterEach
     void tearDown() {
@@ -44,6 +59,7 @@ class CategoryServiceTest {
         String url = "https://www.naver.com";
         Long orders = 3L;
         String isActivated = "Y";
+        Menu menu = menuRepository.findById(1L).get();
 
         CategorySaveRequestDto requestDto = CategorySaveRequestDto.builder()
                 .uid(uid)
@@ -52,11 +68,11 @@ class CategoryServiceTest {
                 .url(url)
                 .orders(orders)
                 .isActivated(isActivated)
+                .menu(menu)
                 .build();
 
         // when
-        CategoryDto newCategory = categoryService.create(requestDto);
-        System.out.println(newCategory);
+        categoryService.create(requestDto);
 
         // then
         List<Category> all = categoryRepository.findAll();
@@ -80,6 +96,7 @@ class CategoryServiceTest {
                 .url("/test")
                 .orders(1L)
                 .isActivated("Y")
+                .menu(menuRepository.findById(1L).get())
                 .build();
         CategorySaveRequestDto requestDto2 = CategorySaveRequestDto.builder()
                 .uid("M001C002")
@@ -88,6 +105,7 @@ class CategoryServiceTest {
                 .url("/test2")
                 .orders(2L)
                 .isActivated("N")
+                .menu(menuRepository.findById(1L).get())
                 .build();
 
         categoryService.create(requestDto);
@@ -97,7 +115,6 @@ class CategoryServiceTest {
         List<CategoryDto> all = categoryService.getList();
 
         // then
-
         assertThat(all.size()).isEqualTo(2);
     }
 
@@ -111,6 +128,7 @@ class CategoryServiceTest {
         String url = "/test";
         Long orders = 1L;
         String isActivated = "Y";
+        Menu menu = menuRepository.findById(1L).get();
 
         Category savedCat = categoryRepository.save(Category.builder()
                 .uid(uid)
@@ -119,6 +137,7 @@ class CategoryServiceTest {
                 .url(url)
                 .orders(orders)
                 .isActivated(isActivated)
+                .menu(menu)
                 .build());
 
         // when
@@ -144,6 +163,7 @@ class CategoryServiceTest {
                 .url("/test")
                 .orders(1L)
                 .isActivated("Y")
+                .menu(menuRepository.findById(1L).get())
                 .build());
 
         Long updateId = savedCat.getId();
@@ -178,6 +198,7 @@ class CategoryServiceTest {
                 .url("/test")
                 .orders(1L)
                 .isActivated("Y")
+                .menu(menuRepository.findById(1L).get())
                 .build());
         Category savedCat2 = categoryRepository.save(Category.builder()
                 .uid("M001C002")
@@ -186,6 +207,7 @@ class CategoryServiceTest {
                 .url("/test2")
                 .orders(2L)
                 .isActivated("Y")
+                .menu(menuRepository.findById(1L).get())
                 .build());
 
         // when

@@ -1,5 +1,6 @@
 package com.infp.ciat.category.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infp.ciat.category.controller.dto.CategoryDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.controller.dto.MenuDto;
@@ -39,6 +40,7 @@ public class Menu extends BaseTimeEntity {
     //menu 0
 
     @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
+//    @JsonIgnoreProperties({"menu"})
     private List<Category> categoryList;
 
 //    @ManyToOne
