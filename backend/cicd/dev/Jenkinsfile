@@ -32,10 +32,11 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
                         script{
                             sh 'docker build -t ${dockerID}/${DOCKER_IMAGENAME} .'
-                            withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerpassword', usernameVariable: 'dockeruser')]) {
-                                sh 'docker login -u ${dockeruser} -p ${dockerpassword}'
-                                sh 'docker push ${dockerID}/${DOCKER_IMAGENAME}'
-                            }
+                            // 비용문제로 주석
+                            // withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerpassword', usernameVariable: 'dockeruser')]) {
+                            //     sh 'docker login -u ${dockeruser} -p ${dockerpassword}'
+                            //     sh 'docker push ${dockerID}/${DOCKER_IMAGENAME}'
+                            // }
                         }
                     }
                 }
