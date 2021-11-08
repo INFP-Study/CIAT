@@ -42,6 +42,7 @@ dependencies {
 }
 
 test {
+	environment "jasypt.encryptor.password", System.getenv("jasypt_password")
 	useJUnitPlatform()
 }
 
