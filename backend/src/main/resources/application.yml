@@ -24,6 +24,8 @@ spring:
     hibernate:
       ddl-auto: update
       database-platform: ENC(HUPevaLfmLDzFPVbGkeMOkOm3Y38mg6zxfNXUJsckzCwJEnVl6rhURSMQSf8lHh8WIBkBvmMNq2CVz0Uhu3fX1AjmQHIpcOOJHONm8X0eHA=)
+  profiles:
+    include: oauth
 
 #공공포탈 api service key, public url
 forest:
