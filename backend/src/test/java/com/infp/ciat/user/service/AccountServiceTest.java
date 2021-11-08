@@ -30,6 +30,12 @@ class AccountServiceTest {
   @Autowired
   PasswordEncoder passwordEncoder;
 
+  @BeforeAll
+  public static void beforeAll() {
+    String jasypt_password = System.getenv("jasypt.encryptor.password");
+    System.setProperty("jasypt.encryptor.password", jasypt_password);
+  }
+
   @AfterEach
   public void aftereach() {
     try {
