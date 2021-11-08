@@ -33,7 +33,7 @@ class AccountServiceTest {
   @BeforeAll
   public static void beforeAll() {
     String jasypt_password = System.getenv("jasypt_password");
-    System.setProperty("jasypt_password", jasypt_password);
+    System.setProperty("jasypt.encryptor.password", jasypt_password);
   }
 
   @AfterEach
