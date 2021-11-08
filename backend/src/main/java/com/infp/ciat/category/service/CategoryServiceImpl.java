@@ -34,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
                         .icon(c.getIcon())
                         .orders(c.getOrders())
                         .isActivated(c.getIsActivated())
+                        .menu(c.getMenu())
                         .build())
                 .collect(Collectors.toList());
     }
