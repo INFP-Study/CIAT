@@ -1,12 +1,13 @@
 import React from 'react';
 import { SIGN_IN, TITLE } from '../../../constants';
 import styled from 'styled-components';
-import { Header } from 'antd/lib/layout/layout';
 import { Link } from 'react-router-dom';
 import { MAIN_URL, SIGN_IN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
-import { Affix } from 'antd';
+import { Affix, Layout } from 'antd';
 import { theme } from '../../../style/theme';
+
+const { Header } = Layout;
 
 const HeaderAntd = styled(Header)`
   display: flex;
