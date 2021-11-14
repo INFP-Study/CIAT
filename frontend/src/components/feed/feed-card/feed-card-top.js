@@ -4,7 +4,7 @@ import Meta from 'antd/lib/card/Meta';
 import React from 'react';
 import { theme } from '../../../style/theme';
 
-function PostTop({ author, date }) {
+function FeedTop({ author, date }) {
   return (
     <Meta
       style={{ paddingLeft: '16px', paddingRight: '16px' }}
@@ -21,4 +21,4 @@ function PostTop({ author, date }) {
   );
 }
 
-export default PostTop;
+export default FeedTop;
