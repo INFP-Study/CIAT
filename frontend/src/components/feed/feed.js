@@ -3,19 +3,18 @@ import {
   MessageOutlined,
   PaperClipOutlined,
   SmileOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
-import { Card, Select, Input, Button, Avatar, Space, Image } from 'antd';
+import { Card, Space } from 'antd';
 import { theme } from '../../style/theme';
 import styled from 'styled-components';
-import PostCotent from './post-content/post-cotent';
+import FeedCotent from './feed-card/feed-card-cotent';
+
+const CardAntd = styled(Card)`
+  max-width: 652px;
+  border-color: ${theme.colorLine2};
+`;
 
 function Wrapper({ contents }) {
-  const Wrapper = styled(Card)`
-    max-width: 652px;
-    border-color: ${theme.colorLine2};
-  `;
-
   const actionTab = () => {
     return [
       <Space>
@@ -44,7 +43,7 @@ function Wrapper({ contents }) {
 
   const createPost = (contents) => {
     return contents.map((content) => (
-      <Wrapper
+      <CardAntd
         bodyStyle={{
           paddingLeft: '4px',
           paddingRight: '4px',
@@ -53,7 +52,8 @@ function Wrapper({ contents }) {
         actions={actionTab()}
         key={content.id}
       >
-        <PostCotent
+        <FeedCotent
+          id={content.id}
           content={content.content}
           author={content.author}
           date={content.date}
@@ -62,7 +62,7 @@ function Wrapper({ contents }) {
           like={content.like}
           key={content.id}
         />
-      </Wrapper>
+      </CardAntd>
     ));
   };
 

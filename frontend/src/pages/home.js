@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Input, Space } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { getDecrement, getIncrement } from '../../store/counter';
-import SiteLayout from '../../components/common/layout';
-import { getGoogleLogin } from '../../store/auth';
+import { getDecrement, getIncrement } from '../store/counter';
+import SiteLayout from '../components/common/layout';
+import { getGoogleLogin } from '../store/auth';
 
 function Home() {
   const count = useSelector((state) => state.counter.value);

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Space } from 'antd';
 import styled from 'styled-components';
-import PostWrite from '../components/feed/post-write';
-import Post from '../components/feed/post';
+import FeedWrite from '../components/feed/feed-card/feed-card-write';
+import Feed from '../components/feed/feed';
 
 const contentsTmp = [
   {
@@ -72,19 +72,19 @@ const contentsTmp = [
   },
 ];
 
-function FeedContainer() {
-  const Wrapper = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
+function FeedContainer() {
   return (
     <Wrapper>
       <Space direction="vertical" size="middle">
-        <PostWrite />
-        <Post contents={contentsTmp} />
+        <FeedWrite />
+        <Feed contents={contentsTmp} />
       </Space>
     </Wrapper>
   );

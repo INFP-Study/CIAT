@@ -17,6 +17,7 @@ import SignIn from '../../pages/auth/sign-in';
 import PlantManagement from '../../pages/plant-management';
 import Setting from '../../pages/setting';
 import SignUp from '../../pages/auth/sign-up';
+import FeedDetail from '../../pages/feed-detail';
 
 function index() {
   return (
@@ -25,7 +26,7 @@ function index() {
       <Route exact path={SIGN_UP_URL} component={SignUp} />
       <Route exact path={PLANT_MANAGEMENT_URL} component={PlantManagement} />
       <Route exact path={FEED_URL} component={Feed} />
-      <Route path={FEED_ROUTE} component={Feed} />
+      <Route path={FEED_ROUTE} component={FeedDetail} />
       <Route exact path={SETTING_URL} component={Setting} />
       <Route exact path={DOCUMENT_URL} component={Document} />
       <Route exact path={MAIN_URL} component={Home} />

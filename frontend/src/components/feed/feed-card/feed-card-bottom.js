@@ -3,7 +3,7 @@ import { Space } from 'antd';
 import React from 'react';
 import { theme } from '../../../style/theme';
 
-function PostBottom({ like, comment }) {
+function FeedBottom({ like, comment }) {
   return (
     <div
       style={{
@@ -24,4 +24,4 @@ function PostBottom({ like, comment }) {
   );
 }
 
-export default PostBottom;
+export default FeedBottom;

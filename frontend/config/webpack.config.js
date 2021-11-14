@@ -7,6 +7,7 @@ const BundleAnalyzerPlugin =
 module.exports = {
   mode: 'development',
   // Where files should be sent once they are bundled
+  entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'index.bundle.js',
@@ -22,7 +23,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /nodeModules/,
+        exclude: path.resolve(__dirname, '../node_modules'),
         use: {
           loader: 'babel-loader',
         },
