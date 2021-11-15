@@ -10,11 +10,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,7 +49,7 @@ public class MenuServiceTest {
         String icon = "doc";
         String url = "https://www.naver.com";
         Long orders = 3L;
-        String isActivated = "Y";
+        String showYn = "Y";
 
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
                 .uid(uid)
@@ -54,7 +57,7 @@ public class MenuServiceTest {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
+                .showYn(showYn)
                 .build();
 
         // when
@@ -69,7 +72,7 @@ public class MenuServiceTest {
         assertThat(all.get(0).getIcon()).isEqualTo(icon);
         assertThat(all.get(0).getUrl()).isEqualTo(url);
         assertThat(all.get(0).getOrders()).isEqualTo(orders);
-        assertThat(all.get(0).getIsActivated()).isEqualTo(isActivated);
+        assertThat(all.get(0).getShowYn()).isEqualTo(showYn);
     }
 
     @Test
@@ -82,7 +85,7 @@ public class MenuServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated("Y")
+                .showYn("Y")
                 .build();
         MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
                 .uid("M001")
@@ -90,7 +93,7 @@ public class MenuServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(2L)
-                .isActivated("N")
+                .showYn("N")
                 .build();
 
         menuService.create(requestDto);
@@ -112,7 +115,7 @@ public class MenuServiceTest {
         String icon = "test";
         String url = "/test";
         Long orders = 1L;
-        String isActivated = "Y";
+        String showYn = "Y";
 
         Menu savedMenu = menuRepository.save(Menu.builder()
                 .uid(uid)
@@ -120,7 +123,7 @@ public class MenuServiceTest {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
+                .showYn(showYn)
                 .build());
 
         // when
@@ -132,7 +135,7 @@ public class MenuServiceTest {
         assertThat(detail.getIcon()).isEqualTo(icon);
         assertThat(detail.getUrl()).isEqualTo(url);
         assertThat(detail.getOrders()).isEqualTo(orders);
-        assertThat(detail.getIsActivated()).isEqualTo(isActivated);
+        assertThat(detail.getShowYn()).isEqualTo(showYn);
     }
 
     @Test
@@ -145,19 +148,19 @@ public class MenuServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated("Y")
+                .showYn("Y")
                 .build());
 
         Long updateId = savedMenu.getId();
         String newName = "test22";
-        String inactivate = "N";
+        String showYn = "N";
 
         MenuUpdateRequestDto requestDto = MenuUpdateRequestDto.builder()
                 .name(newName)
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated(inactivate)
+                .showYn(showYn)
                 .build();
 
         // when
@@ -166,7 +169,7 @@ public class MenuServiceTest {
         // then
         List<Menu> all = menuRepository.findAll();
         assertThat(all.get(0).getName()).isEqualTo(newName);
-        assertThat(all.get(0).getIsActivated()).isEqualTo(inactivate);
+        assertThat(all.get(0).getShowYn()).isEqualTo(showYn);
     }
 
     @Test
@@ -179,7 +182,7 @@ public class MenuServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated("Y")
+                .showYn("Y")
                 .build());
         Menu savedMenu2 = menuRepository.save(Menu.builder()
                 .uid("M002")
@@ -187,16 +190,18 @@ public class MenuServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(2L)
-                .isActivated("Y")
+                .showYn("N")
                 .build());
 
         // when
         menuService.delete(savedMenu1.getId());
 
         // then
+        String updatedShowYn = savedMenu1.getShowYn();
         List<Menu> all = menuRepository.findAll();
-        assertThat(all.size()).isEqualTo(1);
-        assertThat(all.get(0).getUid()).isEqualTo("M002");
+        assertThat(all.get(0).getShowYn()).isEqualTo("N");
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> menuService.delete(savedMenu2.getId()));
+        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @Test
@@ -209,7 +214,7 @@ public class MenuServiceTest {
                 .icon("icon")
                 .url("/url")
                 .orders(2L)
-                .isActivated("Y")
+                .showYn("Y")
                 .build();
         MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
                 .uid("M002")
@@ -217,7 +222,7 @@ public class MenuServiceTest {
                 .icon("icon")
                 .url("/url")
                 .orders(1L)
-                .isActivated("Y")
+                .showYn("Y")
                 .build();
         menuService.create(requestDto);
         menuService.create(requestDto2);
@@ -230,7 +235,7 @@ public class MenuServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(2L)
-                .isActivated("Y")
+                .showYn("Y")
                 .menu(menu)
                 .build();
         CategorySaveRequestDto catRequestDto2 = CategorySaveRequestDto.builder()
@@ -239,7 +244,7 @@ public class MenuServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(3L)
-                .isActivated("N")
+                .showYn("N")
                 .menu(menu)
                 .build();
         CategorySaveRequestDto catRequestDto3 = CategorySaveRequestDto.builder()
@@ -248,7 +253,7 @@ public class MenuServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(1L)
-                .isActivated("N")
+                .showYn("N")
                 .menu(menu)
                 .build();
 

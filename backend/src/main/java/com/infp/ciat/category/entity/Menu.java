@@ -78,4 +78,8 @@ public class Menu extends BaseTimeEntity {
         this.orders = requestDto.getOrders();
         this.showYn = requestDto.getShowYn();
     }
+
+    public void delete() {
+        this.showYn = "N";
+    }
 }

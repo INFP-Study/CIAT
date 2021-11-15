@@ -56,13 +56,13 @@ public class MenuService {
     @Transactional(readOnly = true)
     public MenuDto getDetail(Long id) {
         return menuRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."))
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 메뉴가 없습니다."))
                 .fromEntity();
     }
 
     @Transactional
     public Long update(Long id, MenuUpdateRequestDto requestDto) {
-        Menu targetMenu = menuRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
+        Menu targetMenu = menuRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 메뉴가 없습니다."));
         targetMenu.update(requestDto);
 
         return targetMenu.getId();
@@ -70,7 +70,15 @@ public class MenuService {
 
     @Transactional
     public Long delete(Long id) {
-        menuRepository.deleteById(id);
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 메뉴가 없습니다."));
+
+        if (menu.getShowYn().equals("N")) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "이미 삭제된 메뉴입니다.");
+        }
+        if (menu.getShowYn().equals("Y")) {
+            menu.delete();
+        }
 
         return id;
     }

@@ -39,7 +39,7 @@ public class MenuController {
         return new ResponseEntity<>(menuService.update(id, requestDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/menu/{id}")
+    @PatchMapping("/menu/{id}")
     public ResponseEntity<Long> deleteMenu(@PathVariable Long id) {
         return new ResponseEntity<>(menuService.delete(id), HttpStatus.OK);
     }
