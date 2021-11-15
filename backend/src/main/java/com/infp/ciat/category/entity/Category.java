@@ -53,6 +53,7 @@ public class Category extends BaseTimeEntity {
 
     public CategoryDto fromEntity() {
         return CategoryDto.builder()
+                .id(id)
                 .uid(uid)
                 .name(name)
                 .icon(icon)
