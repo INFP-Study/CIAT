@@ -18,7 +18,7 @@ public class CategoryDto {
     private String icon;
     private String url;
     private Long orders;
-    private String isActivated;
+    private String showYn;
     private Menu menu;
 //    private Account account;
 
@@ -29,20 +29,20 @@ public class CategoryDto {
         this.icon = category.getIcon();
         this.url = category.getUrl();
         this.orders = category.getOrders();
-        this.isActivated = category.getIsActivated();
+        this.showYn = category.getShowYn();
         this.menu = category.getMenu();
 //        this.account = category.getAccount();
     }
 
     @Builder
-    public CategoryDto(Long id, String uid, String name, String icon, String url, Long orders, String isActivated, Menu menu/*, Account account*/) {
+    public CategoryDto(Long id, String uid, String name, String icon, String url, Long orders, String showYn, Menu menu/*, Account account*/) {
         this.id = id;
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.isActivated = isActivated;
+        this.showYn = showYn;
         this.menu = menu;
 //        this.account = account;
     }

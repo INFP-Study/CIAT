@@ -16,18 +16,18 @@ public class CategorySaveRequestDto {
     private String icon;
     private String url;
     private Long orders;
-    private String isActivated;
+    private String showYn;
     private Menu menu;
 //    private Account account;
 
     @Builder
-    public CategorySaveRequestDto(String uid, String name, String icon, String url, Long orders, String isActivated, Menu menu/*, Account account*/) {
+    public CategorySaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu/*, Account account*/) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.isActivated = isActivated;
+        this.showYn = showYn;
         this.menu = menu;
 //        this.account = account;
     }
@@ -39,7 +39,7 @@ public class CategorySaveRequestDto {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
+                .showYn(showYn)
                 .menu(menu)
 //                .account(account)
                 .build();
