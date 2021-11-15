@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 `;
 
 function FeedDetailComments() {
-  return <Wrapper>TEST</Wrapper>;
+  return <Wrapper>comment</Wrapper>;
 }
 
 export default FeedDetailComments;

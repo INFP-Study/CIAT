@@ -16,7 +16,7 @@ module.exports = {
   devServer: {
     port: 3000,
     liveReload: true,
-    historyApiFallback: true, //라우트 사용 위해 추가
+    historyApiFallback: { index: '/', disableDotRule: true }, //라우트 사용 위해 추가
   },
   // Rules of how webpack will take our files, complie & bundle them for the browser
   module: {
