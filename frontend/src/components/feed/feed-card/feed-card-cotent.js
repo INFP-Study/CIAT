@@ -19,13 +19,13 @@ function FeedCotent({ id, content, author, date, comment, src, like }) {
       {src.length === 1 ? (
         <img width={642} height={642} src={src} />
       ) : (
-        src.map((src, i) => (
-          <Space size={2} wrap key={i}>
-            <Link to={`/feed/${id}`}>
+        <Space size={2} wrap>
+          {src.map((src, i) => (
+            <Link to={`/feed/${id}`} key={i}>
               <img width={320} height={320} src={src} />
             </Link>
-          </Space>
-        ))
+          ))}
+        </Space>
       )}
       <FeedBottom like={like} comment={comment} />
     </Space>

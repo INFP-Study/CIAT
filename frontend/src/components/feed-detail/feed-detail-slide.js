@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: red;
+  background-color: gray;
 `;
 
 function FeedDetailSlide() {
-  return <Wrapper>TEST21</Wrapper>;
+  return <Wrapper>img</Wrapper>;
 }
 
 export default FeedDetailSlide;
