@@ -58,13 +58,13 @@ function Category() {
             icon={<MdAccountCircle style={{ fontSize: theme.fontSizeIcon }} />}
           >
             {/* <Link to={FEED_DAILY_URL}> 일상</Link> */}
-            일상
+            맛집
           </Menu.Item>
           <Menu.Item
             key="1"
             icon={<UserOutlined style={{ fontSize: theme.fontSizeIcon }} />}
           >
-            맛집
+            생활
           </Menu.Item>
           <Menu.Item
             key="2"
@@ -72,19 +72,19 @@ function Category() {
               <VideoCameraOutlined style={{ fontSize: theme.fontSizeIcon }} />
             }
           >
-            취미생활
+            일정
           </Menu.Item>
           <Menu.Item
             key="3"
             icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
           >
-            건강
+            게임
           </Menu.Item>
           <Menu.Item
             key="4"
             icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
           >
-            인테리어
+            음악
           </Menu.Item>
         </MenuAntd>
       </SiderAntd>

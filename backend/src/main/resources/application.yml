@@ -8,29 +8,42 @@ logging:
         ciat: debug
 
 fileserver:
-  token: ENC(lpQnVzxYt5RYQfHU2aB50g9XHMsyFyZKF1PbTzkiyTyxLNioX44bkNo2VgaH4F1CK2yK14wT3PKZa0NMthM/6Q==)
-  host: ENC(k3tmhbeB0P8X1diQm8rOaos8WDukKF0Y2do8eeBTniRop33Smr5TzedPQPjL6cFuEOED6QPQSexYrO5198uJ+w==)
-
-jwt:
-  secret: ENC(Cl3BCNpeRSj6N+1+TG34TJhNHLjnsRVXzm+cRmItlJWh4HEzErp2SX+05e9F5wys1OewnGWMWb3eJ06jUbcnOw==)
-  # hour
-  lifetime: 12
+  token: ENC(4i+napZ2o691GlpQnKcg0InhWJRGZlN4KpHujh1eXNEgJ+6JVnAAe4w9KT2tZxazqwbzvZ9uBaYjY6vKzoiGAQ==)
+  host: ENC(trUz6cwx6VCVf3LZC2T2aCbBTCyKb92tXJukH9yPL6KZiWPNFHsCWC0eZQUz2nfOul95hRBM5NE3D0xx0uYcjg==)
 
 spring:
+  security:
+    oauth2:
+      client:
+        # registration
+        registration:
+          # google oauth2 setting
+          google:
+            client-id: ENC(yOSSFYzdF6BFvb+VhuwrUUvnEwhdYJQhPAt7O+I9CP/fGWq0EjmEwnYXmz7Yu/QyS9kwLcV4TyTVvnikUI4PKr+eEk1AUVMKNayFLTnIKA8f4KnP82cNsbQKaM/DN2N7Taw0LJHl4CMP8+QBBRI0JA==)
+            client-secret: ENC(n093NQezyIRURhvV7DI/t5NrG5WL9f/ks4NkKhEew6X+GBEpCuzW4syxqsRYO3jkqYELcDNz2xPUz3X9Dzp3yW2WLLp8k0Hq5rGyyhTgl5I=)
+            scope:
+              - profile
+              - email
+          # github oauth2 setting
+          github:
+            client-id: ENC(avR1sIiT2FjiEV8Gfc9VsnDj64R1Z76CsfJUkbWraReGvQPXBo27UKP6Pm3rhs18EgqNtD7b2Xm5IwezPSkprA==)
+            client-secret: ENC(6h5LvXhqQHUPBD6JqnwzNRlFlfA0g4tjqgP0cPxOUUiVBYIylACHiBS++qICPA2pAzubXiXMDxXkwj7GRz6Dofsz2utfQ/YNrlVNsAOYhTE=)
   datasource:
-    url: ENC(k0LDmCtzrFfqWHag/q4FDHr1sAsTipWHEML6wH6hgG43fDmoTJGlCKmk4iOCw/lpZuI3PCeGO4yMNgtmOf0CEH6RCQyyOldEvsaMg/XsCbpih7yOrM78pl0SZqZe9WxMA2dFzYtnuOrMZmeaQ9l2dA==)
-    driver-class-name: ENC(oxBFRuSb4koRfQC9Gf0sxTwdrHOYkUj4WEin05x4Shye5KO3Z4GDhj8Og40V7uhUEbKg+nLdIKcZ9Nvys9Z3jA==)
-    username: ENC(ZkOJwQDP0e0TmKw1nGbX7Ba1o6KYQW3wBLovkvlRV9jM2+XUYA8JP8sgv5k5ND2c)
-    password: ENC(pTR+Lp1bqtulUeZR8siprgfFg7Sjsz4nl1aOd4HqEG4lrUB3OUacN9ZwtvfVuPlNFv58HeodTi2mh2kB73K/Ww==)
+    url: ENC(SdMJj9dKGhkF+VFShqVQMGHlkmAhjmM0XPWIyA1Nm0FPqORrLWc9cEk29FF6ntVvLLGPdp8cS9F875BZ+hgkEQVZ0gwhz6wN3MlEvggPDp5NnuLWwqZ3KwVznInPehxqZEpa1dbAlFv/5Gmcl8uISQ==)
+    driver-class-name: ENC(dhW7Cm9yna7f1mV0Bex6qSMlA+AhOuZdUDU18VFe4YTvBz1Rev0UeU1rmcSHlA/wGwM+VqMMAKHs2R+j21LHOA==)
+    username: ENC(blW7MEaDg8iJTGp5PEETV5e1hIwlMxVZsn1eBI8iZ5/OxhY4dvZKIzb9fE4g0R7y)
+    password: ENC(u+eGNk3Cmyzf2ZbtQfKWBAmN3bWWVTUMiLK2FbCtp7Iya1hs0x2cs2DqQVtGH4dj0a+NjswWJO8nbBNz10hflg==)
   jpa:
     open-in-view: false
     generate-ddl: true
     show-sql: true
     hibernate:
       ddl-auto: update
-      database-platform: ENC(Aig0iPZvJyD6FXVBfrCD6FgvfUkiHKqlF9bshJ6LQGuD4MnBsryj71pstaL9rFtoY/YBvgFMtg9KafpZON4KYztVqW0mYG7ZdHo1PpxCLXs=)
+      database-platform: ENC(HUPevaLfmLDzFPVbGkeMOkOm3Y38mg6zxfNXUJsckzCwJEnVl6rhURSMQSf8lHh8WIBkBvmMNq2CVz0Uhu3fX1AjmQHIpcOOJHONm8X0eHA=)
+  profiles:
+    include: oauth
 
 #공공포탈 api service key, public url
 forest:
-  public: ENC(S9uh+jA+zZaejBjNJaIT4B7HQpv6QYqSVp//6MHWyM5MA9hOEd1LZWaRtvaMqd5jIatENDOp00cu/YhT8lrf9KlCmVQ5h20JT4CWHNUiz3Lxnr3OXUuU80UPdGhXgYiM)
-  serviceKey: ENC(aFEsybz29ctGAqxPNnPdFTixfvFe3EenJFOyBWsHtDB6AtqZ0TOgqoOPSokjSo9syTREbCaN6/NXsLSnv4ml+UQsusSxaaACfM9JE5dDigAQLHNALMlr4K4GqageYzcRjcZF6PGDGpQkAqYOMsJLoc6ra8dURKlyIVQpGpgbAHNCKORnDir/6mlkZdRxqR1q)
+  url: http://openapi.nature.go.kr/openapi/service/rest/PlantService/
+  key: ENC(MdrFVAlwH9q22dxui/hBNU+NfR/Co0MZ+uJsApaszAEHSMkbay050trrzbEZXNqpWUxpPkJdEHZqpRuzWw65X568JeC+mNDLGcvAWuCoRAGlXHoBm1iFsDlrEI4s7FZB7xh87r9OswyBW7IQKMxLLlfPFeH/PX6nsEBNZNlyV2ULB8zAA7YZaLFMRvUdwbQK)

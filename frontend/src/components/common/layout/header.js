@@ -1,22 +1,24 @@
 import React from 'react';
+import { Affix, Layout } from 'antd';
 import { SIGN_IN, TITLE } from '../../../constants';
 import styled from 'styled-components';
-import { Header } from 'antd/lib/layout/layout';
 import { Link } from 'react-router-dom';
 import { MAIN_URL, SIGN_IN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
-import { Affix } from 'antd';
 import { theme } from '../../../style/theme';
 
-const HeaderAntd = styled(Header)`
-  display: flex;
-  justify-content: space-between;
-  height: 70px;
-  padding: 10px 40px;
-  align-items: center;
-  background-color: ${theme.colorWhite};
-  border-bottom: ${theme.borderLine};
-`;
+const { Header } = Layout;
+
+const HeaderStyle = {
+  //Header 태그 참조 이슈가 있어 스타일 방법 변경
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '70px',
+  padding: '10px 40px',
+  alignItems: 'center',
+  backgroundColor: `${theme.colorWhite}`,
+  borderBottom: `${theme.borderLine}`,
+};
 
 const Logo = styled(Link)`
   font-family: ${theme.fontLogo};
@@ -41,7 +43,7 @@ const UserInfo = styled(Link)`
 function SiteHeader() {
   return (
     <Affix offsetTop={0}>
-      <HeaderAntd>
+      <Header style={HeaderStyle}>
         <Logo to={MAIN_URL}>{TITLE}</Logo>
         <UserInfo to={SIGN_IN_URL}>
           <MdAccountCircle
@@ -49,7 +51,7 @@ function SiteHeader() {
           />
           {SIGN_IN}
         </UserInfo>
-      </HeaderAntd>
+      </Header>
     </Affix>
   );
 }

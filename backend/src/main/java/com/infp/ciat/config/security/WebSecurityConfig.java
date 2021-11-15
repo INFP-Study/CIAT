@@ -1,7 +1,6 @@
 package com.infp.ciat.config.security;
 
-//import com.infp.ciat.user.service.OAuth2DetailesService;
-//import com.infp.ciat.user.service.OAuth2DetailesService;
+import com.infp.ciat.config.auth.OAuth2DetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +31,9 @@ import java.io.IOException;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    private OAuth2DetailesService oAuth2DetailesService;
+
+    @Autowired
+    private OAuth2DetailsService oAuth2DetailesService;
 
     /***
      * default 패스워드 암호화알고리즘 사용 설정
@@ -51,10 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http
+            .csrf().disable()
             .authorizeRequests()
             .antMatchers("/user/signup").permitAll()
+            .anyRequest().authenticated()
             .and()
         .formLogin()
             .usernameParameter("email")
@@ -69,12 +70,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
         .cors()
             .configurationSource(corsConfigurationSource())
-            .and();
-//
-//        http
-//          .oauth2Login()
-//          .userInfoEndpoint()
-//          .userService(oAuth2DetailesService);
+            .and()
+        .oauth2Login()
+                .userInfoEndpoint()
+                    .userService(oAuth2DetailesService);
     }
 
 
@@ -93,3 +92,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return urlBasedCorsConfigurationSource;
     }
 }
+

@@ -3,16 +3,44 @@ package com.infp.ciat.config.auth;
 import com.infp.ciat.user.entity.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
-public class PrincipalDetails implements UserDetails {
+// Authentication 객체에 저장할 수 있는 유일한 타입
+public class PrincipalDetails implements UserDetails, OAuth2User, Serializable {
 
   private Account account;
+  private Map<String, Object> attributes;
 
   public PrincipalDetails(Account account) {
     this.account = account;
+  }
+
+  /***
+   * ouath2 회원가입 생성자
+   * @param account
+   * @param attributes
+   */
+  public PrincipalDetails(Account account, Map<String, Object> attributes) {
+    this.attributes = attributes;
+    this.account = account;
+
+  }
+
+  // OAuth2User 타입 Map으로 저장된다.
+  @Override
+  public Map<String, Object> getAttributes() {
+    return attributes; // {id:~~~~, name:~~~~, email: ~~~~}
+  }
+
+
+  @Override
+  public String getName() {
+    return (String) attributes.get("name");
   }
 
   // account의 권한을 리턴한다.
@@ -57,4 +85,5 @@ public class PrincipalDetails implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
 }
