@@ -33,7 +33,7 @@ public class Menu extends BaseTimeEntity {
 
     private Long orders;
 
-    private String isActivated;
+    private String showYn;
 
     //categoryList.size() == 0 일 경우
     //private String isGetCategory; // T or F
@@ -49,13 +49,13 @@ public class Menu extends BaseTimeEntity {
 //    private Account account;
 
     @Builder
-    public Menu(String uid, String name, String icon, String url, Long orders, String isActivated) {
+    public Menu(String uid, String name, String icon, String url, Long orders, String showYn) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.isActivated = isActivated;
+        this.showYn = showYn;
     }
 
     public MenuDto fromEntity() {
@@ -66,7 +66,7 @@ public class Menu extends BaseTimeEntity {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
+                .showYn(showYn)
                 .categoryList(categoryList)
                 .build();
     }
@@ -76,6 +76,6 @@ public class Menu extends BaseTimeEntity {
         this.icon = requestDto.getIcon();
         this.url = requestDto.getUrl();
         this.orders = requestDto.getOrders();
-        this.isActivated = requestDto.getIsActivated();
+        this.showYn = requestDto.getShowYn();
     }
 }

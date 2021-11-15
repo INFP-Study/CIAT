@@ -39,7 +39,7 @@ public class MenuService {
                         .icon(m.getIcon())
                         .url(m.getUrl())
                         .orders(m.getOrders())
-                        .isActivated(m.getIsActivated())
+                        .showYn(m.getShowYn())
                         .categoryList(m.getCategoryList())
                         .build())
                 .collect(Collectors.toList());

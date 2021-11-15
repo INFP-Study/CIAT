@@ -18,7 +18,7 @@ public class MenuDto {
     private String icon;
     private String url;
     private Long orders;
-    private String isActivated;
+    private String showYn;
     private List<Category> categoryList;
 //    private Account account;
 
@@ -29,19 +29,19 @@ public class MenuDto {
         this.icon = menu.getIcon();
         this.url = menu.getUrl();
         this.orders = menu.getOrders();
-        this.isActivated = menu.getIsActivated();
+        this.showYn = menu.getShowYn();
         this.categoryList = menu.getCategoryList();
     }
 
     @Builder
-    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String isActivated, List<Category> categoryList) {
+    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String showYn, List<Category> categoryList) {
         this.id = id;
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.isActivated = isActivated;
+        this.showYn = showYn;
         this.categoryList = categoryList;
     }
 }

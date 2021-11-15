@@ -15,16 +15,16 @@ public class MenuSaveRequestDto {
     private String icon;
     private String url;
     private Long orders;
-    private String isActivated;
+    private String showYn;
 
     @Builder
-    public MenuSaveRequestDto(String uid, String name, String icon, String url, Long orders, String isActivated) {
+    public MenuSaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.isActivated = isActivated;
+        this.showYn = showYn;
     }
 
     public Menu toEntity() {
@@ -34,7 +34,7 @@ public class MenuSaveRequestDto {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
+                .showYn(showYn)
                 .build();
     }
 }
