@@ -12,6 +12,7 @@ import { FEED } from '../../../constants';
 import { MdAccountCircle } from 'react-icons/md';
 import { FEED_DAILY_URL } from '../../../constants/urls';
 import { Link } from 'react-router-dom';
+import { FcShop, FcAlarmClock, FcCalendar,FcSteam } from "react-icons/fc";
 
 const SiderAntd = styled(Sider)`
   width: 200px;
@@ -55,36 +56,30 @@ function Category() {
         <MenuAntd mode="inline" defaultSelectedKeys={['0']}>
           <Menu.Item
             key="0"
-            icon={<MdAccountCircle style={{ fontSize: theme.fontSizeIcon }} />}
+            icon={<FcShop style={{ fontSize: theme.fontSizeIcon }} />}
           >
             {/* <Link to={FEED_DAILY_URL}> 일상</Link> */}
             맛집
           </Menu.Item>
           <Menu.Item
             key="1"
-            icon={<UserOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+            icon={<FcAlarmClock style={{ fontSize: theme.fontSizeIcon }} />}
           >
             생활
           </Menu.Item>
           <Menu.Item
             key="2"
             icon={
-              <VideoCameraOutlined style={{ fontSize: theme.fontSizeIcon }} />
+              <FcCalendar style={{ fontSize: theme.fontSizeIcon }} />
             }
           >
             일정
           </Menu.Item>
           <Menu.Item
             key="3"
-            icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+            icon={<FcSteam style={{ fontSize: theme.fontSizeIcon }} />}
           >
             게임
-          </Menu.Item>
-          <Menu.Item
-            key="4"
-            icon={<UploadOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-          >
-            음악
           </Menu.Item>
         </MenuAntd>
       </SiderAntd>
