@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class CategorySaveRequestDto {
 
-    private String uid;
+//    private String uid;
     private String name;
     private String icon;
     private String url;
@@ -20,8 +20,8 @@ public class CategorySaveRequestDto {
     private Account account;
 
     @Builder
-    public CategorySaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu, Account account) {
-        this.uid = uid;
+    public CategorySaveRequestDto(/*String uid, */String name, String icon, String url, Long orders, String showYn, Menu menu, Account account) {
+//        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
@@ -32,7 +32,7 @@ public class CategorySaveRequestDto {
 
     public Category toEntity() {
         return Category.builder()
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)

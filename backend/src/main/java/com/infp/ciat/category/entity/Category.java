@@ -20,7 +20,7 @@ public class Category extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String uid;
+//    private String uid;
 
     private String name;
 
@@ -47,8 +47,8 @@ public class Category extends BaseTimeEntity {
     private Account updater; // 최근에 업데이트한 사용자
 
     @Builder
-    public Category(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu, Account account, Account updater) {
-        this.uid = uid;
+    public Category(/*String uid, */String name, String icon, String url, Long orders, String showYn, Menu menu, Account account, Account updater) {
+//        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
@@ -62,7 +62,7 @@ public class Category extends BaseTimeEntity {
     public CategoryDto fromEntity() {
         return CategoryDto.builder()
                 .id(id)
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)

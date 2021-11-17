@@ -14,7 +14,7 @@ import java.util.List;
 public class MenuDto {
 
     private Long id;
-    private String uid;
+//    private String uid;
     private String name;
     private String icon;
     private String url;
@@ -26,7 +26,7 @@ public class MenuDto {
 
     public MenuDto(Menu menu) {
         this.id = menu.getId();
-        this.uid = menu.getUid();
+//        this.uid = menu.getUid();
         this.name = menu.getName();
         this.icon = menu.getIcon();
         this.url = menu.getUrl();
@@ -38,9 +38,9 @@ public class MenuDto {
     }
 
     @Builder
-    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String showYn, List<Category> categoryList, Account account, Account updater) {
+    public MenuDto(Long id,/* String uid,*/ String name, String icon, String url, Long orders, String showYn, List<Category> categoryList, Account account, Account updater) {
         this.id = id;
-        this.uid = uid;
+//        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;

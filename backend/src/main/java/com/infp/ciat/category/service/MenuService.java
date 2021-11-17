@@ -36,7 +36,7 @@ public class MenuService {
                 .stream()
                 .map(m -> MenuDto.builder()
                         .id(m.getId())
-                        .uid(m.getUid())
+//                        .uid(m.getUid())
                         .name(m.getName())
                         .icon(m.getIcon())
                         .url(m.getUrl())

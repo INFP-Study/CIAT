@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MenuSaveRequestDto {
 
-    private String uid;
+//    private String uid;
     private String name;
     private String icon;
     private String url;
@@ -20,8 +20,8 @@ public class MenuSaveRequestDto {
     private Account account;
 
     @Builder
-    public MenuSaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn, Account account) {
-        this.uid = uid;
+    public MenuSaveRequestDto(/*String uid,*/String name, String icon, String url, Long orders, String showYn, Account account) {
+//        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
@@ -32,7 +32,7 @@ public class MenuSaveRequestDto {
 
     public Menu toEntity() {
         return Menu.builder()
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)

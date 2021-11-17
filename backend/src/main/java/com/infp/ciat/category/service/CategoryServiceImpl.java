@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .stream()
                 .map(c -> CategoryDto.builder()
                         .id(c.getId())
-                        .uid(c.getUid())
+//                        .uid(c.getUid())
                         .name(c.getName())
                         .icon(c.getIcon())
                         .url(c.getUrl())

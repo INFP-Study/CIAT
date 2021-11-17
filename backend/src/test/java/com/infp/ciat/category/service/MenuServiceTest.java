@@ -52,7 +52,7 @@ public class MenuServiceTest {
         String showYn = "Y";
 
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)
@@ -67,7 +67,7 @@ public class MenuServiceTest {
         // then
         List<Menu> all = menuRepository.findAll();
 
-        assertThat(all.get(0).getUid()).isEqualTo(uid);
+//        assertThat(all.get(0).getUid()).isEqualTo(uid);
         assertThat(all.get(0).getName()).isEqualTo(name);
         assertThat(all.get(0).getIcon()).isEqualTo(icon);
         assertThat(all.get(0).getUrl()).isEqualTo(url);
@@ -80,7 +80,7 @@ public class MenuServiceTest {
     public void getMenuList() {
         // given
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
-                .uid("M001")
+//                .uid("M001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -88,7 +88,7 @@ public class MenuServiceTest {
                 .showYn("Y")
                 .build();
         MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
-                .uid("M001")
+//                .uid("M001")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")
@@ -118,7 +118,7 @@ public class MenuServiceTest {
         String showYn = "Y";
 
         Menu savedMenu = menuRepository.save(Menu.builder()
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)
@@ -130,7 +130,7 @@ public class MenuServiceTest {
         MenuDto detail = menuService.getDetail(savedMenu.getId());
 
         // then
-        assertThat(detail.getUid()).isEqualTo(uid);
+//        assertThat(detail.getUid()).isEqualTo(uid);
         assertThat(detail.getName()).isEqualTo(name);
         assertThat(detail.getIcon()).isEqualTo(icon);
         assertThat(detail.getUrl()).isEqualTo(url);
@@ -143,7 +143,7 @@ public class MenuServiceTest {
     public void updateMenu() {
         // given
         Menu savedMenu = menuRepository.save(Menu.builder()
-                .uid("M001")
+//                .uid("M001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -177,7 +177,7 @@ public class MenuServiceTest {
     public void deleteMenu() {
         // given
         Menu savedMenu1 = menuRepository.save(Menu.builder()
-                .uid("M001")
+//                .uid("M001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -185,7 +185,7 @@ public class MenuServiceTest {
                 .showYn("Y")
                 .build());
         Menu savedMenu2 = menuRepository.save(Menu.builder()
-                .uid("M002")
+//                .uid("M002")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")
@@ -209,7 +209,7 @@ public class MenuServiceTest {
     public void getMenuAndCatInOrder() {
         // given
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
-                .uid("M001")
+//                .uid("M001")
                 .name("hello")
                 .icon("icon")
                 .url("/url")
@@ -217,7 +217,7 @@ public class MenuServiceTest {
                 .showYn("Y")
                 .build();
         MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
-                .uid("M002")
+//                .uid("M002")
                 .name("hello")
                 .icon("icon")
                 .url("/url")
@@ -230,7 +230,7 @@ public class MenuServiceTest {
         Menu menu = menuRepository.findAll().get(0);
 
         CategorySaveRequestDto catRequestDto = CategorySaveRequestDto.builder()
-                .uid("M001C001")
+//                .uid("M001C001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -239,7 +239,7 @@ public class MenuServiceTest {
                 .menu(menu)
                 .build();
         CategorySaveRequestDto catRequestDto2 = CategorySaveRequestDto.builder()
-                .uid("M001C002")
+//                .uid("M001C002")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")
@@ -248,7 +248,7 @@ public class MenuServiceTest {
                 .menu(menu)
                 .build();
         CategorySaveRequestDto catRequestDto3 = CategorySaveRequestDto.builder()
-                .uid("M001C003")
+//                .uid("M001C003")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")
@@ -266,11 +266,11 @@ public class MenuServiceTest {
         List<Category> categoryList = list.get(1).getCategoryList();
 
         // then
-        assertThat(list.get(0).getUid()).isEqualTo("M002");
-        assertThat(list.get(1).getUid()).isEqualTo("M001");
-
-        assertThat(categoryList.get(0).getUid()).isEqualTo("M001C003");
-        assertThat(categoryList.get(1).getUid()).isEqualTo("M001C001");
-        assertThat(categoryList.get(2).getUid()).isEqualTo("M001C002");
+//        assertThat(list.get(0).getUid()).isEqualTo("M002");
+//        assertThat(list.get(1).getUid()).isEqualTo("M001");
+//
+//        assertThat(categoryList.get(0).getUid()).isEqualTo("M001C003");
+//        assertThat(categoryList.get(1).getUid()).isEqualTo("M001C001");
+//        assertThat(categoryList.get(2).getUid()).isEqualTo("M001C002");
     }
 }

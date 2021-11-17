@@ -34,7 +34,7 @@ class CategoryServiceTest {
     @BeforeEach
     void createMenu() {
         MenuSaveRequestDto menuSaveRequestDto = MenuSaveRequestDto.builder()
-                .uid("M001")
+//                .uid("M001")
                 .name("test menu")
                 .icon("test")
                 .url("https://www.naver.com")
@@ -61,7 +61,7 @@ class CategoryServiceTest {
         Menu menu = menuRepository.findAll().get(0);
 
         CategorySaveRequestDto requestDto = CategorySaveRequestDto.builder()
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)
@@ -75,7 +75,7 @@ class CategoryServiceTest {
         // then
         List<Category> all = categoryRepository.findAll();
 
-        assertThat(all.get(0).getUid()).isEqualTo(uid);
+//        assertThat(all.get(0).getUid()).isEqualTo(uid);
         assertThat(all.get(0).getName()).isEqualTo(name);
         assertThat(all.get(0).getIcon()).isEqualTo(icon);
         assertThat(all.get(0).getUrl()).isEqualTo(url);
@@ -88,7 +88,7 @@ class CategoryServiceTest {
     public void getCategoryList() {
         // given
         CategorySaveRequestDto requestDto = CategorySaveRequestDto.builder()
-                .uid("M001C001")
+//                .uid("M001C001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -96,7 +96,7 @@ class CategoryServiceTest {
                 .menu(menuRepository.findAll().get(0))
                 .build();
         CategorySaveRequestDto requestDto2 = CategorySaveRequestDto.builder()
-                .uid("M001C002")
+//                .uid("M001C002")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")
@@ -127,7 +127,7 @@ class CategoryServiceTest {
         Menu menu = menuRepository.findAll().get(0);
 
         Category savedCat = categoryRepository.save(Category.builder()
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)
@@ -140,7 +140,7 @@ class CategoryServiceTest {
         CategoryDto detail = categoryService.getDetail(savedCat.getId());
 
         // then
-        assertThat(detail.getUid()).isEqualTo(uid);
+//        assertThat(detail.getUid()).isEqualTo(uid);
         assertThat(detail.getName()).isEqualTo(name);
         assertThat(detail.getIcon()).isEqualTo(icon);
         assertThat(detail.getUrl()).isEqualTo(url);
@@ -153,7 +153,7 @@ class CategoryServiceTest {
     public void updateCategory() {
         // given
         Category savedCat = categoryRepository.save(Category.builder()
-                .uid("M001C001")
+//                .uid("M001C001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -184,7 +184,7 @@ class CategoryServiceTest {
     public void deleteCategory() {
         // given
         Category savedCat1 = categoryRepository.save(Category.builder()
-                .uid("M001C001")
+//                .uid("M001C001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
@@ -193,7 +193,7 @@ class CategoryServiceTest {
                 .menu(menuRepository.findAll().get(0))
                 .build());
         Category savedCat2 = categoryRepository.save(Category.builder()
-                .uid("M001C002")
+//                .uid("M001C002")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")

@@ -25,7 +25,7 @@ public class Menu extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String uid;
+//    private String uid;
 
     private String name;
 
@@ -57,8 +57,8 @@ public class Menu extends BaseTimeEntity {
     private Account updater;
 
     @Builder
-    public Menu(String uid, String name, String icon, String url, Long orders, String showYn, Account account) {
-        this.uid = uid;
+    public Menu(/*String uid, */String name, String icon, String url, Long orders, String showYn, Account account) {
+//        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
@@ -70,7 +70,7 @@ public class Menu extends BaseTimeEntity {
     public MenuDto fromEntity() {
         return MenuDto.builder()
                 .id(id)
-                .uid(uid)
+//                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)

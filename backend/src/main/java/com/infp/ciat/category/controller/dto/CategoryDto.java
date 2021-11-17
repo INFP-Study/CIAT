@@ -13,7 +13,7 @@ import lombok.Setter;
 public class CategoryDto {
 
     private Long id;
-    private String uid;
+//    private String uid;
     private String name;
     private String icon;
     private String url;
@@ -25,7 +25,7 @@ public class CategoryDto {
 
     public CategoryDto(Category category) {
         this.id = category.getId();
-        this.uid = category.getUid();
+//        this.uid = category.getUid();
         this.name = category.getName();
         this.icon = category.getIcon();
         this.url = category.getUrl();
@@ -37,9 +37,9 @@ public class CategoryDto {
     }
 
     @Builder
-    public CategoryDto(Long id, String uid, String name, String icon, String url, Long orders, String showYn, Menu menu, Account account, Account updater) {
+    public CategoryDto(Long id,/* String uid,*/ String name, String icon, String url, Long orders, String showYn, Menu menu, Account account, Account updater) {
         this.id = id;
-        this.uid = uid;
+//        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
