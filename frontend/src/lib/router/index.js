@@ -18,6 +18,7 @@ import PlantManagement from '../../pages/plant-management';
 import Setting from '../../pages/setting';
 import SignUp from '../../pages/auth/sign-up';
 import FeedDetail from '../../pages/feed-detail';
+import NotFound from '../../pages/error';
 
 function index() {
   return (
@@ -30,6 +31,7 @@ function index() {
       <Route exact path={SETTING_URL} component={Setting} />
       <Route exact path={DOCUMENT_URL} component={Document} />
       <Route exact path={MAIN_URL} component={Home} />
+      <Route component={NotFound} />
     </BrowserRouter>
   );
 }

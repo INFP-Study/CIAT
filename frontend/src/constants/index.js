@@ -20,4 +20,9 @@ export const TERMS_OF_USE = '이용약관';
 export const FULL_CONSENT = '전체동의';
 export const ESSENTIAL_TEXT = '*위 항목은 필수항목입니다.';
 
+export const HOME = '홈으로';
+export const ERROR_CONTENT_F = '찾을수 없는 페이지 입니다.';
+export const ERROR_CONTENT_S = '요청하신 페이지가 사라졌거나 잘못된 경로입니다.';
+export const ERROR_CODE = '404';
+
 export const POST_SUBMIT = '게시하기';
