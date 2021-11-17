@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import {
   DOCUMENT_URL,
   FEED_ROUTE,
@@ -18,18 +18,22 @@ import PlantManagement from '../../pages/plant-management';
 import Setting from '../../pages/setting';
 import SignUp from '../../pages/auth/sign-up';
 import FeedDetail from '../../pages/feed-detail';
+import NotFound from '../../pages/error';
 
 function index() {
   return (
     <BrowserRouter>
-      <Route exact path={SIGN_IN_URL} component={SignIn} />
-      <Route exact path={SIGN_UP_URL} component={SignUp} />
-      <Route exact path={PLANT_MANAGEMENT_URL} component={PlantManagement} />
-      <Route exact path={FEED_URL} component={Feed} />
-      <Route path={FEED_ROUTE} component={FeedDetail} />
-      <Route exact path={SETTING_URL} component={Setting} />
-      <Route exact path={DOCUMENT_URL} component={Document} />
-      <Route exact path={MAIN_URL} component={Home} />
+      <Switch>
+        <Route exact path={SIGN_IN_URL} component={SignIn} />
+        <Route exact path={SIGN_UP_URL} component={SignUp} />
+        <Route exact path={PLANT_MANAGEMENT_URL} component={PlantManagement} />
+        <Route exact path={FEED_URL} component={Feed} />
+        <Route path={FEED_ROUTE} component={FeedDetail} />
+        <Route exact path={SETTING_URL} component={Setting} />
+        <Route exact path={DOCUMENT_URL} component={Document} />
+        <Route exact path={MAIN_URL} component={Home} />
+        <Route component={NotFound} />
+      </Switch>
     </BrowserRouter>
   );
 }
