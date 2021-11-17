@@ -9,7 +9,7 @@ module.exports = {
   // Where files should be sent once they are bundled
   entry: path.resolve(__dirname, '../src/index.js'),
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, '../dist'),
     filename: 'index.bundle.js',
   },
   // webpack 5 comes with devServer which loads in development mode
@@ -54,4 +54,7 @@ module.exports = {
     }),
     // new webpack.ProgressPlugin(), // 웹팩의 빌드 진행율을 표시해주는 플러그인
   ],
+  performance: {
+    hints: process.env.NODE_ENV === 'production' ? "warning" : false
+  },
 };
