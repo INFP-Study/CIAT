@@ -54,4 +54,7 @@ module.exports = {
     }),
     // new webpack.ProgressPlugin(), // 웹팩의 빌드 진행율을 표시해주는 플러그인
   ],
+  performance: {
+    hints: process.env.NODE_ENV === 'production' ? "warning" : false
+  },
 };
