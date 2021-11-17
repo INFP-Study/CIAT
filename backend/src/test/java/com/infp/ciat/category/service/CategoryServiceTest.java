@@ -38,7 +38,6 @@ class CategoryServiceTest {
                 .icon("test")
                 .url("https://www.naver.com")
                 .orders(1L)
-                .isActivated("Y")
                 .build();
 
         menuRepository.save(menuSaveRequestDto.toEntity());
@@ -58,8 +57,7 @@ class CategoryServiceTest {
         String icon = "doc";
         String url = "https://www.naver.com";
         Long orders = 3L;
-        String isActivated = "Y";
-        Menu menu = menuRepository.findById(1L).get();
+        Menu menu = menuRepository.findAll().get(0);
 
         CategorySaveRequestDto requestDto = CategorySaveRequestDto.builder()
                 .uid(uid)
@@ -67,7 +65,6 @@ class CategoryServiceTest {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
                 .menu(menu)
                 .build();
 
@@ -82,7 +79,7 @@ class CategoryServiceTest {
         assertThat(all.get(0).getIcon()).isEqualTo(icon);
         assertThat(all.get(0).getUrl()).isEqualTo(url);
         assertThat(all.get(0).getOrders()).isEqualTo(orders);
-        assertThat(all.get(0).getIsActivated()).isEqualTo(isActivated);
+        assertThat(all.get(0).getShowYn()).isEqualTo("Y");
     }
 
     @Test
@@ -95,8 +92,7 @@ class CategoryServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated("Y")
-                .menu(menuRepository.findById(1L).get())
+                .menu(menuRepository.findAll().get(0))
                 .build();
         CategorySaveRequestDto requestDto2 = CategorySaveRequestDto.builder()
                 .uid("M001C002")
@@ -104,7 +100,6 @@ class CategoryServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(2L)
-                .isActivated("N")
                 .menu(menuRepository.findById(1L).get())
                 .build();
 
@@ -127,8 +122,8 @@ class CategoryServiceTest {
         String icon = "test";
         String url = "/test";
         Long orders = 1L;
-        String isActivated = "Y";
-        Menu menu = menuRepository.findById(1L).get();
+//        String showYn = "Y";
+        Menu menu = menuRepository.findAll().get(0);
 
         Category savedCat = categoryRepository.save(Category.builder()
                 .uid(uid)
@@ -136,7 +131,7 @@ class CategoryServiceTest {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .isActivated(isActivated)
+//                .showYn(showYn)
                 .menu(menu)
                 .build());
 
@@ -149,7 +144,7 @@ class CategoryServiceTest {
         assertThat(detail.getIcon()).isEqualTo(icon);
         assertThat(detail.getUrl()).isEqualTo(url);
         assertThat(detail.getOrders()).isEqualTo(orders);
-        assertThat(detail.getIsActivated()).isEqualTo(isActivated);
+        assertThat(detail.getShowYn()).isEqualTo("Y");
     }
 
     @Test
@@ -162,20 +157,17 @@ class CategoryServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated("Y")
-                .menu(menuRepository.findById(1L).get())
+                .menu(menuRepository.findAll().get(0))
                 .build());
 
         Long updateId = savedCat.getId();
         String newName = "test22";
-        String inactivate = "N";
 
         CategoryUpdateRequestDto requestDto = CategoryUpdateRequestDto.builder()
                 .name(newName)
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated(inactivate)
                 .build();
 
         // when
@@ -184,7 +176,6 @@ class CategoryServiceTest {
         // then
         List<Category> all = categoryRepository.findAll();
         assertThat(all.get(0).getName()).isEqualTo(newName);
-        assertThat(all.get(0).getIsActivated()).isEqualTo(inactivate);
     }
 
     @Test
@@ -197,8 +188,8 @@ class CategoryServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .isActivated("Y")
-                .menu(menuRepository.findById(1L).get())
+//                .showYn("Y")
+                .menu(menuRepository.findAll().get(0))
                 .build());
         Category savedCat2 = categoryRepository.save(Category.builder()
                 .uid("M001C002")
@@ -206,8 +197,8 @@ class CategoryServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(2L)
-                .isActivated("Y")
-                .menu(menuRepository.findById(1L).get())
+//                .showYn("Y")
+                .menu(menuRepository.findAll().get(0))
                 .build());
 
         // when
@@ -215,8 +206,9 @@ class CategoryServiceTest {
 
         // then
         List<Category> all = categoryRepository.findAll();
-        assertThat(all.size()).isEqualTo(1);
-        assertThat(all.get(0).getUid()).isEqualTo("M001C002");
+        assertThat(all.size()).isEqualTo(2);
+        assertThat(all.get(0).getShowYn()).isEqualTo("N");
+        assertThat(all.get(1).getShowYn()).isEqualTo("Y");
     }
 
 }

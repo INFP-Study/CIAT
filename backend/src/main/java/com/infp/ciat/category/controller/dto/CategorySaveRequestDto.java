@@ -16,7 +16,6 @@ public class CategorySaveRequestDto {
     private String icon;
     private String url;
     private Long orders;
-    private String showYn;
     private Menu menu;
 //    private Account account;
 
@@ -27,7 +26,6 @@ public class CategorySaveRequestDto {
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.showYn = showYn;
         this.menu = menu;
 //        this.account = account;
     }
@@ -39,7 +37,6 @@ public class CategorySaveRequestDto {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
                 .menu(menu)
 //                .account(account)
                 .build();

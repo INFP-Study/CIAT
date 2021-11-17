@@ -16,17 +16,15 @@ public class CategoryUpdateRequestDto {
     private String icon;
     private String url;
     private Long orders;
-    private String showYn;
     private Menu menu;
 //    private Account account;
 
     @Builder
-    public CategoryUpdateRequestDto(String name, String icon, String url, Long orders, String showYn, Menu menu/*, Account account*/) {
+    public CategoryUpdateRequestDto(String name, String icon, String url, Long orders, Menu menu/*, Account account*/) {
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.showYn = showYn;
         this.menu = menu;
 //        this.account  = account;
     }

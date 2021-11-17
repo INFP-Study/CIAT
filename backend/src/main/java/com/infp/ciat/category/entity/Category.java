@@ -7,6 +7,7 @@ import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -29,7 +30,7 @@ public class Category extends BaseTimeEntity {
 
     private Long orders;
 
-    private String showYn;
+    private String showYn = "Y";
 
     @ManyToOne
     @JoinColumn(name = "menu_id")
@@ -70,9 +71,17 @@ public class Category extends BaseTimeEntity {
         this.icon = requestDto.getIcon();
         this.url = requestDto.getUrl();
         this.orders = requestDto.getOrders();
-        this.showYn = requestDto.getShowYn();
         this.menu = requestDto.getMenu();
 //        this.account = requestDto.getAccount();
+    }
+
+    public void delete() {
+        this.showYn = "N";
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.showYn = this.showYn == null ? "Y" : this.showYn;
     }
 
 }

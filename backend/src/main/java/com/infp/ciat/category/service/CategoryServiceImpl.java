@@ -61,7 +61,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public Long delete(Long id) {
-        categoryRepository.deleteById(id);
+        Category targetCategory = categoryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
+        targetCategory.delete();
 
         return id;
     }
