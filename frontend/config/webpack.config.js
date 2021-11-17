@@ -9,7 +9,7 @@ module.exports = {
   // Where files should be sent once they are bundled
   entry: path.resolve(__dirname, '../src/index.js'),
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '../build'),
     filename: '[name].js',
     clean: true,
     assetModuleFilename: 'assets/[hash].[ext]?[query]',
