@@ -5,6 +5,7 @@ import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.repository.CategoryRepository;
+import com.infp.ciat.user.entity.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public CategoryDto create(CategorySaveRequestDto requestDto) {
+    public CategoryDto create(CategorySaveRequestDto requestDto, Account account) {
+        requestDto.insertAccount(account);
         return new CategoryDto(categoryRepository.save(requestDto.toEntity()));
     }
 
@@ -38,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
                         .orders(c.getOrders())
                         .showYn(c.getShowYn())
                         .menu(c.getMenu())
+                        .account(c.getAccount())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -51,8 +54,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public Long update(Long id, CategoryUpdateRequestDto requestDto) {
+    public Long update(Long id, CategoryUpdateRequestDto requestDto, Account account) {
         Category targetCategory = categoryRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
+        requestDto.addUpdater(account);
         targetCategory.update(requestDto);
 
         return targetCategory.getId();

@@ -17,17 +17,17 @@ public class CategorySaveRequestDto {
     private String url;
     private Long orders;
     private Menu menu;
-//    private Account account;
+    private Account account;
 
     @Builder
-    public CategorySaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu/*, Account account*/) {
+    public CategorySaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu, Account account) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
         this.menu = menu;
-//        this.account = account;
+        this.account = account;
     }
 
     public Category toEntity() {
@@ -38,7 +38,11 @@ public class CategorySaveRequestDto {
                 .url(url)
                 .orders(orders)
                 .menu(menu)
-//                .account(account)
+                .account(account)
                 .build();
+    }
+
+    public void insertAccount(Account account) {
+        this.account = account;
     }
 }

@@ -1,5 +1,6 @@
 package com.infp.ciat.category.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.infp.ciat.category.controller.dto.CategoryDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.common.BaseTimeEntity;
@@ -7,7 +8,6 @@ import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -36,12 +36,18 @@ public class Category extends BaseTimeEntity {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-//    @ManyToOne
-//    @JoinColumn(name = "accountId")
-//    private Account account;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    @JsonIgnore
+    private Account account; // 처음 카테고리 생성한 사용자
+
+    @ManyToOne
+    @JoinColumn(name = "updated_account_id")
+    @JsonIgnore
+    private Account updater; // 최근에 업데이트한 사용자
 
     @Builder
-    public Category(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu/*, Account account*/) {
+    public Category(String uid, String name, String icon, String url, Long orders, String showYn, Menu menu, Account account, Account updater) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
@@ -49,7 +55,8 @@ public class Category extends BaseTimeEntity {
         this.orders = orders;
         this.showYn = showYn;
         this.menu = menu;
-//        this.account = account;
+        this.account = account;
+        this.updater = updater;
     }
 
     public CategoryDto fromEntity() {
@@ -62,7 +69,8 @@ public class Category extends BaseTimeEntity {
                 .orders(orders)
                 .showYn(showYn)
                 .menu(menu)
-//                .account(account)
+                .account(account)
+                .updater(updater)
                 .build();
     }
 
@@ -72,7 +80,7 @@ public class Category extends BaseTimeEntity {
         this.url = requestDto.getUrl();
         this.orders = requestDto.getOrders();
         this.menu = requestDto.getMenu();
-//        this.account = requestDto.getAccount();
+        this.updater = requestDto.getUpdater();
     }
 
     public void delete() {

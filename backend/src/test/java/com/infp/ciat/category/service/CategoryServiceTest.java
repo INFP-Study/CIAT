@@ -8,6 +8,7 @@ import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.CategoryRepository;
 import com.infp.ciat.category.repository.MenuRepository;
+import com.infp.ciat.user.entity.Account;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

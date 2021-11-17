@@ -17,16 +17,20 @@ public class CategoryUpdateRequestDto {
     private String url;
     private Long orders;
     private Menu menu;
-//    private Account account;
+    private Account updater;
 
     @Builder
-    public CategoryUpdateRequestDto(String name, String icon, String url, Long orders, Menu menu/*, Account account*/) {
+    public CategoryUpdateRequestDto(String name, String icon, String url, Long orders, Menu menu, Account updater) {
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
         this.menu = menu;
-//        this.account  = account;
+        this.updater = updater;
+    }
+
+    public void addUpdater(Account updater) {
+        this.updater = updater;
     }
 
 }
