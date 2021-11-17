@@ -7,6 +7,7 @@ const BundleAnalyzerPlugin =
 module.exports = {
   mode: 'development',
   // Where files should be sent once they are bundled
+  entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'index.bundle.js',
@@ -15,14 +16,14 @@ module.exports = {
   devServer: {
     port: 3000,
     liveReload: true,
-    historyApiFallback: true, //라우트 사용 위해 추가
+    historyApiFallback: { index: '/', disableDotRule: true }, //라우트 사용 위해 추가
   },
   // Rules of how webpack will take our files, complie & bundle them for the browser
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /nodeModules/,
+        exclude: path.resolve(__dirname, '../node_modules'),
         use: {
           loader: 'babel-loader',
         },
@@ -36,12 +37,6 @@ module.exports = {
             loader: 'less-loader',
             options: {
               lessOptions: {
-                // If you are using less-loader@5 please spread the lessOptions to options directly
-                modifyVars: {
-                  'primary-color': '#1DA57A',
-                  'link-color': '#1DA57A',
-                  'border-radius-base': '2px',
-                },
                 javascriptEnabled: true,
               },
             },

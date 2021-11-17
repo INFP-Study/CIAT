@@ -1,4 +1,20 @@
 spring:
+  security:
+    oauth2:
+      client:
+        # registration
+        registration:
+          # google oauth2 setting
+          google:
+            client-id: ENC(yOSSFYzdF6BFvb+VhuwrUUvnEwhdYJQhPAt7O+I9CP/fGWq0EjmEwnYXmz7Yu/QyS9kwLcV4TyTVvnikUI4PKr+eEk1AUVMKNayFLTnIKA8f4KnP82cNsbQKaM/DN2N7Taw0LJHl4CMP8+QBBRI0JA==)
+            client-secret: ENC(n093NQezyIRURhvV7DI/t5NrG5WL9f/ks4NkKhEew6X+GBEpCuzW4syxqsRYO3jkqYELcDNz2xPUz3X9Dzp3yW2WLLp8k0Hq5rGyyhTgl5I=)
+            scope:
+              - profile
+              - email
+          # github oauth2 setting
+          github:
+            client-id: ENC(avR1sIiT2FjiEV8Gfc9VsnDj64R1Z76CsfJUkbWraReGvQPXBo27UKP6Pm3rhs18EgqNtD7b2Xm5IwezPSkprA==)
+            client-secret: ENC(6h5LvXhqQHUPBD6JqnwzNRlFlfA0g4tjqgP0cPxOUUiVBYIylACHiBS++qICPA2pAzubXiXMDxXkwj7GRz6Dofsz2utfQ/YNrlVNsAOYhTE=)
   datasource:
     url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
@@ -10,10 +26,19 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        ddl-auto: update
+        ddl-auto: create
+
+fileserver:
+  token: ENC(4i+napZ2o691GlpQnKcg0InhWJRGZlN4KpHujh1eXNEgJ+6JVnAAe4w9KT2tZxazqwbzvZ9uBaYjY6vKzoiGAQ==)
+  host: ENC(trUz6cwx6VCVf3LZC2T2aCbBTCyKb92tXJukH9yPL6KZiWPNFHsCWC0eZQUz2nfOul95hRBM5NE3D0xx0uYcjg==)
 
 logging:
   level:
     com:
       infp:
         ciat: debug
+
+#공공포탈 api service key, public url
+forest:
+  url: http://openapi.nature.go.kr/openapi/service/rest/PlantService/
+  key: ENC(MdrFVAlwH9q22dxui/hBNU+NfR/Co0MZ+uJsApaszAEHSMkbay050trrzbEZXNqpWUxpPkJdEHZqpRuzWw65X568JeC+mNDLGcvAWuCoRAGlXHoBm1iFsDlrEI4s7FZB7xh87r9OswyBW7IQKMxLLlfPFeH/PX6nsEBNZNlyV2ULB8zAA7YZaLFMRvUdwbQK)
