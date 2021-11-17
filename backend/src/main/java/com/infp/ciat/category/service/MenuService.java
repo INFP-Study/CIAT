@@ -4,6 +4,7 @@ import com.infp.ciat.category.controller.dto.*;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.MenuRepository;
+import com.infp.ciat.user.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,8 @@ public class MenuService {
     MenuRepository menuRepository;
 
     @Transactional
-    public MenuDto create(MenuSaveRequestDto requestDto) {
+    public MenuDto create(MenuSaveRequestDto requestDto, Account account) {
+        requestDto.insertAccount(account);
         return new MenuDto(menuRepository.save(requestDto.toEntity()));
     }
 
@@ -61,8 +63,9 @@ public class MenuService {
     }
 
     @Transactional
-    public Long update(Long id, MenuUpdateRequestDto requestDto) {
+    public Long update(Long id, MenuUpdateRequestDto requestDto, Account account) {
         Menu targetMenu = menuRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 메뉴가 없습니다."));
+        requestDto.addUpdater(account);
         targetMenu.update(requestDto);
 
         return targetMenu.getId();

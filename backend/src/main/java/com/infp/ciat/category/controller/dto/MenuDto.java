@@ -2,6 +2,7 @@ package com.infp.ciat.category.controller.dto;
 
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
+import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,8 @@ public class MenuDto {
     private Long orders;
     private String showYn;
     private List<Category> categoryList;
-//    private Account account;
+    private Account account;
+    private Account updater;
 
     public MenuDto(Menu menu) {
         this.id = menu.getId();
@@ -31,10 +33,12 @@ public class MenuDto {
         this.orders = menu.getOrders();
         this.showYn = menu.getShowYn();
         this.categoryList = menu.getCategoryList();
+        this.account = menu.getAccount();
+        this.updater = menu.getUpdater();
     }
 
     @Builder
-    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String showYn, List<Category> categoryList) {
+    public MenuDto(Long id, String uid, String name, String icon, String url, Long orders, String showYn, List<Category> categoryList, Account account, Account updater) {
         this.id = id;
         this.uid = uid;
         this.name = name;
@@ -43,5 +47,7 @@ public class MenuDto {
         this.orders = orders;
         this.showYn = showYn;
         this.categoryList = categoryList;
+        this.account = account;
+        this.updater = updater;
     }
 }

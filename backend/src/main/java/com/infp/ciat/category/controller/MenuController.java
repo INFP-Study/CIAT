@@ -5,9 +5,11 @@ import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
 import com.infp.ciat.category.controller.dto.MenuUpdateRequestDto;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.service.MenuService;
+import com.infp.ciat.config.auth.PrincipalDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class MenuController {
     MenuService menuService;
 
     @PostMapping("/menu")
-    public ResponseEntity<MenuDto> newMenu(@RequestBody MenuSaveRequestDto requestDto) {
-        MenuDto newMenu = menuService.create(requestDto);
+    public ResponseEntity<MenuDto> newMenu(@RequestBody MenuSaveRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        MenuDto newMenu = menuService.create(requestDto, principalDetails.getAccount());
         return new ResponseEntity<>(newMenu, HttpStatus.CREATED);
     }
 
@@ -35,8 +37,8 @@ public class MenuController {
     }
 
     @PutMapping("/menu/{id}")
-    public ResponseEntity<Long> updateMenu(@PathVariable Long id, @RequestBody MenuUpdateRequestDto requestDto) {
-        return new ResponseEntity<>(menuService.update(id, requestDto), HttpStatus.OK);
+    public ResponseEntity<Long> updateMenu(@PathVariable Long id, @RequestBody MenuUpdateRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return new ResponseEntity<>(menuService.update(id, requestDto, principalDetails.getAccount()), HttpStatus.OK);
     }
 
     @PatchMapping("/menu/{id}")

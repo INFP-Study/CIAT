@@ -2,6 +2,7 @@ package com.infp.ciat.category.controller.dto;
 
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
+import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,17 @@ public class MenuSaveRequestDto {
     private String url;
     private Long orders;
     private String showYn;
+    private Account account;
 
     @Builder
-    public MenuSaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn) {
+    public MenuSaveRequestDto(String uid, String name, String icon, String url, Long orders, String showYn, Account account) {
         this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
         this.showYn = showYn;
+        this.account = account;
     }
 
     public Menu toEntity() {
@@ -35,6 +38,12 @@ public class MenuSaveRequestDto {
                 .url(url)
                 .orders(orders)
                 .showYn(showYn)
+                .account(account)
                 .build();
     }
+
+    public void insertAccount(Account account) {
+        this.account = account;
+    }
+
 }
