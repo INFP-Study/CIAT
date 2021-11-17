@@ -31,6 +31,10 @@ public class PrincipalDetails implements UserDetails, OAuth2User, Serializable {
 
   }
 
+  public Account getAccount() {
+    return account;
+  }
+
   // OAuth2User 타입 Map으로 저장된다.
   @Override
   public Map<String, Object> getAttributes() {
