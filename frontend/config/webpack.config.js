@@ -13,6 +13,7 @@ module.exports = {
     filename: '[name].js',
     clean: true,
     assetModuleFilename: 'assets/[hash].[ext]?[query]',
+    publicPath: '/build/',
   },
   // webpack 5 comes with devServer which loads in development mode
   devServer: {
@@ -46,8 +47,19 @@ module.exports = {
         ],
       },
       {
-        test: /\.(ico|png|jpe?g|gif|jpeg|svg|woff|woff2|eot|ttf|otf)$/,
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
         type: 'asset/resource',
+      },
+      {
+        test: /\.(ico|png|jpe?g|gif|svg|webp)$/i,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[contenthash].[ext]',
+            publicPath: '/images/',
+            outputPath: '/images/',
+          },
+        },
       },
     ],
   },
@@ -61,6 +73,6 @@ module.exports = {
     // new webpack.ProgressPlugin(), // 웹팩의 빌드 진행율을 표시해주는 플러그인
   ],
   performance: {
-    hints: process.env.NODE_ENV === 'production' ? "warning" : false
+    hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
   },
 };
