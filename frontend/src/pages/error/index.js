@@ -10,7 +10,6 @@ import {
 import { theme } from '../../style/theme';
 import { Link } from 'react-router-dom';
 import { MAIN_URL } from '../../constants/urls';
-import error404 from '/public/images/404logo.png';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -56,7 +55,7 @@ function NotFound() {
     <>
       <Wrapper>
         <InnerWrapper style={{ paddingTop: '100px' }}>
-          <Logo src={error404} />
+          <Logo className="404image" alt="404logo" src="image/404logo.png" />
           <Box
             style={{
               textShadow:
