@@ -17,7 +17,9 @@ function FeedCotent({ id, content, author, date, comment, src, like }) {
         {content}
       </div>
       {src.length === 1 ? (
-        <img width={642} height={642} src={src} />
+        <Link to={`/feed/${id}`}>
+          <img width={642} height={642} src={src} />
+        </Link>
       ) : (
         <Space size={2} wrap>
           {src.map((src, i) => (
