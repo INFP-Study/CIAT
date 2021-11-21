@@ -160,7 +160,6 @@ public class MenuServiceTest {
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .showYn(showYn)
                 .build();
 
         // when

@@ -41,7 +41,6 @@ public class MenuService {
                         .icon(m.getIcon())
                         .url(m.getUrl())
                         .orders(m.getOrders())
-                        .showYn(m.getShowYn())
                         .categoryList(m.getCategoryList())
                         .build())
                 .collect(Collectors.toList());
@@ -79,9 +78,7 @@ public class MenuService {
         if (menu.getShowYn().equals("N")) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "이미 삭제된 메뉴입니다.");
         }
-        if (menu.getShowYn().equals("Y")) {
-            menu.delete();
-        }
+        menu.delete();
 
         return id;
     }

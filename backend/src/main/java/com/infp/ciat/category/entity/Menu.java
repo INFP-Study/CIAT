@@ -75,10 +75,7 @@ public class Menu extends BaseTimeEntity {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
                 .categoryList(categoryList)
-                .account(account)
-                .updater(updater)
                 .build();
     }
 
@@ -87,7 +84,6 @@ public class Menu extends BaseTimeEntity {
         this.icon = requestDto.getIcon();
         this.url = requestDto.getUrl();
         this.orders = requestDto.getOrders();
-        this.showYn = requestDto.getShowYn();
         this.updater = requestDto.getUpdater();
     }
 
