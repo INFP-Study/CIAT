@@ -1,4 +1,4 @@
-package com.infp.ciat.board;
+package com.infp.ciat.board.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
 import com.infp.ciat.user.entity.Account;
