@@ -7,10 +7,6 @@ logging:
       infp:
         ciat: debug
 
-fileserver:
-  token: ENC(4i+napZ2o691GlpQnKcg0InhWJRGZlN4KpHujh1eXNEgJ+6JVnAAe4w9KT2tZxazqwbzvZ9uBaYjY6vKzoiGAQ==)
-  host: ENC(trUz6cwx6VCVf3LZC2T2aCbBTCyKb92tXJukH9yPL6KZiWPNFHsCWC0eZQUz2nfOul95hRBM5NE3D0xx0uYcjg==)
-
 spring:
   security:
     oauth2:
@@ -45,3 +41,15 @@ spring:
 forest:
   url: http://openapi.nature.go.kr/openapi/service/rest/PlantService/
   key: ENC(MdrFVAlwH9q22dxui/hBNU+NfR/Co0MZ+uJsApaszAEHSMkbay050trrzbEZXNqpWUxpPkJdEHZqpRuzWw65X568JeC+mNDLGcvAWuCoRAGlXHoBm1iFsDlrEI4s7FZB7xh87r9OswyBW7IQKMxLLlfPFeH/PX6nsEBNZNlyV2ULB8zAA7YZaLFMRvUdwbQK)
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ENC(qnoRD48Vb/ynF7VFZA8jn3sH8Pf8F3EMLCuHAwFA5yM+dtFiXPANaTQqO/pBxlM+IFp3yDJsVZYJ25EnB8xJVw==)
+      secretKey: ENC(vkgcPsB5+80n3xZIS5v3NDUP+zphtLKkOJtRU5Jne7dc3+hjp03xoKMS0gCPipYo3CFsf4d2U6DPO+8WEtHayPdLL6nLsF2lBoDDlTVnboY=)
+    s3:
+      bucket: ENC(qiCvK88VEfG/jiQV5q16VvdMW1Suru/f5cmfa53G+inOx1hDi+S+NUAXJCkZuTyq)
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
