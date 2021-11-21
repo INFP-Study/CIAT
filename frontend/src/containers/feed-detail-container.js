@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import FeedDetailComments from '../components/feed-detail/feed-detail-comments';
 import FeedDetailSlide from '../components/feed-detail/feed-detail-slide';
+import FeedDetailComments from '../components/feed-detail/feed-detail-comments';
 
 const Wrapper = styled.div`
-  background-color: red;
   display: flex;
-  flex-direction: row;
-  margin: -48px -40px -24px;
-  height: 100vh;
+  flex-flow: row;
+  height: 100%;
+  min-height: 100%;
+  /* margin: -48px -40px -24px; */
 `;
 
 function FeedDetailContainer() {

@@ -28,6 +28,7 @@ const Wrapper = styled.div`
   width: 67px;
   border-right: ${theme.colorLine};
   padding: 30px 0px;
+  background-color: ${theme.colorNav};
 `;
 const TopMenu = styled.div``;
 

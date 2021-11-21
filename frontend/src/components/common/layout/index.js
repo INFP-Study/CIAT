@@ -19,7 +19,8 @@ const ContentAntd = styled(Content)`
 `;
 const ContentInner = styled.div`
   padding: 24px;
-  min-height: 80vh;
+  min-height: 100%;
+  height: 100%;
   background: ${theme.colorWhite};
   font-size: ${theme.fontSizeBody02};
   font-family: ${theme.fontBasic};

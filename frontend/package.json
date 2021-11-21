@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development --open --config config/webpack.config.js",
-    "build": "webpack --mode production --config config/webpack.config.js"
+    "build": "webpack --config config/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -48,5 +48,6 @@
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.1.0"
-  }
+  },
+  "homepage": "./"
 }
