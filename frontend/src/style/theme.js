@@ -16,6 +16,7 @@ export const theme = {
   //   colorError: '#F45452',
 
   colorLine: '#E4E4E4',
+  colorComment: '#E4E4E4',
   colorLine2: '#C4C4C4',
   colorText: '#3F3D3D',
   //   colorTextBrown: '#665946',
