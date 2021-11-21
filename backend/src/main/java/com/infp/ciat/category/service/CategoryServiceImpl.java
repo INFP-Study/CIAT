@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> getList() {
-        return categoryRepository.findAll()
+        return categoryRepository.findAllNotDeleted()
                 .stream()
                 .map(c -> CategoryDto.builder()
                         .id(c.getId())
@@ -40,12 +41,13 @@ public class CategoryServiceImpl implements CategoryService {
                         .orders(c.getOrders())
                         .menuId(c.getMenu().getId())
                         .build())
+                .sorted(Comparator.comparing(CategoryDto::getOrders))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CategoryDto getDetail(Long id) {
-        return categoryRepository.findById(id)
+        return categoryRepository.findByIdNotDeleted(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."))
                 .fromEntity();
     }
@@ -53,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public Long update(Long id, CategoryUpdateRequestDto requestDto, Account account) {
-        Category targetCategory = categoryRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
+        Category targetCategory = categoryRepository.findByIdNotDeleted(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
         requestDto.addUpdater(account);
         targetCategory.update(requestDto);
 
@@ -63,7 +65,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public Long delete(Long id) {
-        Category targetCategory = categoryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
+        Category targetCategory = categoryRepository.findByIdNotDeleted(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
+
+        if (targetCategory.getShowYn().equals("N")) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "이미 삭제된 메뉴입니다.");
+        }
         targetCategory.delete();
 
         return id;

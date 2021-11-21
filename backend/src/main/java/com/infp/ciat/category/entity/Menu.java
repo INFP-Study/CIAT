@@ -14,7 +14,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -75,7 +77,7 @@ public class Menu extends BaseTimeEntity {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .categoryList(categoryList)
+                .categoryList(toCatDto(categoryList))
                 .build();
     }
 
@@ -89,5 +91,18 @@ public class Menu extends BaseTimeEntity {
 
     public void delete() {
         this.showYn = "N";
+    }
+
+    public List<CategoryDto> toCatDto(List<Category> categoryList) {
+        return categoryList.stream().map(c -> CategoryDto.builder()
+                        .id(c.getId())
+                        .name(c.getName())
+                        .icon(c.getIcon())
+                        .url(c.getUrl())
+                        .orders(c.getOrders())
+                        .menuId(c.getMenu().getId())
+                        .build())
+                .sorted(Comparator.comparing(CategoryDto::getOrders))
+                .collect(Collectors.toList());
     }
 }
