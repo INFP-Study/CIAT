@@ -94,7 +94,9 @@ public class Menu extends BaseTimeEntity {
     }
 
     public List<CategoryDto> toCatDto(List<Category> categoryList) {
-        return categoryList.stream().map(c -> CategoryDto.builder()
+        return categoryList.stream()
+                .filter(c -> c.getShowYn().equals("Y"))
+                .map(c -> CategoryDto.builder()
                         .id(c.getId())
                         .name(c.getName())
                         .icon(c.getIcon())
