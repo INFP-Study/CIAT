@@ -7,19 +7,16 @@ function FeedBottom({ like, comment }) {
   return (
     <div
       style={{
-        marginLeft: 16,
-        marginRight: 16,
         display: 'flex',
         justifyContent: 'space-between',
       }}
     >
-      <div>
-        <Space size="middle">
-          <SmileOutlined style={{ fontSize: `${theme.fontSizeIcon}` }} />
-          {like}개
-        </Space>
-      </div>
-      <div>댓글 {comment}개</div>
+      <Space>
+        <SmileOutlined style={{ fontSize: `${theme.fontSizeIcon}` }} />
+        좋아요 {like}
+      </Space>
+
+      <Space>댓글 {comment}</Space>
     </div>
   );
 }
