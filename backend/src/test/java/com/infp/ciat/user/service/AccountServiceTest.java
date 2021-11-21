@@ -32,7 +32,7 @@ class AccountServiceTest {
 
   @BeforeAll
   public static void beforeAll() {
-    String jasypt_password = System.getenv("jasypt_password");
+    String jasypt_password = System.getenv("jasypt.encryptor.password");
     System.setProperty("jasypt.encryptor.password", jasypt_password);
   }
 
@@ -44,6 +44,7 @@ class AccountServiceTest {
       // hibernate error 무시
     }
   }
+
 
   @Test
   void 회원가입() {
@@ -68,7 +69,5 @@ class AccountServiceTest {
     assertThat(all.get(0).getEmail()).isEqualTo(email);
     assertThat(passwordEncoder.matches(password, all.get(0).getPassword())).isTrue();
     assertThat(all.get(0).getNickname()).isEqualTo(nickname);
-
   }
-
 }

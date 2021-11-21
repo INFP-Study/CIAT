@@ -7,7 +7,7 @@ import {
 import { Card, Space } from 'antd';
 import { theme } from '../../style/theme';
 import styled from 'styled-components';
-import FeedCotent from './feed-card/feed-card-cotent';
+import FeedContent from './feed-card/feed-card-content';
 
 const CardAntd = styled(Card)`
   max-width: 652px;
@@ -52,7 +52,7 @@ function Wrapper({ contents }) {
         actions={actionTab()}
         key={content.id}
       >
-        <FeedCotent
+        <FeedContent
           id={content.id}
           content={content.content}
           author={content.author}

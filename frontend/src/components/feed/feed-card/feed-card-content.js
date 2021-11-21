@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 function FeedCotent({ id, content, author, date, comment, src, like }) {
   return (
     <Space direction="vertical" size="small" style={{ width: '100%' }}>
-      <FeedTop author={author} date={date} />
+      <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
+        <FeedTop author={author} date={date} />
+      </div>
       <div
         style={{
           marginLeft: 76,
@@ -17,17 +19,26 @@ function FeedCotent({ id, content, author, date, comment, src, like }) {
         {content}
       </div>
       {src.length === 1 ? (
-        <img width={642} height={642} src={src} />
+        <Link to={`/feed/${id}`}>
+          <img width={642} height={642} src={src} />
+        </Link>
       ) : (
         <Space size={2} wrap>
           {src.map((src, i) => (
             <Link to={`/feed/${id}`} key={i}>
-              <img width={320} height={320} src={src} />
+              <img width={319} height={320} src={src} />
             </Link>
           ))}
         </Space>
       )}
-      <FeedBottom like={like} comment={comment} />
+      <div
+        style={{
+          paddingLeft: '16px',
+          paddingRight: '16px',
+        }}
+      >
+        <FeedBottom like={like} comment={comment} />
+      </div>
     </Space>
   );
 }
