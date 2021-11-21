@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -19,10 +21,7 @@ public class MenuDto {
     private String icon;
     private String url;
     private Long orders;
-    private String showYn;
-    private List<Category> categoryList;
-    private Account account;
-    private Account updater;
+    private List<CategoryDto> categoryList;
 
     public MenuDto(Menu menu) {
         this.id = menu.getId();
@@ -31,23 +30,17 @@ public class MenuDto {
         this.icon = menu.getIcon();
         this.url = menu.getUrl();
         this.orders = menu.getOrders();
-        this.showYn = menu.getShowYn();
-        this.categoryList = menu.getCategoryList();
-        this.account = menu.getAccount();
-        this.updater = menu.getUpdater();
+        this.categoryList = menu.toCatDto();
     }
 
     @Builder
-    public MenuDto(Long id,/* String uid,*/ String name, String icon, String url, Long orders, String showYn, List<Category> categoryList, Account account, Account updater) {
+    public MenuDto(Long id,/* String uid,*/ String name, String icon, String url, Long orders, List<CategoryDto> categoryList) {
         this.id = id;
 //        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.showYn = showYn;
         this.categoryList = categoryList;
-        this.account = account;
-        this.updater = updater;
     }
 }

@@ -20,13 +20,13 @@ public class MenuSaveRequestDto {
     private Account account;
 
     @Builder
-    public MenuSaveRequestDto(/*String uid,*/String name, String icon, String url, Long orders, String showYn, Account account) {
+    public MenuSaveRequestDto(/*String uid,*/String name, String icon, String url, Long orders, Account account) {
 //        this.uid = uid;
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.showYn = showYn;
+        this.showYn = "Y";
         this.account = account;
     }
 

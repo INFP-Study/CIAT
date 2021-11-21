@@ -11,10 +11,14 @@ import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -75,10 +79,7 @@ public class Menu extends BaseTimeEntity {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
-                .categoryList(categoryList)
-                .account(account)
-                .updater(updater)
+                .categoryList(toCatDto())
                 .build();
     }
 
@@ -87,11 +88,29 @@ public class Menu extends BaseTimeEntity {
         this.icon = requestDto.getIcon();
         this.url = requestDto.getUrl();
         this.orders = requestDto.getOrders();
-        this.showYn = requestDto.getShowYn();
         this.updater = requestDto.getUpdater();
     }
 
-    public void delete() {
+    public void remove() {
         this.showYn = "N";
+    }
+
+    public List<CategoryDto> toCatDto() {
+        if (categoryList == null) {
+            return new ArrayList<>();
+        }
+
+        return categoryList.stream()
+                .filter(c -> c.getShowYn().equals("Y"))
+                .map(c -> CategoryDto.builder()
+                        .id(c.getId())
+                        .name(c.getName())
+                        .icon(c.getIcon())
+                        .url(c.getUrl())
+                        .orders(c.getOrders())
+                        .menuId(c.getMenu().getId())
+                        .build())
+                .sorted(Comparator.comparing(CategoryDto::getOrders))
+                .collect(Collectors.toList());
     }
 }
