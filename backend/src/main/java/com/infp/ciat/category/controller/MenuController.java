@@ -3,7 +3,6 @@ package com.infp.ciat.category.controller;
 import com.infp.ciat.category.controller.dto.MenuDto;
 import com.infp.ciat.category.controller.dto.MenuSaveRequestDto;
 import com.infp.ciat.category.controller.dto.MenuUpdateRequestDto;
-import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.service.MenuService;
 import com.infp.ciat.config.auth.PrincipalDetails;
 import org.springframework.beans.factory.annotation.Autowired;

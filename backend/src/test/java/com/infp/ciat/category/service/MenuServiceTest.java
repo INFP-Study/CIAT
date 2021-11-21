@@ -5,9 +5,11 @@ import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.entity.Menu;
 import com.infp.ciat.category.repository.CategoryRepository;
 import com.infp.ciat.category.repository.MenuRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.infp.ciat.user.controller.dto.request.SignupRequestDTO;
+import com.infp.ciat.user.entity.Account;
+import com.infp.ciat.user.repository.AccountRepository;
+import com.infp.ciat.user.service.AccountService;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -27,17 +29,36 @@ public class MenuServiceTest {
     private MenuService menuService;
 
     @Autowired
-    private CategoryService categoryService;
+    private AccountService accountService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
     private MenuRepository menuRepository;
 
+    @BeforeAll
+    public static void beforeAll() {
+        String jasypt_password = System.getenv("jasypt.encryptor.password");
+        System.setProperty("jasypt.encryptor.password", jasypt_password);
+    }
+
+    @BeforeEach
+    void createAccount() {
+        SignupRequestDTO signupRequestDTO = SignupRequestDTO.builder()
+                .email("test@test.com")
+                .password("test_password")
+                .nickname("test_nickname")
+                .build();
+
+        //when
+        accountService.signUp(signupRequestDTO);
+    }
+
     @AfterEach
     void tearDown() {
         menuRepository.deleteAll();
+        accountRepository.deleteAll();
     }
 
     @Test
@@ -49,7 +70,7 @@ public class MenuServiceTest {
         String icon = "doc";
         String url = "https://www.naver.com";
         Long orders = 3L;
-        String showYn = "Y";
+        Account account = accountRepository.findAll().get(0);
 
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
 //                .uid(uid)
@@ -57,11 +78,11 @@ public class MenuServiceTest {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
+                .account(account)
                 .build();
 
         // when
-        MenuDto newMenu = menuService.create(requestDto);
+        MenuDto newMenu = menuService.create(requestDto, account);
         System.out.println(newMenu);
 
         // then
@@ -72,20 +93,21 @@ public class MenuServiceTest {
         assertThat(all.get(0).getIcon()).isEqualTo(icon);
         assertThat(all.get(0).getUrl()).isEqualTo(url);
         assertThat(all.get(0).getOrders()).isEqualTo(orders);
-        assertThat(all.get(0).getShowYn()).isEqualTo(showYn);
     }
 
     @Test
     @DisplayName("메뉴 전체 조회")
     public void getMenuList() {
         // given
+        Account account = accountRepository.findAll().get(0);
+
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
 //                .uid("M001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .showYn("Y")
+                .account(account)
                 .build();
         MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
 //                .uid("M001")
@@ -93,11 +115,11 @@ public class MenuServiceTest {
                 .icon("test2")
                 .url("/test2")
                 .orders(2L)
-                .showYn("N")
+                .account(account)
                 .build();
 
-        menuService.create(requestDto);
-        menuService.create(requestDto2);
+        menuService.create(requestDto, account);
+        menuService.create(requestDto2, account);
 
         // when
         List<MenuDto> all = menuService.getList();
@@ -115,16 +137,18 @@ public class MenuServiceTest {
         String icon = "test";
         String url = "/test";
         Long orders = 1L;
-        String showYn = "Y";
 
-        Menu savedMenu = menuRepository.save(Menu.builder()
+        Account account = accountRepository.findAll().get(0);
+
+        Menu savedMenu = menuRepository.save(MenuSaveRequestDto.builder()
 //                .uid(uid)
                 .name(name)
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
-                .build());
+                .account(account)
+                .build()
+                .toEntity());
 
         // when
         MenuDto detail = menuService.getDetail(savedMenu.getId());
@@ -135,142 +159,116 @@ public class MenuServiceTest {
         assertThat(detail.getIcon()).isEqualTo(icon);
         assertThat(detail.getUrl()).isEqualTo(url);
         assertThat(detail.getOrders()).isEqualTo(orders);
-        assertThat(detail.getShowYn()).isEqualTo(showYn);
     }
 
     @Test
     @DisplayName("메뉴 수정")
     public void updateMenu() {
         // given
-        Menu savedMenu = menuRepository.save(Menu.builder()
+        Account account = accountRepository.findAll().get(0);
+
+        Menu savedMenu = menuRepository.save(MenuSaveRequestDto.builder()
 //                .uid("M001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .showYn("Y")
-                .build());
+                .account(account)
+                .build()
+                .toEntity());
 
         Long updateId = savedMenu.getId();
         String newName = "test22";
-        String showYn = "N";
 
         MenuUpdateRequestDto requestDto = MenuUpdateRequestDto.builder()
                 .name(newName)
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .showYn(showYn)
                 .build();
 
         // when
-        menuService.update(updateId, requestDto);
+        menuService.update(updateId, requestDto, account);
 
         // then
         List<Menu> all = menuRepository.findAll();
         assertThat(all.get(0).getName()).isEqualTo(newName);
-        assertThat(all.get(0).getShowYn()).isEqualTo(showYn);
     }
 
     @Test
     @DisplayName("메뉴 삭제")
     public void deleteMenu() {
         // given
-        Menu savedMenu1 = menuRepository.save(Menu.builder()
+        Account account = accountRepository.findAll().get(0);
+
+        Menu savedMenu1 = menuRepository.save(MenuSaveRequestDto.builder()
 //                .uid("M001")
                 .name("테스트1")
                 .icon("test")
                 .url("/test")
                 .orders(1L)
-                .showYn("Y")
-                .build());
-        Menu savedMenu2 = menuRepository.save(Menu.builder()
+                .account(account)
+                .build()
+                .toEntity());
+        Menu savedMenu2 = menuRepository.save(MenuSaveRequestDto.builder()
 //                .uid("M002")
                 .name("테스트2")
                 .icon("test2")
                 .url("/test2")
                 .orders(2L)
-                .showYn("N")
-                .build());
+                .account(account)
+                .build()
+                .toEntity());
 
         // when
+        System.out.println("데이터를 삭제합니다.");
         menuService.delete(savedMenu1.getId());
-
         // then
-        String updatedShowYn = savedMenu1.getShowYn();
         List<Menu> all = menuRepository.findAll();
         assertThat(all.get(0).getShowYn()).isEqualTo("N");
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> menuService.delete(savedMenu2.getId()));
-        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
+
+        List<Menu> all2 = menuRepository.findAllNotDeleted();
+        assertThat(all2.size()).isEqualTo(1);
+
+//        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> menuService.delete(savedMenu2.getId()));
+//        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @Test
     @DisplayName("메뉴 및 카테고리 순서대로 조회")
     public void getMenuAndCatInOrder() {
+        System.out.println("테스트를 시작합니다.");
+
         // given
+        Account account = accountRepository.findAll().get(0);
+
         MenuSaveRequestDto requestDto = MenuSaveRequestDto.builder()
 //                .uid("M001")
                 .name("hello")
                 .icon("icon")
                 .url("/url")
                 .orders(2L)
-                .showYn("Y")
+                .account(account)
                 .build();
         MenuSaveRequestDto requestDto2 = MenuSaveRequestDto.builder()
 //                .uid("M002")
-                .name("hello")
+                .name("hello2")
                 .icon("icon")
                 .url("/url")
                 .orders(1L)
-                .showYn("Y")
+                .account(account)
                 .build();
-        menuService.create(requestDto);
-        menuService.create(requestDto2);
-
-        Menu menu = menuRepository.findAll().get(0);
-
-        CategorySaveRequestDto catRequestDto = CategorySaveRequestDto.builder()
-//                .uid("M001C001")
-                .name("테스트1")
-                .icon("test")
-                .url("/test")
-                .orders(2L)
-                .showYn("Y")
-                .menu(menu)
-                .build();
-        CategorySaveRequestDto catRequestDto2 = CategorySaveRequestDto.builder()
-//                .uid("M001C002")
-                .name("테스트2")
-                .icon("test2")
-                .url("/test2")
-                .orders(3L)
-                .showYn("N")
-                .menu(menu)
-                .build();
-        CategorySaveRequestDto catRequestDto3 = CategorySaveRequestDto.builder()
-//                .uid("M001C003")
-                .name("테스트2")
-                .icon("test2")
-                .url("/test2")
-                .orders(1L)
-                .showYn("N")
-                .menu(menu)
-                .build();
-
-        categoryRepository.save(catRequestDto.toEntity());
-        categoryRepository.save(catRequestDto2.toEntity());
-        categoryRepository.save(catRequestDto3.toEntity());
+        menuRepository.save(requestDto.toEntity());
+        menuRepository.save(requestDto2.toEntity());
 
         // when
+        System.out.println(menuRepository.findAll().size());
         List<MenuDto> list = menuService.getList();
-        List<Category> categoryList = list.get(1).getCategoryList();
+
+        System.out.println("list size : " + list.size());
 
         // then
-//        assertThat(list.get(0).getUid()).isEqualTo("M002");
-//        assertThat(list.get(1).getUid()).isEqualTo("M001");
-//
-//        assertThat(categoryList.get(0).getUid()).isEqualTo("M001C003");
-//        assertThat(categoryList.get(1).getUid()).isEqualTo("M001C001");
-//        assertThat(categoryList.get(2).getUid()).isEqualTo("M001C002");
+        assertThat(list.get(0).getName()).isEqualTo("hello2");
+        assertThat(list.get(1).getName()).isEqualTo("hello");
     }
 }

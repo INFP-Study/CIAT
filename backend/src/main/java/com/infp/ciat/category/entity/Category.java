@@ -67,10 +67,7 @@ public class Category extends BaseTimeEntity {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
-                .menu(menu)
-                .account(account)
-                .updater(updater)
+                .menuId(menu.getId())
                 .build();
     }
 
