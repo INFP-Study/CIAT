@@ -11,6 +11,8 @@ import com.infp.ciat.user.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class Menu extends BaseTimeEntity {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .categoryList(toCatDto(categoryList))
+                .categoryList(toCatDto())
                 .build();
     }
 
@@ -89,11 +91,15 @@ public class Menu extends BaseTimeEntity {
         this.updater = requestDto.getUpdater();
     }
 
-    public void delete() {
+    public void remove() {
         this.showYn = "N";
     }
 
-    public List<CategoryDto> toCatDto(List<Category> categoryList) {
+    public List<CategoryDto> toCatDto() {
+        if (categoryList == null) {
+            return new ArrayList<>();
+        }
+
         return categoryList.stream()
                 .filter(c -> c.getShowYn().equals("Y"))
                 .map(c -> CategoryDto.builder()

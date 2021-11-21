@@ -30,7 +30,7 @@ public class MenuDto {
         this.icon = menu.getIcon();
         this.url = menu.getUrl();
         this.orders = menu.getOrders();
-        this.categoryList = menu.toCatDto(menu.getCategoryList());
+        this.categoryList = menu.toCatDto();
     }
 
     @Builder

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,9 +29,15 @@ public class MenuService {
 
     @Transactional(readOnly = true)
     public List<MenuDto> getList() {
+
+        List<Menu> menuList = menuRepository.findAll();
+
+        if (menuList == null) {
+            return new ArrayList<>();
+        }
         //메뉴 order 순으로 오름차순 정렬
-        List<MenuDto> menuDtoList = menuRepository.findAllNotDeleted()
-                .stream()
+        return menuList.stream()
+                .filter(m -> m.getShowYn().equals("Y"))
                 .map(m -> MenuDto.builder()
                         .id(m.getId())
 //                        .uid(m.getUid())
@@ -38,7 +45,7 @@ public class MenuService {
                         .icon(m.getIcon())
                         .url(m.getUrl())
                         .orders(m.getOrders())
-                        .categoryList(m.toCatDto(m.getCategoryList()))
+                        .categoryList(m.toCatDto())
                         .build())
                 .sorted(Comparator.comparing(MenuDto::getOrders))
                 .collect(Collectors.toList());
@@ -48,8 +55,6 @@ public class MenuService {
 //            List<Category> curCategoryList = menuDto.getCategoryList();
 //            Collections.sort(curCategoryList, Comparator.comparing(Category::getOrders));
 //        }
-
-        return menuDtoList;
     }
 
     @Transactional(readOnly = true)
@@ -76,7 +81,7 @@ public class MenuService {
         if (menu.getShowYn().equals("N")) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "이미 삭제된 메뉴입니다.");
         }
-        menu.delete();
+        menu.remove();
 
         return id;
     }
