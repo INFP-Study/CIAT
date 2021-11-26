@@ -94,7 +94,7 @@ pw :
 
 #### [📙 WiKi](https://github.com/INFP-Study/CIAT/wiki)
 #### [🎯 Project Kanban Board](https://github.com/INFP-Study/CIAT/projects/1)
-#### [🎨 Figma]()
+#### [🎨 Figma](https://www.figma.com/file/4C7izPnx0Y5NtrANroPvTX/ciat?node-id=0%3A1)
 
 ## 프로젝트 기여자
 |Design🎨|Frontend💻|Backend👨‍💻|DevOps🚊|
