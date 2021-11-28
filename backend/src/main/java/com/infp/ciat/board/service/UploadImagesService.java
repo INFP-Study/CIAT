@@ -40,8 +40,7 @@ public class UploadImagesService {
                     uploaded_s3url = s3Helper.uploadFile(bucket_name, file);
                     log.debug(String.format("%s file upload is success. url is: %s", bucket_name, uploaded_s3url));
                 }catch(SdkClientException | IOException e){
-                    log.info("File Upload failed and exception");
-                    log.info(e.toString());
+                    log.error(String.format("File Upload failed and exception: %s", e.toString()));
                 }
             }
         }
