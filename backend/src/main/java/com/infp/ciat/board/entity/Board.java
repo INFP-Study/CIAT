@@ -35,7 +35,7 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name = "accountId")
     private Account account;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<BoardReply> replies;
 
     @Builder
@@ -44,6 +44,11 @@ public class Board extends BaseTimeEntity {
         this.pictureList = pictureList;
         this.showYn = showYn;
         this.account = account;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.showYn = this.showYn == null ? "Y" : this.showYn;
     }
 
 }

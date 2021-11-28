@@ -22,26 +22,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
+
   private final UploadImagesService uploadImagesService;
   private final BoardService boardService;
 
   @PostMapping("/create")
-  public String create(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content,
+  public ResponseEntity<?> create(@RequestParam(value = "content") String content,
       MultipartHttpServletRequest multipartHttpServletRequest, @AuthenticationPrincipal PrincipalDetails user)
       throws FailCreateBoard {
-    log.info("--- create board API is called ----");
-    Account account = user.getAccount();
-    CreateBoardRequestForm requestForm = CreateBoardRequestForm.builder().content(content)
-        .multipartHttpServletRequest(multipartHttpServletRequest).build();
 
-    log.info(String.format("[Create board] login user info -> email:%s, id:%s", account.getEmail(), account.getId()));
-    log.info(String.format("[Create board] request_body: %s", requestForm.toString()));
-    // todo 게시판 게시판생성
-
-    List<String> images = uploadImagesService.Upload(requestForm);
-    // debug log
-    log.info(images.toString());
-
-    return new ResponseEntity<>(boardService.create(requestDto), HttpStatus.CREATED);
+    return new ResponseEntity<>(boardService.create(content, multipartHttpServletRequest, user), HttpStatus.CREATED);
   }
 }
