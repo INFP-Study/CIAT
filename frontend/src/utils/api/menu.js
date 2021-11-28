@@ -1,6 +1,6 @@
 import { API_END_POINT } from '.';
 
-export const authAPI = {
+export const menuAPI = {
   GOOGLE_LOGIN: `${API_END_POINT}/test`,
-  GET_POST: (id) => `${API_END_POINT}/board/${id}`,
+  GET_MENU: `${API_END_POINT}/menu`,
 };

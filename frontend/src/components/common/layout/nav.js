@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Affix, Menu } from 'antd';
 import {
   CommentOutlined,
@@ -19,6 +20,7 @@ import {
   PLANT_MANAGEMENT_URL,
   SETTING_URL,
 } from '../../../constants/urls';
+import { getMenuList } from '../../../store/menu';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -52,6 +54,13 @@ const MenuAntd = styled(Menu)`
 `;
 
 function Nav() {
+  const dispatch = useDispatch();
+  const [menuList, setMenuList] = useState();
+
+  useEffect(() => {
+    setMenuList(() => dispatch({ type: getMenuList.type }));
+  }, []);
+
   return (
     <Affix offsetTop={0}>
       <Wrapper>
