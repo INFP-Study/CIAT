@@ -19,28 +19,28 @@ public class MenuController {
     @Autowired
     MenuService menuService;
 
-    @PostMapping("/menu")
+    @PostMapping("/api/v1/menu")
     public ResponseEntity<MenuDto> newMenu(@RequestBody MenuSaveRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         MenuDto newMenu = menuService.create(requestDto, principalDetails.getAccount());
         return new ResponseEntity<>(newMenu, HttpStatus.CREATED);
     }
 
-    @GetMapping("/menu")
+    @GetMapping("/api/v1/menu")
     public ResponseEntity<List<MenuDto>> menuList() {
         return new ResponseEntity<>(menuService.getList(), HttpStatus.OK);
     }
 
-    @GetMapping("/menu/{id}")
+    @GetMapping("/api/v1/menu/{id}")
     public ResponseEntity<MenuDto> getOneMenu(@PathVariable Long id) {
         return new ResponseEntity<>(menuService.getDetail(id), HttpStatus.OK);
     }
 
-    @PutMapping("/menu/{id}")
+    @PutMapping("/api/v1/menu/{id}")
     public ResponseEntity<Long> updateMenu(@PathVariable Long id, @RequestBody MenuUpdateRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         return new ResponseEntity<>(menuService.update(id, requestDto, principalDetails.getAccount()), HttpStatus.OK);
     }
 
-    @PatchMapping("/menu/{id}")
+    @PatchMapping("/api/v1/menu/{id}")
     public ResponseEntity<Long> deleteMenu(@PathVariable Long id) {
         return new ResponseEntity<>(menuService.delete(id), HttpStatus.OK);
     }
