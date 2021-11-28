@@ -1,6 +1,6 @@
 package com.infp.ciat.board.controller;
 
-import com.infp.ciat.board.dto.CreateBoardRequestForm;
+import com.infp.ciat.board.controller.dto.CreateBoardRequestForm;
 import com.infp.ciat.board.service.UploadImagesService;
 import com.infp.ciat.config.auth.PrincipalDetails;
 import com.infp.ciat.user.entity.Account;
@@ -18,14 +18,12 @@ public class BoardController {
     private final UploadImagesService uploadImagesService;
 
     @PostMapping("/create")
-    public String create(@RequestParam(value = "title") String title,
-                         @RequestParam(value = "content") String content,
+    public String create(@RequestParam(value = "content") String content,
                          MultipartHttpServletRequest multipartHttpServletRequest,
                          @AuthenticationPrincipal PrincipalDetails user) {
         log.info("--- create board API is called ----");
         Account account = user.getAccount();
         CreateBoardRequestForm requestForm = CreateBoardRequestForm.builder()
-                .title(title)
                 .content(content)
                 .multipartHttpServletRequest(multipartHttpServletRequest)
                 .build();

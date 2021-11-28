@@ -1,7 +1,7 @@
 package com.infp.ciat.board.service;
 
 import com.amazonaws.SdkClientException;
-import com.infp.ciat.board.dto.CreateBoardRequestForm;
+import com.infp.ciat.board.controller.dto.CreateBoardRequestForm;
 import com.infp.ciat.common.aws.S3Helper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

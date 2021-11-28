@@ -22,9 +22,6 @@ public class Board extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
     private String content;
 
     @ManyToOne
