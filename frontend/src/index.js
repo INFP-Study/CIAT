@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import rootReducer, { rootSaga } from './store';
 import './style/theme.less';
+import history from './lib/router/history';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,7 +25,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDom.render(
   <Provider store={store}>
-    <Router />
+    <Router history={history} />
   </Provider>,
   document.getElementById('root')
 );
