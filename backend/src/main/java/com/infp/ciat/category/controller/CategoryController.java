@@ -19,30 +19,30 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/category")
+    @PostMapping("/api/v1/category")
     public ResponseEntity<CategoryDto> newCategory(@RequestBody CategorySaveRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         CategoryDto newCategory = categoryService.create(requestDto, principalDetails.getAccount());
 
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/api/v1/category")
     public ResponseEntity<List<CategoryDto>> categoryList() {
         return new ResponseEntity<>(categoryService.getList(), HttpStatus.OK);
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/api/v1/category/{id}")
     public ResponseEntity<CategoryDto> getOneCategory(@PathVariable Long id) {
         return new ResponseEntity<>(categoryService.getDetail(id), HttpStatus.OK);
     }
 
-    @PutMapping("/category/{id}")
+    @PutMapping("/api/v1/category/{id}")
     public ResponseEntity<Long> updateCategory(@PathVariable Long id, @RequestBody CategoryUpdateRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long updateResult = categoryService.update(id, requestDto, principalDetails.getAccount());
         return new ResponseEntity<>(updateResult, HttpStatus.OK);
     }
 
-    @PatchMapping("/category/{id}")
+    @PatchMapping("/api/v1/category/{id}")
     public ResponseEntity<Long> deleteCategory(@PathVariable Long id) {
         return new ResponseEntity<>(categoryService.delete(id), HttpStatus.OK);
     }
