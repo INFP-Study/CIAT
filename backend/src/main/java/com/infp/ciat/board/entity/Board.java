@@ -8,9 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,11 +24,26 @@ public class Board extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @ElementCollection
+    @CollectionTable(name = "picture_list")
+    private List<String> pictureList = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String showYn = "Y";
+
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<BoardReply> replies;
+
+    @Builder
+    public Board(String content, List<String> pictureList, String showYn, Account account) {
+        this.content = content;
+        this.pictureList = pictureList;
+        this.showYn = showYn;
+        this.account = account;
+    }
 
 }
