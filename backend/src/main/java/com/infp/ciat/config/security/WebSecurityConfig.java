@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -58,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/v1/user/signup").permitAll()
             .antMatchers("/api/v1/session/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
             .anyRequest().authenticated()
             .and()
