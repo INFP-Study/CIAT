@@ -1,5 +1,6 @@
 package com.infp.ciat.board.service;
 
+import com.infp.ciat.board.controller.dto.BoardDto;
 import com.infp.ciat.board.controller.dto.BoardSaveRequestDto;
 import com.infp.ciat.board.controller.dto.CreateBoardRequestForm;
 import com.infp.ciat.board.repository.BoardRepository;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -46,5 +48,12 @@ public class BoardServiceImpl implements BoardService {
         log.info(pictureList.toString());
 
         return boardRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Override
+    public List<BoardDto> getList() {
+        return boardRepository.findAllNotDeleted().stream()
+                .map(b -> new BoardDto(b))
+                .collect(Collectors.toList());
     }
 }
