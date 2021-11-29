@@ -39,7 +39,7 @@ public class Menu extends BaseTimeEntity {
 
     private Long orders;
 
-    private String showYn;
+    private String showYn = "Y";
 
     //categoryList.size() == 0 일 경우
     //private String isGetCategory; // T or F
@@ -112,5 +112,10 @@ public class Menu extends BaseTimeEntity {
                         .build())
                 .sorted(Comparator.comparing(CategoryDto::getOrders))
                 .collect(Collectors.toList());
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.showYn = this.showYn == null ? "Y" : this.showYn;
     }
 }
