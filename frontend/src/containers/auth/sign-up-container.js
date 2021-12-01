@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { signUp } from '../../store/auth';
+import { signUpSuccess } from '../../store/auth';
 import SignUp from '../../components/auth/sign-up';
-import { message, notification } from 'antd';
-import { REQUIRED_CHECK, SIGN_UP_SUCCESS } from '../../constants';
+import { message } from 'antd';
+import { EMAIL_CHECK, PASSWORD_CHECK } from '../../constants';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -14,8 +14,9 @@ const Wrapper = styled.div`
 `;
 
 function SignUpContainer() {
-  const selector = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  const authSelector = useSelector((state) => state.auth);
 
   const [info, setInfo] = useState({
     email: '',
@@ -23,49 +24,42 @@ function SignUpContainer() {
     password: '',
     passwordConfirm: '',
   });
-  const [isEmpty, setIsEmpty] = useState(false);
 
   const onChangeHandler = (e) => {
     setInfo({
       ...info,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     });
   };
 
   const onSignUpHandler = (e) => {
-    const res = dispatch({ type: signUp.type, data: info });
-    res !== undefined ? openNotification() : '';
+    if (isEmail(info.email) === undefined) {
+      if (isSamePassword(info) === undefined) {
+        dispatch({ type: signUpSuccess.type, data: info });
+      }
+    }
   };
 
-  const openNotification = () => {
-    notification.success({
-      message: 'CIAT',
-      description: SIGN_UP_SUCCESS,
-    });
+  // 이메일 검증
+  const isEmail = (email) => {
+    const regExp =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    if (!regExp.test(email)) {
+      console.log(email);
+      return message.error(EMAIL_CHECK);
+    }
   };
 
-  const emptyError = (e) => {
-    setIsEmpty(true);
-    message.error(REQUIRED_CHECK);
-  };
-
-  const notEmptyError = (e) => {
-    setIsEmpty(false);
-  };
-
-  const emptyValueCheck = (e) => {
-    e.target.name === e.currentTarget.name && e.target.value === ''
-      ? emptyError(e)
-      : notEmptyError(e);
+  // 비밀번호
+  const isSamePassword = (info) => {
+    if (info.password !== info.passwordConfirm) {
+      return message.error(PASSWORD_CHECK);
+    }
   };
 
   return (
     <Wrapper>
-      <SignUp
-        handleChange={onChangeHandler}
-        handleSignUp={onSignUpHandler}
-        emptyValueCheck={emptyValueCheck}
-      />
+      <SignUp handleChange={onChangeHandler} handleSignUp={onSignUpHandler} />
     </Wrapper>
   );
 }

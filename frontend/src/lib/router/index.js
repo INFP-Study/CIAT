@@ -19,11 +19,10 @@ import Setting from '../../pages/setting';
 import SignUp from '../../pages/auth/sign-up';
 import FeedDetail from '../../pages/feed-detail';
 import NotFound from '../../pages/error';
-import history from './history';
 
 function index() {
   return (
-    <BrowserRouter history={history}>
+    <BrowserRouter>
       <Switch>
         <Route exact path={SIGN_IN_URL} component={SignIn} />
         <Route exact path={SIGN_UP_URL} component={SignUp} />

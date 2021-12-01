@@ -25,6 +25,8 @@ export const EMPTY_PASSWORD = '비밀번호를 입력해주세요.';
 export const EMPTY_PASSWORD_CONFIRM = '비밀번호 확인을 입력해주세요.';
 export const SIGN_UP_SUCCESS = '회원가입이 완료되었습니다.';
 export const REQUIRED_CHECK = '필수항목을 입력해주세요.';
+export const EMAIL_CHECK = '이메일 형식이 올바르지 않습니다.';
+export const PASSWORD_CHECK = '입력한 비밀번호가 다릅니다.';
 
 export const HOME = '홈으로';
 export const ERROR_CONTENT_F = '찾을수 없는 페이지 입니다.';

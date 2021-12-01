@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Input, Checkbox, Button, Alert, message } from 'antd';
+import { Input, Checkbox, Button, Alert, message, Form } from 'antd';
 import styled from 'styled-components';
 import {
   EMAIL,
   ESSENTIAL,
-  ESSENTIAL_TEXT,
   NICK_NAME,
   PASSWORD,
   PASSWORD_CONFIRM,
@@ -12,7 +11,6 @@ import {
   TERMS_OF_USE,
   USER_INFO,
   FULL_CONSENT,
-  REQUIRED_CHECK,
 } from '../../constants';
 import { theme } from '../../style/theme';
 
@@ -35,8 +33,6 @@ const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 700px;
 `;
 
 const Title = styled.p`
@@ -59,9 +55,8 @@ const EssentialText = styled.span`
 `;
 
 const Div = styled.div`
-  padding: 12.5px;
   padding-top: 21px;
-  width: 550px;
+  width: 100%;
 `;
 
 const TopLine = styled.div`
@@ -69,14 +64,14 @@ const TopLine = styled.div`
 `;
 
 const ButtonAntd = styled(Button)`
-  width: 500px;
+  width: 100%;
   height: 50px;
   font-size: ${theme.fontSizeTitle02};
   border-radius: 6px;
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 
-function SignUp({ handleChange, handleSignUp, emptyValueCheck }) {
+function SignUp({ handleChange, handleSignUp }) {
   const [checkedList, setCheckedList] = useState('');
   const [checkAll, setCheckAll] = useState(false);
 
@@ -93,7 +88,15 @@ function SignUp({ handleChange, handleSignUp, emptyValueCheck }) {
   return (
     <Wrapper>
       <InnerWrapper>
-        <Title>{SIGN_UP}</Title>
+        <Div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Title>{SIGN_UP}</Title>
+        </Div>
         <Div>
           {USER_INFO}
           <TopLine style={{ marginTop: '10px' }} />
@@ -101,72 +104,63 @@ function SignUp({ handleChange, handleSignUp, emptyValueCheck }) {
             *{ESSENTIAL}
           </Essential>
         </Div>
-        <Div>
-          <EssentialText>*</EssentialText>
-          {EMAIL}
-          <Input
-            style={{ marginTop: '9px' }}
+        <Form
+          style={{ marginTop: '10px' }}
+          layout="vertical"
+          onFinish={handleSignUp}
+        >
+          <Form.Item
+            label="이메일"
             name="email"
-            className="input-area"
-            onChange={handleChange}
-            onBlur={emptyValueCheck}
-            placeholder="이메일 주소를 입력해주세요."
-          />
-        </Div>
-        <Div>
-          <EssentialText>*</EssentialText>
-          {NICK_NAME}
-          <Input
-            style={{ marginTop: '9px' }}
+            rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
+          >
+            <Input onChange={handleChange} />
+          </Form.Item>
+          <Form.Item
+            label="닉네임"
             name="nickname"
-            onChange={handleChange}
-            onBlur={emptyValueCheck}
-            placeholder="닉네임을 입력해주세요."
-          />
-        </Div>
-        <Div>
-          <EssentialText>*</EssentialText>
-          {PASSWORD}
-          <Input.Password
-            style={{ marginTop: '9px' }}
+            rules={[{ required: true, message: '닉네임을 입력해주세요.' }]}
+          >
+            <Input onChange={handleChange} />
+          </Form.Item>
+          <Form.Item
+            label="비밀번호"
             name="password"
-            onChange={handleChange}
-            onBlur={emptyValueCheck}
-            placeholder="비밀번호를 입력해주세요."
-          />
-        </Div>
-        <Div>
-          <EssentialText>*</EssentialText>
-          {PASSWORD_CONFIRM}
-          <Input.Password
-            style={{ marginTop: '9px' }}
+            rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
+          >
+            <Input.Password onChange={handleChange} />
+          </Form.Item>
+          <Form.Item
+            label="비밀번호 확인"
             name="passwordConfirm"
-            onChange={handleChange}
-            onBlur={emptyValueCheck}
-            placeholder="비밀번호 확인을 입력해주세요."
-          />
-        </Div>
-        <Div style={{ marginTop: '65px' }}>
-          {TERMS_OF_USE}
-          <TopLine style={{ marginTop: '10px' }} />
-        </Div>
-        <Div>
-          <Checkbox onChange={onCheckAllChange} checked={checkAll}>
-            {FULL_CONSENT}
-          </Checkbox>
-        </Div>
-        <Div>
-          <CheckboxGroup
-            options={plainOptions}
-            value={checkedList}
-            onChange={onChange}
-          />
-        </Div>
-        <Div>
-          <ButtonAntd type="primary" onClick={handleSignUp}>
-            {SIGN_UP}
-          </ButtonAntd>
-        </Div>
+            rules={[
+              { required: true, message: '비밀번호 확인을 입력해주세요.' },
+            ]}
+          >
+            <Input.Password onChange={handleChange} />
+          </Form.Item>
+          <Div>
+            <Checkbox onChange={onCheckAllChange} checked={checkAll}>
+              {FULL_CONSENT}
+            </Checkbox>
+          </Div>
+          <Div>
+            <CheckboxGroup
+              options={plainOptions}
+              value={checkedList}
+              onChange={onChange}
+            />
+          </Div>
+          <Form.Item>
+            <ButtonAntd
+              type="primary"
+              htmlType="submit"
+              onKeyPress={handleSignUp}
+            >
+              {SIGN_UP}
+            </ButtonAntd>
+          </Form.Item>
+        </Form>
       </InnerWrapper>
     </Wrapper>
   );
