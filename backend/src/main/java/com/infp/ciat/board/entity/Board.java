@@ -38,11 +38,13 @@ public class Board extends BaseTimeEntity {
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<BoardReply> replies;
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<BoardLike> likes;
+
     @Builder
-    public Board(String content, List<String> pictureList, String showYn, Account account) {
+    public Board(String content, List<String> pictureList, Account account) {
         this.content = content;
         this.pictureList = pictureList;
-        this.showYn = showYn;
         this.account = account;
     }
 
