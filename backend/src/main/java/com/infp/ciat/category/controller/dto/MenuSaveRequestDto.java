@@ -16,7 +16,6 @@ public class MenuSaveRequestDto {
     private String icon;
     private String url;
     private Long orders;
-    private String showYn;
     private Account account;
 
     @Builder
@@ -26,7 +25,6 @@ public class MenuSaveRequestDto {
         this.icon = icon;
         this.url = url;
         this.orders = orders;
-        this.showYn = "Y";
         this.account = account;
     }
 
@@ -37,7 +35,6 @@ public class MenuSaveRequestDto {
                 .icon(icon)
                 .url(url)
                 .orders(orders)
-                .showYn(showYn)
                 .account(account)
                 .build();
     }
