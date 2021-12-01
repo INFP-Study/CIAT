@@ -22,10 +22,18 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignupRequestDTO requestDTO) {
+    public ResponseEntity<SignUpResponse> signUp(
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "nickname") String nickname
 
+    ) {
         log.info("------------------- 회원가입 요청 -----------------------");
-
+        SignupRequestDTO requestDTO = SignupRequestDTO.builder()
+                .email(email)
+                .password(password)
+                .nickname(nickname)
+                .build();
         Long created_id = accountService.signUp(requestDTO);
         return new ResponseEntity<>(new SignUpResponse(created_id), HttpStatus.CREATED);
     }
