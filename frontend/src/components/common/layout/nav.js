@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Affix, Menu } from 'antd';
-import {
-  CommentOutlined,
-  FileTextOutlined,
-  FundOutlined,
-  GithubOutlined,
-  HomeOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Affix, Button, Menu, Popconfirm } from 'antd';
+import * as AntdIcons from '@ant-design/icons';
 import styled from 'styled-components';
 import { theme } from '../../../style/theme';
 import { Link } from 'react-router-dom';
-import {
-  DOCUMENT_URL,
-  FEED_URL,
-  GITHUB_URL,
-  MAIN_URL,
-  PLANT_MANAGEMENT_URL,
-  SETTING_URL,
-} from '../../../constants/urls';
+import { DOCUMENT_URL, GITHUB_URL, SETTING_URL } from '../../../constants/urls';
 import { getMenuList } from '../../../store/menu';
 
 const Wrapper = styled.div`
@@ -55,11 +41,38 @@ const MenuAntd = styled(Menu)`
 
 function Nav() {
   const dispatch = useDispatch();
-  const [menuList, setMenuList] = useState();
+  const [menuList, setMenuList] = useState([]);
+  const [isMenuList, setIsMenuList] = useState(false);
+
+  //메뉴 리스트 가져오기
+  useEffect(() => {
+    dispatch({ type: getMenuList.type });
+  }, []);
+
+  const menu = useSelector((state) => state.menu.menuList);
 
   useEffect(() => {
-    setMenuList(() => dispatch({ type: getMenuList.type }));
-  }, []);
+    setMenuList(menu);
+    setIsMenuList(true);
+  }, [menu]);
+
+  //아이콘 동적 로딩 -> 커스텀 hook으로 생성하면 좋을 듯?
+  const DynamicIcon = (iconName) => {
+    const { ...icons } = AntdIcons;
+    const TheIcon = icons[iconName];
+
+    return <TheIcon style={{ fontSize: theme.fontSizeIcon }} />;
+  };
+
+  const getMenu = (menuList) => {
+    return menuList.map((menu) => {
+      return (
+        <Menu.Item key={menu.url} icon={DynamicIcon(menu.icon)}>
+          <Link to={menu.url} />
+        </Menu.Item>
+      );
+    });
+  };
 
   return (
     <Affix offsetTop={0}>
@@ -71,26 +84,7 @@ function Nav() {
             selectedKeys={window.location.pathname}
             defaultSelectedKeys={window.location.pathname}
           >
-            <Menu.Item
-              key={MAIN_URL}
-              icon={<HomeOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-            >
-              <Link to={MAIN_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={PLANT_MANAGEMENT_URL}
-              icon={<FundOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-            >
-              <Link to={PLANT_MANAGEMENT_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={FEED_URL}
-              icon={
-                <CommentOutlined style={{ fontSize: theme.fontSizeIcon }} />
-              }
-            >
-              <Link to={FEED_URL} />
-            </Menu.Item>
+            {isMenuList && getMenu(menuList)}
           </MenuAntd>
         </TopMenu>
 
@@ -104,7 +98,9 @@ function Nav() {
             <Menu.Item
               key={SETTING_URL}
               icon={
-                <SettingOutlined style={{ fontSize: theme.fontSizeIcon }} />
+                <AntdIcons.SettingOutlined
+                  style={{ fontSize: theme.fontSizeIcon }}
+                />
               }
             >
               <Link to={SETTING_URL} />
@@ -112,14 +108,21 @@ function Nav() {
             <Menu.Item
               key={DOCUMENT_URL}
               icon={
-                <FileTextOutlined style={{ fontSize: theme.fontSizeIcon }} />
+                <AntdIcons.FileTextOutlined
+                  style={{ fontSize: theme.fontSizeIcon }}
+                />
               }
             >
               <Link to={DOCUMENT_URL} />
             </Menu.Item>
+
             <Menu.Item
               key={GITHUB_URL}
-              icon={<GithubOutlined style={{ fontSize: theme.fontSizeIcon }} />}
+              icon={
+                <AntdIcons.GithubOutlined
+                  style={{ fontSize: theme.fontSizeIcon }}
+                />
+              }
             >
               <Link to={{ pathname: GITHUB_URL }} target="_blank" />
             </Menu.Item>

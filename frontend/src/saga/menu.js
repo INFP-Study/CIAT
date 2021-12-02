@@ -10,7 +10,6 @@ function* getMenuSaga(action) {
   try {
     yield put(startLoading(menuStore.getMenuList));
     const { data } = yield axios.get(menuAPI.GET_MENU);
-    console.log('data : ', data);
     yield put({ type: menuStore.getMenuListSuccess, payload: data });
   } catch (e) {
     if (axios.isAxiosError(e)) {

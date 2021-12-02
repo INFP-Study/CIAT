@@ -31,7 +31,7 @@ function SiteLayout({ children }) {
     <LayoutAntd>
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
         <Nav />
-        {location.pathname.includes(FEED_URL) && <Category />}
+        {/* {location.pathname.includes(FEED_URL) && <Category />} */}
       </Layout>
       <Layout style={{ background: theme.colorWhite, width: '100%' }}>
         <SiteHeader />
