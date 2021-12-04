@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Checkbox, Button } from 'antd';
 import styled from 'styled-components';
-import SiteLayout from '../../components/common/layout';
 import {
   EMAIL,
   ESSENTIAL,
@@ -92,69 +91,67 @@ function SignUp() {
   };
 
   return (
-    <SiteLayout>
-      <Wrapper>
-        <InnerWrapper>
-          <Title>{SIGN_UP}</Title>
-          <Div>
-            {USER_INFO}
-            <TopLine style={{ marginTop: '10px' }} />
-            {/* <Divider /> --> antd 라인 있음 */}
-            <Essential style={{ fontSize: '12px', paddingTop: '4px' }}>
-              *{ESSENTIAL}
-            </Essential>
-          </Div>
-          <Div>
-            {EMAIL}
-            <EssentialText>{ESSENTIAL_TEXT}</EssentialText>
-            <Input
-              placeholder="이메일 주소를 입력해주세요."
-              style={{ marginTop: '9px' }}
-            />
-          </Div>
-          <Div>
-            {NICK_NAME}
-            <Input
-              placeholder="닉네임을 입력해주세요."
-              style={{ marginTop: '9px' }}
-            />
-          </Div>
-          <Div>
-            {PASSWORD}
-            <Input.Password
-              placeholder="비밀번호를 입력해주세요."
-              style={{ marginTop: '9px' }}
-            />
-          </Div>
-          <Div>
-            {PASSWORD_CONFIRM}
-            <Input.Password
-              placeholder="비밀번호 확인을 입력해주세요."
-              style={{ marginTop: '9px' }}
-            />
-          </Div>
-          <Div style={{ marginTop: '65px' }}>
-            {TERMS_OF_USE}
-            <TopLine style={{ marginTop: '10px' }} />
-          </Div>
-          <Div>
-            <Checkbox onChange={onCheckAllChange} checked={checkAll}>
-              {FULL_CONSENT}
-            </Checkbox>
-          </Div>
-          <Div>
-            <CheckboxGroup
-              options={plainOptions}
-              value={checkedList}
-              onChange={onChange}
-            />
-          </Div>
-          <Div>
-            <ButtonAntd type="primary">{SIGN_UP}</ButtonAntd>
-          </Div>
-        </InnerWrapper>
-      </Wrapper>
-    </SiteLayout>
+    <Wrapper>
+      <InnerWrapper>
+        <Title>{SIGN_UP}</Title>
+        <Div>
+          {USER_INFO}
+          <TopLine style={{ marginTop: '10px' }} />
+          {/* <Divider /> --> antd 라인 있음 */}
+          <Essential style={{ fontSize: '12px', paddingTop: '4px' }}>
+            *{ESSENTIAL}
+          </Essential>
+        </Div>
+        <Div>
+          {EMAIL}
+          <EssentialText>{ESSENTIAL_TEXT}</EssentialText>
+          <Input
+            placeholder="이메일 주소를 입력해주세요."
+            style={{ marginTop: '9px' }}
+          />
+        </Div>
+        <Div>
+          {NICK_NAME}
+          <Input
+            placeholder="닉네임을 입력해주세요."
+            style={{ marginTop: '9px' }}
+          />
+        </Div>
+        <Div>
+          {PASSWORD}
+          <Input.Password
+            placeholder="비밀번호를 입력해주세요."
+            style={{ marginTop: '9px' }}
+          />
+        </Div>
+        <Div>
+          {PASSWORD_CONFIRM}
+          <Input.Password
+            placeholder="비밀번호 확인을 입력해주세요."
+            style={{ marginTop: '9px' }}
+          />
+        </Div>
+        <Div style={{ marginTop: '65px' }}>
+          {TERMS_OF_USE}
+          <TopLine style={{ marginTop: '10px' }} />
+        </Div>
+        <Div>
+          <Checkbox onChange={onCheckAllChange} checked={checkAll}>
+            {FULL_CONSENT}
+          </Checkbox>
+        </Div>
+        <Div>
+          <CheckboxGroup
+            options={plainOptions}
+            value={checkedList}
+            onChange={onChange}
+          />
+        </Div>
+        <Div>
+          <ButtonAntd type="primary">{SIGN_UP}</ButtonAntd>
+        </Div>
+      </InnerWrapper>
+    </Wrapper>
   );
 }
 

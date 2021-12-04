@@ -2,7 +2,6 @@ import React, { Children } from 'react';
 import { Input, Button, Space } from 'antd';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import SiteLayout from '../../components/common/layout';
 import {
   EMAIL,
   PASSWORD,
@@ -73,56 +72,54 @@ const SNSLogin = styled.div`
 
 function SignIn() {
   return (
-    <SiteLayout>
-      <Wrapper>
-        <InnerWrapper>
-          <Title>{SIGN_IN}</Title>
-          <Div>
-            {EMAIL}
-            <Input
-              placeholder="이메일 주소를 입력해주세요."
-              style={{ marginTop: '10px' }}
-            />
-          </Div>
-          <Div>
-            {PASSWORD}
-            <Input.Password
-              placeholder="비밀번호를 입력해주세요."
-              style={{ marginTop: '10px' }}
-            />
-          </Div>
-          <Div>
-            <ButtonAntd type="primary" style={{ height: '44px' }}>
-              {SIGN_IN}
-            </ButtonAntd>
-          </Div>
-          <Div
-            style={{
-              textAlign: 'center',
-              marginTop: '10px',
-              marginBottom: '30px',
-            }}
-          >
-            <Link to={SIGN_UP_URL}> {SIGN_UP} </Link> /
-            <Link to={SIGN_UP_URL}> {SEARCH_ID} </Link> /
-            <Link to={SIGN_UP_URL}> {SEARCH_PASSWORD}</Link>
-          </Div>
-          <SNSLogin>
-            <Space>
-              <AppleOutlined style={{ fontSize: '30px' }} />
-              Apple 로그인
-              <FacebookOutlined style={{ fontSize: '30px' }} />
-              Facebook 로그인
-              <GithubOutlined style={{ fontSize: '30px' }} />
-              Github 로그인
-              <InstagramOutlined style={{ fontSize: '30px' }} />
-              Instagram 로그인
-            </Space>
-          </SNSLogin>
-        </InnerWrapper>
-      </Wrapper>
+    <Wrapper>
+      <InnerWrapper>
+        <Title>{SIGN_IN}</Title>
+        <Div>
+          {EMAIL}
+          <Input
+            placeholder="이메일 주소를 입력해주세요."
+            style={{ marginTop: '10px' }}
+          />
+        </Div>
+        <Div>
+          {PASSWORD}
+          <Input.Password
+            placeholder="비밀번호를 입력해주세요."
+            style={{ marginTop: '10px' }}
+          />
+        </Div>
+        <Div>
+          <ButtonAntd type="primary" style={{ height: '44px' }}>
+            {SIGN_IN}
+          </ButtonAntd>
+        </Div>
+        <Div
+          style={{
+            textAlign: 'center',
+            marginTop: '10px',
+            marginBottom: '30px',
+          }}
+        >
+          <Link to={SIGN_UP_URL}> {SIGN_UP} </Link> /
+          <Link to={SIGN_UP_URL}> {SEARCH_ID} </Link> /
+          <Link to={SIGN_UP_URL}> {SEARCH_PASSWORD}</Link>
+        </Div>
+        <SNSLogin>
+          <Space>
+            <AppleOutlined style={{ fontSize: '30px' }} />
+            Apple 로그인
+            <FacebookOutlined style={{ fontSize: '30px' }} />
+            Facebook 로그인
+            <GithubOutlined style={{ fontSize: '30px' }} />
+            Github 로그인
+            <InstagramOutlined style={{ fontSize: '30px' }} />
+            Instagram 로그인
+          </Space>
+        </SNSLogin>
+      </InnerWrapper>
       {/* 로그인 API 향후 개발 */}
-    </SiteLayout>
+    </Wrapper>
   );
 }
 

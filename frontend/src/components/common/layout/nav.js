@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Affix, Button, Menu, Popconfirm } from 'antd';
 import * as AntdIcons from '@ant-design/icons';
 import styled from 'styled-components';
 import { theme } from '../../../style/theme';
 import { Link } from 'react-router-dom';
 import { DOCUMENT_URL, GITHUB_URL, SETTING_URL } from '../../../constants/urls';
-import { getMenuList } from '../../../store/menu';
+import Category from './category';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -39,23 +38,7 @@ const MenuAntd = styled(Menu)`
   }
 `;
 
-function Nav() {
-  const dispatch = useDispatch();
-  const [menuList, setMenuList] = useState([]);
-  const [isMenuList, setIsMenuList] = useState(false);
-
-  //메뉴 리스트 가져오기
-  useEffect(() => {
-    dispatch({ type: getMenuList.type });
-  }, []);
-
-  const menu = useSelector((state) => state.menu.menuList);
-
-  useEffect(() => {
-    setMenuList(menu);
-    setIsMenuList(true);
-  }, [menu]);
-
+function Nav({ menuList, location }) {
   //아이콘 동적 로딩 -> 커스텀 hook으로 생성하면 좋을 듯?
   const DynamicIcon = (iconName) => {
     const { ...icons } = AntdIcons;
@@ -74,62 +57,74 @@ function Nav() {
     });
   };
 
+  const getCategory = (menuList) => {
+    return menuList.filter((menu) => {
+      return (
+        menu.categoryList.length !== 0 && (
+          <Category categoryList={menu.categoryList} />
+        )
+      );
+    });
+  };
   return (
-    <Affix offsetTop={0}>
-      <Wrapper>
-        <TopMenu>
-          {/* 상단 메뉴 */}
-          <MenuAntd
-            mode="inline"
-            selectedKeys={window.location.pathname}
-            defaultSelectedKeys={window.location.pathname}
-          >
-            {isMenuList && getMenu(menuList)}
-          </MenuAntd>
-        </TopMenu>
+    <>
+      <Affix offsetTop={0}>
+        <Wrapper>
+          <TopMenu>
+            {/* 상단 메뉴 */}
+            <MenuAntd
+              mode="inline"
+              selectedKeys={location.pathname}
+              defaultSelectedKeys={location.pathname}
+            >
+              {menuList.length !== 0 && getMenu(menuList)}
+            </MenuAntd>
+          </TopMenu>
 
-        {/* 하단 메뉴*/}
-        <BottomMenu>
-          <MenuAntd
-            mode="inline"
-            selectedKeys={window.location.pathname}
-            defaultSelectedKeys={window.location.pathname}
-          >
-            <Menu.Item
-              key={SETTING_URL}
-              icon={
-                <AntdIcons.SettingOutlined
-                  style={{ fontSize: theme.fontSizeIcon }}
-                />
-              }
+          {/* 하단 메뉴*/}
+          <BottomMenu>
+            <MenuAntd
+              mode="inline"
+              selectedKeys={location.pathname}
+              defaultSelectedKeys={location.pathname}
             >
-              <Link to={SETTING_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={DOCUMENT_URL}
-              icon={
-                <AntdIcons.FileTextOutlined
-                  style={{ fontSize: theme.fontSizeIcon }}
-                />
-              }
-            >
-              <Link to={DOCUMENT_URL} />
-            </Menu.Item>
+              <Menu.Item
+                key={SETTING_URL}
+                icon={
+                  <AntdIcons.SettingOutlined
+                    style={{ fontSize: theme.fontSizeIcon }}
+                  />
+                }
+              >
+                <Link to={SETTING_URL} />
+              </Menu.Item>
+              <Menu.Item
+                key={DOCUMENT_URL}
+                icon={
+                  <AntdIcons.FileTextOutlined
+                    style={{ fontSize: theme.fontSizeIcon }}
+                  />
+                }
+              >
+                <Link to={DOCUMENT_URL} />
+              </Menu.Item>
 
-            <Menu.Item
-              key={GITHUB_URL}
-              icon={
-                <AntdIcons.GithubOutlined
-                  style={{ fontSize: theme.fontSizeIcon }}
-                />
-              }
-            >
-              <Link to={{ pathname: GITHUB_URL }} target="_blank" />
-            </Menu.Item>
-          </MenuAntd>
-        </BottomMenu>
-      </Wrapper>
-    </Affix>
+              <Menu.Item
+                key={GITHUB_URL}
+                icon={
+                  <AntdIcons.GithubOutlined
+                    style={{ fontSize: theme.fontSizeIcon }}
+                  />
+                }
+              >
+                <Link to={{ pathname: GITHUB_URL }} target="_blank" />
+              </Menu.Item>
+            </MenuAntd>
+          </BottomMenu>
+        </Wrapper>
+      </Affix>
+      {menuList.length !== 0 && getCategory(menuList)}
+    </>
   );
 }
 

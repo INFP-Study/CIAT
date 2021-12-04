@@ -3,11 +3,7 @@ import SiteLayout from '../components/common/layout';
 import FeedDetailContainer from '../containers/feed-detail-container';
 
 function FeedDetail() {
-  return (
-    <SiteLayout>
-      <FeedDetailContainer />
-    </SiteLayout>
-  );
+  return <FeedDetailContainer />;
 }
 
 export default FeedDetail;
