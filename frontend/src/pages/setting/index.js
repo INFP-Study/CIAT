@@ -1,8 +1,7 @@
 import React from 'react';
-import SiteLayout from '../../components/common/layout';
 
 function Setting() {
-  return <SiteLayout> Setting </SiteLayout>;
+  return <> Setting </>;
 }
 
 export default Setting;
