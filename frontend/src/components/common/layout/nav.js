@@ -1,24 +1,11 @@
 import React from 'react';
-import { Affix, Menu } from 'antd';
-import {
-  CommentOutlined,
-  FileTextOutlined,
-  FundOutlined,
-  GithubOutlined,
-  HomeOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { Affix, Button, Menu, Popconfirm } from 'antd';
+import * as AntdIcons from '@ant-design/icons';
 import styled from 'styled-components';
 import { theme } from '../../../style/theme';
 import { Link } from 'react-router-dom';
-import {
-  DOCUMENT_URL,
-  FEED_URL,
-  GITHUB_URL,
-  MAIN_URL,
-  PLANT_MANAGEMENT_URL,
-  SETTING_URL,
-} from '../../../constants/urls';
+import { DOCUMENT_URL, GITHUB_URL, SETTING_URL } from '../../../constants/urls';
+import Category from './category';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -51,73 +38,93 @@ const MenuAntd = styled(Menu)`
   }
 `;
 
-function Nav() {
-  return (
-    <Affix offsetTop={0}>
-      <Wrapper>
-        <TopMenu>
-          {/* 상단 메뉴 */}
-          <MenuAntd
-            mode="inline"
-            selectedKeys={window.location.pathname}
-            defaultSelectedKeys={window.location.pathname}
-          >
-            <Menu.Item
-              key={MAIN_URL}
-              icon={<HomeOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-            >
-              <Link to={MAIN_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={PLANT_MANAGEMENT_URL}
-              icon={<FundOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-            >
-              <Link to={PLANT_MANAGEMENT_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={FEED_URL}
-              icon={
-                <CommentOutlined style={{ fontSize: theme.fontSizeIcon }} />
-              }
-            >
-              <Link to={FEED_URL} />
-            </Menu.Item>
-          </MenuAntd>
-        </TopMenu>
+function Nav({ menuList, location }) {
+  //아이콘 동적 로딩 -> 커스텀 hook으로 생성하면 좋을 듯?
+  const DynamicIcon = (iconName) => {
+    const { ...icons } = AntdIcons;
+    const TheIcon = icons[iconName];
 
-        {/* 하단 메뉴*/}
-        <BottomMenu>
-          <MenuAntd
-            mode="inline"
-            selectedKeys={window.location.pathname}
-            defaultSelectedKeys={window.location.pathname}
-          >
-            <Menu.Item
-              key={SETTING_URL}
-              icon={
-                <SettingOutlined style={{ fontSize: theme.fontSizeIcon }} />
-              }
+    return <TheIcon style={{ fontSize: theme.fontSizeIcon }} />;
+  };
+
+  const getMenu = (menuList) => {
+    return menuList.map((menu) => {
+      return (
+        <Menu.Item key={menu.url} icon={DynamicIcon(menu.icon)}>
+          <Link to={menu.url} />
+        </Menu.Item>
+      );
+    });
+  };
+
+  const getCategory = (menuList) => {
+    return menuList.filter((menu) => {
+      return (
+        menu.categoryList.length !== 0 && (
+          <Category categoryList={menu.categoryList} />
+        )
+      );
+    });
+  };
+  return (
+    <>
+      <Affix offsetTop={0}>
+        <Wrapper>
+          <TopMenu>
+            {/* 상단 메뉴 */}
+            <MenuAntd
+              mode="inline"
+              selectedKeys={location.pathname}
+              defaultSelectedKeys={location.pathname}
             >
-              <Link to={SETTING_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={DOCUMENT_URL}
-              icon={
-                <FileTextOutlined style={{ fontSize: theme.fontSizeIcon }} />
-              }
+              {menuList.length !== 0 && getMenu(menuList)}
+            </MenuAntd>
+          </TopMenu>
+
+          {/* 하단 메뉴*/}
+          <BottomMenu>
+            <MenuAntd
+              mode="inline"
+              selectedKeys={location.pathname}
+              defaultSelectedKeys={location.pathname}
             >
-              <Link to={DOCUMENT_URL} />
-            </Menu.Item>
-            <Menu.Item
-              key={GITHUB_URL}
-              icon={<GithubOutlined style={{ fontSize: theme.fontSizeIcon }} />}
-            >
-              <Link to={{ pathname: GITHUB_URL }} target="_blank" />
-            </Menu.Item>
-          </MenuAntd>
-        </BottomMenu>
-      </Wrapper>
-    </Affix>
+              <Menu.Item
+                key={SETTING_URL}
+                icon={
+                  <AntdIcons.SettingOutlined
+                    style={{ fontSize: theme.fontSizeIcon }}
+                  />
+                }
+              >
+                <Link to={SETTING_URL} />
+              </Menu.Item>
+              <Menu.Item
+                key={DOCUMENT_URL}
+                icon={
+                  <AntdIcons.FileTextOutlined
+                    style={{ fontSize: theme.fontSizeIcon }}
+                  />
+                }
+              >
+                <Link to={DOCUMENT_URL} />
+              </Menu.Item>
+
+              <Menu.Item
+                key={GITHUB_URL}
+                icon={
+                  <AntdIcons.GithubOutlined
+                    style={{ fontSize: theme.fontSizeIcon }}
+                  />
+                }
+              >
+                <Link to={{ pathname: GITHUB_URL }} target="_blank" />
+              </Menu.Item>
+            </MenuAntd>
+          </BottomMenu>
+        </Wrapper>
+      </Affix>
+      {menuList.length !== 0 && getCategory(menuList)}
+    </>
   );
 }
 

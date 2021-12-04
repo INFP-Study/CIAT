@@ -52,35 +52,33 @@ const Logo = styled.img`
 
 function NotFound() {
   return (
-    <>
-      <Wrapper>
-        <InnerWrapper style={{ paddingTop: '100px' }}>
-          <Logo className="404image" alt="404logo" src="image/404logo.png" />
-          <Box
-            style={{
-              textShadow:
-                '-1px 0 #7ea592, 0 1px #7ea592, 1px 0 #7ea592, 0 -1px #7ea592',
-              fontSize: '100px',
-              color: '#fff',
-            }}
-          >
-            {ERROR_CODE}
-          </Box>
-          <Box>
-            <ErrorContent>
-              {ERROR_CONTENT_F}
-              <br />
-              {ERROR_CONTENT_S}
-            </ErrorContent>
-          </Box>
-          <Box style={{ paddingTop: '50px' }}>
-            <Link to={MAIN_URL}>
-              <GoHome type="primary">{HOME}</GoHome>
-            </Link>
-          </Box>
-        </InnerWrapper>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <InnerWrapper style={{ paddingTop: '100px' }}>
+        <Logo className="404image" alt="404logo" src="image/404logo.png" />
+        <Box
+          style={{
+            textShadow:
+              '-1px 0 #7ea592, 0 1px #7ea592, 1px 0 #7ea592, 0 -1px #7ea592',
+            fontSize: '100px',
+            color: '#fff',
+          }}
+        >
+          {ERROR_CODE}
+        </Box>
+        <Box>
+          <ErrorContent>
+            {ERROR_CONTENT_F}
+            <br />
+            {ERROR_CONTENT_S}
+          </ErrorContent>
+        </Box>
+        <Box style={{ paddingTop: '50px' }}>
+          <Link to={MAIN_URL}>
+            <GoHome type="primary">{HOME}</GoHome>
+          </Link>
+        </Box>
+      </InnerWrapper>
+    </Wrapper>
   );
 }
 
