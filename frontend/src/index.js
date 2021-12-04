@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import rootReducer, { rootSaga } from './store';
 import './style/theme.less';
+import { createBrowserHistory } from 'history';
 
 const sagaMiddleware = createSagaMiddleware();
 

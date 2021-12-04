@@ -2,6 +2,7 @@ package com.infp.ciat.board.controller;
 
 import com.infp.ciat.board.dto.CreateBoardRequestForm;
 import com.infp.ciat.board.service.UploadImagesService;
+import com.infp.ciat.common.exceptions.FailCreateBoard;
 import com.infp.ciat.config.auth.PrincipalDetails;
 import com.infp.ciat.user.entity.Account;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -21,7 +24,7 @@ public class BoardController {
     public String create(@RequestParam(value = "title") String title,
                          @RequestParam(value = "content") String content,
                          MultipartHttpServletRequest multipartHttpServletRequest,
-                         @AuthenticationPrincipal PrincipalDetails user) {
+                         @AuthenticationPrincipal PrincipalDetails user) throws FailCreateBoard {
         log.info("--- create board API is called ----");
         Account account = user.getAccount();
         CreateBoardRequestForm requestForm = CreateBoardRequestForm.builder()
@@ -34,7 +37,9 @@ public class BoardController {
         log.info(String.format("[Create board] request_body: %s", requestForm.toString()));
         // todo 게시판 게시판생성
 
-        uploadImagesService.Upload(requestForm);
+        List<String> images = uploadImagesService.Upload(requestForm);
+        // debug log
+        log.info(images.toString());
 
         return "success";
     }
