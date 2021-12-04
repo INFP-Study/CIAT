@@ -4,10 +4,12 @@ import {
   PaperClipOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
-import { Card, Space } from 'antd';
+import { notification, Card, Space, message } from 'antd';
 import { theme } from '../../style/theme';
 import styled from 'styled-components';
 import FeedContent from './feed-card/feed-card-content';
+import useCopyClipBoard from '../../hooks/useCopyClipBoard';
+import { Link } from 'react-router-dom';
 
 const CardAntd = styled(Card)`
   max-width: 652px;
@@ -15,23 +17,45 @@ const CardAntd = styled(Card)`
 `;
 
 function Wrapper({ contents }) {
-  const actionTab = () => {
+  const [isCopy, onCopy] = useCopyClipBoard();
+
+  const onShare = (id) => {
+    onCopy(window.location.href + '/' + id);
+    notification.success({
+      message: '스토리 링크가 복사되었어요✨',
+      placement: 'bottomRight',
+      duration: 1,
+    });
+  };
+
+  const actionTab = (id) => {
     return [
-      <Space>
+      <Space
+        onClick={() =>
+          message.warning({
+            content: '좋아요 기능 준비 중 입니다.',
+            style: {
+              marginTop: '10vh',
+            },
+          })
+        }
+      >
         <SmileOutlined
           key="like"
           style={{ fontSize: `${theme.fontSizeIcon}` }}
         />
         좋아요
       </Space>,
-      <Space>
-        <MessageOutlined
-          key="comment"
-          style={{ fontSize: `${theme.fontSizeIcon}` }}
-        />
-        댓글
-      </Space>,
-      <Space>
+      <Link to={`/feed/${id}`}>
+        <Space>
+          <MessageOutlined
+            key="comment"
+            style={{ fontSize: `${theme.fontSizeIcon}` }}
+          />
+          댓글
+        </Space>
+      </Link>,
+      <Space onClick={() => onShare(id)}>
         <PaperClipOutlined
           key="shere"
           style={{ fontSize: `${theme.fontSizeIcon}` }}
@@ -49,7 +73,7 @@ function Wrapper({ contents }) {
           paddingRight: '4px',
           paddingBottom: '8px',
         }}
-        actions={actionTab()}
+        actions={actionTab(content.id)}
         key={content.id}
       >
         <FeedContent
