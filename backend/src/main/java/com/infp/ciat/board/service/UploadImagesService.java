@@ -1,9 +1,9 @@
-package com.infp.ciat.feed.service;
+package com.infp.ciat.board.service;
 
 import com.amazonaws.SdkClientException;
-import com.infp.ciat.feed.dto.CreateFeedRequestForm;
+import com.infp.ciat.board.dto.CreateBoardRequestForm;
 import com.infp.ciat.common.aws.S3Helper;
-import com.infp.ciat.common.exceptions.FailCreateFeed;
+import com.infp.ciat.common.exceptions.FailCreateBoard;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ public class UploadImagesService {
     /***
      * 이미지 업로드
      */
-    public List<String> Upload(CreateFeedRequestForm requestForm) throws FailCreateFeed {
+    public List<String> Upload(CreateBoardRequestForm requestForm) throws FailCreateBoard {
         List<String> results = new ArrayList<>();
 
         log.info("--- file upload start ---");
@@ -45,7 +45,7 @@ public class UploadImagesService {
                     results.add(uploaded_s3url);
                 }catch(SdkClientException | IOException e){
                     log.error(String.format("File Upload failed and exception: %s", e.toString()));
-                    throw new FailCreateFeed("이미지 업로드 실패");
+                    throw new FailCreateBoard("이미지 업로드 실패");
                 }
             }
         }

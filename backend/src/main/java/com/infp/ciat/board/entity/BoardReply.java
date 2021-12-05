@@ -1,4 +1,4 @@
-package com.infp.ciat.feed.entity;
+package com.infp.ciat.board.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
 import com.infp.ciat.user.entity.Account;
@@ -8,21 +8,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-public class Feed extends BaseTimeEntity {
+public class BoardReply extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String title;
 
     @Column(nullable = false)
     private String content;
@@ -31,7 +27,8 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "accountId")
     private Account account;
 
-    @OneToMany(mappedBy = "feed", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<FeedReply> replies;
+    @ManyToOne
+    @JoinColumn(name = "boardId")
+    private Board board;
 
 }
