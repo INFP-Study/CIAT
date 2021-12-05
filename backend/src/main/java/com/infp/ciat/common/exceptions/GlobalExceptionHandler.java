@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler(FailCreateBoard.class)
-    public ResponseEntity<ErrorResponse> FailCreateException(FailCreateBoard ex){
+    @ExceptionHandler(FailCreateFeed.class)
+    public ResponseEntity<ErrorResponse> FailCreateException(FailCreateFeed ex){
         ErrorResponse response = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "게시판 생성실패", ex.getMessage());
         return new ResponseEntity<>(response, response.getHttp_status());
     }
