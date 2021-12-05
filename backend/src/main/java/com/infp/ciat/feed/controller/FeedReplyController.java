@@ -1,7 +1,6 @@
 package com.infp.ciat.feed.controller;
 
 import com.infp.ciat.config.auth.PrincipalDetails;
-import com.infp.ciat.feed.entity.Feed;
 import com.infp.ciat.feed.entity.FeedReply;
 import com.infp.ciat.feed.service.FeedReplyService;
 import lombok.RequiredArgsConstructor;
