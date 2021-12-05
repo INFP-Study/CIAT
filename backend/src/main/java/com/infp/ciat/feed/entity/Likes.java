@@ -27,5 +27,4 @@ public class Likes extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "feedId")
     private Feed feed;
-
-}
+  
