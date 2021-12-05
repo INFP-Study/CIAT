@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   MessageOutlined,
   PaperClipOutlined,
@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import FeedContent from './feed-card/feed-card-content';
 import useCopyClipBoard from '../../hooks/useCopyClipBoard';
 import { Link } from 'react-router-dom';
+import { FEED_DETAIL_URL, FEED_ROUTE, FEED_URL } from '../../constants/urls';
 
 const CardAntd = styled(Card)`
   max-width: 652px;
@@ -18,9 +19,10 @@ const CardAntd = styled(Card)`
 
 function Wrapper({ contents }) {
   const [isCopy, onCopy] = useCopyClipBoard();
+  const [isLike, setIsLike] = useState();
 
   const onShare = (id) => {
-    onCopy(window.location.href + '/' + id);
+    onCopy(window.location.hostname + FEED_DETAIL_URL + '/' + id);
     notification.success({
       message: '스토리 링크가 복사되었어요✨',
       placement: 'bottomRight',
@@ -28,25 +30,27 @@ function Wrapper({ contents }) {
     });
   };
 
+  const onLike = () => {
+    setIsLike(!isLike);
+    // message.warning({
+    //   content: '좋아요 기능 준비 중 입니다.',
+    //   style: {
+    //     marginTop: '10vh',
+    //   },
+    // });
+  };
   const actionTab = (id) => {
     return [
-      <Space
-        onClick={() =>
-          message.warning({
-            content: '좋아요 기능 준비 중 입니다.',
-            style: {
-              marginTop: '10vh',
-            },
-          })
-        }
-      >
+      <Space onClick={() => onLike()}>
         <SmileOutlined
           key="like"
-          style={{ fontSize: `${theme.fontSizeIcon}` }}
+          style={{
+            fontSize: `${theme.fontSizeIcon}`,
+          }}
         />
         좋아요
       </Space>,
-      <Link to={`/feed/${id}`}>
+      <Link to={`${FEED_DETAIL_URL}/${id}`}>
         <Space>
           <MessageOutlined
             key="comment"
@@ -85,13 +89,14 @@ function Wrapper({ contents }) {
           src={content.src}
           like={content.like}
           key={content.id}
+          isLike={isLike}
         />
       </CardAntd>
     ));
   };
 
   return (
-    <Space direction="vertical" size="small">
+    <Space direction="vertical" size={13}>
       {createPost(contents)}
     </Space>
   );

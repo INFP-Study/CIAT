@@ -7,9 +7,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: row;
   align-items: stretch;
-  height: 100%;
-  max-height: 100%;
-  /* margin: -48px -40px -24px; */
+  height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
+  margin: -48px -40px -24px;
 `;
 
 function FeedDetailContainer() {
