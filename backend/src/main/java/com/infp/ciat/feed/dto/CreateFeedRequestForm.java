@@ -1,10 +1,8 @@
-package com.infp.ciat.board.dto;
+package com.infp.ciat.feed.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.util.List;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /***
  * 게시판(피드)생성 요청 dto
@@ -13,13 +11,13 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @ToString
-public class CreateBoardRequestForm {
+public class CreateFeedRequestForm {
     private String title;
     private String content;
     private MultipartHttpServletRequest multipartHttpServletRequest;
 
     @Builder
-    public CreateBoardRequestForm(String title, String content, MultipartHttpServletRequest multipartHttpServletRequest) {
+    public CreateFeedRequestForm(String title, String content, MultipartHttpServletRequest multipartHttpServletRequest) {
         this.title = title;
         this.content = content;
         this.multipartHttpServletRequest = multipartHttpServletRequest;

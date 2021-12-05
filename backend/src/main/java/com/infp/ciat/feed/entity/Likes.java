@@ -1,6 +1,7 @@
-package com.infp.ciat.board.entity;
+package com.infp.ciat.feed.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
+import com.infp.ciat.user.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,17 +14,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class BoardPicture extends BaseTimeEntity {
+public class Likes extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String picture_url;
+    @ManyToOne
+    @JoinColumn(name = "accountId")
+    private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "boardId")
-    private Board board;
+    @JoinColumn(name = "feedId")
+    private Feed feed;
 
 }
