@@ -1,4 +1,4 @@
-package com.infp.ciat.board.entity;
+package com.infp.ciat.feed.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class BoardPicture extends BaseTimeEntity {
+public class FeedPicture extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class BoardPicture extends BaseTimeEntity {
     private String picture_url;
 
     @ManyToOne
-    @JoinColumn(name = "boardId")
-    private Board board;
+    @JoinColumn(name = "feedId")
+    private Feed feed;
 
 }

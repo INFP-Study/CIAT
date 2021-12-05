@@ -3,6 +3,7 @@ package com.infp.ciat.common.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +29,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(FailCreateBoard.class)
     public ResponseEntity<ErrorResponse> FailCreateException(FailCreateBoard ex){
         ErrorResponse response = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "게시판 생성실패", ex.getMessage());
+        return new ResponseEntity<>(response, response.getHttp_status());
+    }
+
+    /***
+     * 잘못된 사용자 요청
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        log.error("Bad Request: " + e.getMessage());
+        ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST, "잘못된 요청", e.getBindingResult().toString());
         return new ResponseEntity<>(response, response.getHttp_status());
     }
 }
