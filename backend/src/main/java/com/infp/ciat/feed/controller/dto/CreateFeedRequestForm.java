@@ -1,4 +1,4 @@
-package com.infp.ciat.feed.dto;
+package com.infp.ciat.feed.controller.dto;
 
 import lombok.*;
 

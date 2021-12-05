@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -22,16 +23,32 @@ public class Feed extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String content;
+
+    @ElementCollection
+    @CollectionTable(name = "picture_list")
+    private List<String> pictureList = new ArrayList<>();
 
     @Column(nullable = false)
-    private String content;
+    private String showYn = "Y";
 
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;
 
-    @OneToMany(mappedBy = "feed", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "feed", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<FeedReply> replies;
 
+    @Builder
+    public Feed(String content, List<String> pictureList, String showYn, Account account) {
+        this.content = content;
+        this.pictureList = pictureList;
+        this.showYn = showYn;
+        this.account = account;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.showYn = this.showYn == null ? "Y" : this.showYn;
+    }
 }

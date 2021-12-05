@@ -1,7 +1,7 @@
 package com.infp.ciat.feed.service;
 
 import com.amazonaws.SdkClientException;
-import com.infp.ciat.feed.dto.CreateFeedRequestForm;
+import com.infp.ciat.feed.controller.dto.CreateFeedRequestForm;
 import com.infp.ciat.common.aws.S3Helper;
 import com.infp.ciat.common.exceptions.FailCreateFeed;
 
@@ -31,7 +31,7 @@ public class UploadImagesService {
     /***
      * 이미지 업로드
      */
-    public List<String> Upload(CreateFeedRequestForm requestForm) throws FailCreateFeed {
+    public List<String> upload(CreateFeedRequestForm requestForm) throws FailCreateFeed {
         List<String> results = new ArrayList<>();
 
         log.info("--- file upload start ---");
