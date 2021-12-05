@@ -82,7 +82,7 @@ const Wrapper = styled.div`
 function FeedContainer() {
   return (
     <Wrapper>
-      <Space direction="vertical" size="middle">
+      <Space direction="vertical" size={13}>
         <FeedWrite />
         <Feed contents={contentsTmp} />
       </Space>

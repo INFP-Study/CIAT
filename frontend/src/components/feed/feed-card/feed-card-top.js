@@ -20,15 +20,26 @@ function FeedTop({ author, date }) {
     //   title={author}
     //   description={date}
     // />
+    <>
+      <Space wrap size={10}>
+        <Avatar
+          icon={<UserOutlined />}
+          style={{ backgroundColor: `${theme.colorPrimary}` }}
+          size={theme.fontSizeUserIcon}
+        />
 
-    <Space wrap>
-      <Avatar
-        icon={<UserOutlined />}
-        style={{ backgroundColor: `${theme.colorPrimary}` }}
-        size={theme.fontSizeUserIcon}
-      />
-      <Text>{author}</Text>
-    </Space>
+        <Text
+          style={{
+            fontSize: `${theme.fontSizeBody01}`,
+            fontWeight: `${theme.weightMid}`,
+          }}
+        >
+          {author}
+        </Text>
+
+        <Text>08월 20일</Text>
+      </Space>
+    </>
   );
 }
 

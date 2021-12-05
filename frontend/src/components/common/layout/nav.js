@@ -58,13 +58,13 @@ function Nav({ menuList, location }) {
   };
 
   const getCategory = (menuList) => {
-    return menuList.filter((menu) => {
-      return (
-        menu.categoryList.length !== 0 && (
-          <Category categoryList={menu.categoryList} />
-        )
-      );
-    });
+    // return menuList.filter((menu) => {
+    //   return (
+    //     menu.categoryList.length !== 0 && (
+    //       <Category categoryList={menu.categoryList} />
+    //     )
+    //   );
+    // });
   };
   return (
     <>

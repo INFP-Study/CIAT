@@ -4,7 +4,8 @@ export const MY_PAGE_URL = '/mypage';
 export const PLANT_MANAGEMENT_URL = '/plantmanagement';
 
 export const FEED_URL = '/feed';
-export const FEED_ROUTE = '/feed/:id';
+export const FEED_DETAIL_URL = '/feeddetail';
+export const FEED_ROUTE = '/feeddetail/:id';
 export const FEED_DAILY_URL = '/feed/daily';
 
 export const SETTING_URL = '/setting';
