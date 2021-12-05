@@ -1,4 +1,4 @@
-package com.infp.ciat.board.entity;
+package com.infp.ciat.feed.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
 import com.infp.ciat.user.entity.Account;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class BoardLike extends BaseTimeEntity {
+public class Likes extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class BoardLike extends BaseTimeEntity {
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "boardId")
-    private Board board;
+    @JoinColumn(name = "feedId")
+    private Feed feed;
 
 }

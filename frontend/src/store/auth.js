@@ -1,24 +1,29 @@
 import { takeLatest } from 'redux-saga/effects';
 import { createSlice } from '@reduxjs/toolkit';
-import { googleLoginSaga } from '../saga/auth';
+import { signUpSaga } from '../saga/auth';
 
 const initialState = {
-  googleSignup: {
-    error: null,
+  data: {
+    email: '',
+    nickname: '',
+    password: '',
+    passwordConfirm: '',
   },
+  userId: '',
+  error: null,
 };
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getGoogleLogin: (state) => state,
-    getGoogleLoginSuccess: (state, action) => {
-      state.user.userId = action.payload.userId;
-      localStorage.setItem('user', action.payload.accessToken);
+    signUpSuccess: (state, action) => {
+      state.userId = action.payload;
+      state.error = null;
       return state;
     },
-    getGoogleLoginFail: (state, action) => {
-      state.googleSignup.error = action.payload;
+    signUpFail: (state, action) => {
+      state.error = action.payload;
+      console.debug('error', action.payload);
       return state;
     },
   },
@@ -26,11 +31,10 @@ const authSlice = createSlice({
 
 const { actions, reducer: authReducer } = authSlice;
 
-export const { getGoogleLogin, getGoogleLoginSuccess, getGoogleLoginFail } =
-  actions;
+export const { signUpSuccess, signUpFail } = actions;
 
-export { authReducer, initialState };
+export { authReducer };
 
 export function* authSaga() {
-  yield takeLatest(getGoogleLogin.type, googleLoginSaga);
+  yield takeLatest(signUpSuccess.type, signUpSaga);
 }
