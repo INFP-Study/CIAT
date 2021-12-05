@@ -1,7 +1,7 @@
-package com.infp.ciat.board.service;
+package com.infp.ciat.feed.service;
 
-import com.infp.ciat.board.entity.FeedReply;
-import com.infp.ciat.board.repository.FeedReplyRepository;
+import com.infp.ciat.feed.repository.FeedReplyRepository;
+import com.infp.ciat.feed.entity.FeedReply;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

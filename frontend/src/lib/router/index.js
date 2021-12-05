@@ -19,21 +19,28 @@ import Setting from '../../pages/setting';
 import SignUp from '../../pages/auth/sign-up';
 import FeedDetail from '../../pages/feed-detail';
 import NotFound from '../../pages/error';
+import SiteLayout from '../../components/common/layout';
 
 function index() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path={SIGN_IN_URL} component={SignIn} />
-        <Route exact path={SIGN_UP_URL} component={SignUp} />
-        <Route exact path={PLANT_MANAGEMENT_URL} component={PlantManagement} />
-        <Route exact path={FEED_URL} component={Feed} />
-        <Route path={FEED_ROUTE} component={FeedDetail} />
-        <Route exact path={SETTING_URL} component={Setting} />
-        <Route exact path={DOCUMENT_URL} component={Document} />
-        <Route exact path={MAIN_URL} component={Home} />
-        <Route component={NotFound} />
-      </Switch>
+      <SiteLayout>
+        <Switch>
+          <Route exact path={SIGN_IN_URL} component={SignIn} />
+          <Route exact path={SIGN_UP_URL} component={SignUp} />
+          <Route
+            exact
+            path={PLANT_MANAGEMENT_URL}
+            component={PlantManagement}
+          />
+          <Route exact path={FEED_URL} component={Feed} />
+          <Route path={FEED_ROUTE} component={FeedDetail} />
+          <Route exact path={SETTING_URL} component={Setting} />
+          <Route exact path={DOCUMENT_URL} component={Document} />
+          <Route exact path={MAIN_URL} component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </SiteLayout>
     </BrowserRouter>
   );
 }

@@ -1,8 +1,8 @@
-package com.infp.ciat.board.controller;
+package com.infp.ciat.feed.controller;
 
-import com.infp.ciat.board.entity.FeedReply;
-import com.infp.ciat.board.service.FeedReplyService;
 import com.infp.ciat.config.auth.PrincipalDetails;
+import com.infp.ciat.feed.entity.FeedReply;
+import com.infp.ciat.feed.service.FeedReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
