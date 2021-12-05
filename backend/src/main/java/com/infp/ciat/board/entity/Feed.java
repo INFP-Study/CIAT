@@ -8,23 +8,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-public class Likes extends BaseTimeEntity {
+public class Feed extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String content;
+
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;
 
-    @ManyToOne
-    @JoinColumn(name = "feedId")
-    private Feed feed;
-  
+    @OneToMany(mappedBy = "feed", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<FeedReply> replies;
+
+}

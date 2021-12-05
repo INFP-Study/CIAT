@@ -14,11 +14,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Likes extends BaseTimeEntity {
+public class FeedReply extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "accountId")
@@ -27,4 +30,5 @@ public class Likes extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "feedId")
     private Feed feed;
-  
+
+}
