@@ -3,7 +3,7 @@ import { Space } from 'antd';
 import React from 'react';
 import { theme } from '../../../style/theme';
 
-function FeedBottom({ like, comment }) {
+function FeedBottom({ like, comment, isLike }) {
   return (
     <div
       style={{
@@ -12,11 +12,20 @@ function FeedBottom({ like, comment }) {
       }}
     >
       <Space>
-        <SmileOutlined style={{ fontSize: `${theme.fontSizeIcon}` }} />
-        좋아요 {like}
+        <SmileOutlined
+          style={{
+            fontSize: `${theme.fontSizeIcon}`,
+            color: `${isLike ? theme.colorPrimary : theme.colorText}`,
+          }}
+        />
+        <span
+          style={{ color: `${isLike ? theme.colorPrimary : theme.colorText}` }}
+        >
+          {isLike ? `${like + 1}개` : `${like}개`}
+        </span>
       </Space>
 
-      <Space>댓글 {comment}</Space>
+      <Space>{`댓글 ${comment}개`}</Space>
     </div>
   );
 }

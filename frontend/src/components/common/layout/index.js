@@ -6,7 +6,7 @@ import SiteHeader from './header';
 import SiteFooter from './footer';
 import Nav from './nav';
 import styled from 'styled-components';
-import { FEED_URL } from '../../../constants/urls';
+import { FEED_DETAIL_URL } from '../../../constants/urls';
 import { theme } from '../../../style/theme';
 import { getMenuList } from '../../../store/menu';
 import { useLocation } from 'react-router';
@@ -57,7 +57,7 @@ function SiteLayout({ children }) {
         <ContentAntd>
           <ContentInner>{children}</ContentInner>
         </ContentAntd>
-        <SiteFooter />
+        <SiteFooter location={location} />
       </Layout>
     </LayoutAntd>
   );

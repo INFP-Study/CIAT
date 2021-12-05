@@ -35,7 +35,7 @@ const InnerCarousel = styled.div`
   div > img {
     width: auto;
     height: 100%;
-    max-height: 600px;
+    max-height: calc(100vh - 70px);
     object-fit: contain;
   }
 `;
