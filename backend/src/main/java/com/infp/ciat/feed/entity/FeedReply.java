@@ -2,10 +2,7 @@ package com.infp.ciat.feed.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
 import com.infp.ciat.user.entity.Account;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class FeedReply extends BaseTimeEntity {
 
