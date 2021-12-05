@@ -1,6 +1,7 @@
 package com.infp.ciat.feed.controller;
 
 import com.infp.ciat.config.auth.PrincipalDetails;
+import com.infp.ciat.feed.entity.Feed;
 import com.infp.ciat.feed.entity.FeedReply;
 import com.infp.ciat.feed.service.FeedReplyService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,12 @@ public class FeedReplyController {
     public Long save(@RequestBody FeedReply feedReply, @AuthenticationPrincipal PrincipalDetails user) {
         log.debug(feedReply.toString());
         feedReply.setAccount(user.getAccount());
-      return feedReplyService.save(feedReply);
+        return feedReplyService.save(feedReply);
     }
+
+    @PostMapping("/delete")
+    public void delete(@RequestBody FeedReply feedReply, @AuthenticationPrincipal PrincipalDetails user) {
+        feedReplyService.delete(feedReply);
+    }
+
 }

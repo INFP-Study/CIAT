@@ -18,4 +18,13 @@ public class FeedReplyService {
     public Long save(FeedReply reply) {
         return feedReplyRepository.save(reply).getId();
     }
+
+    @Transactional
+    public void delete(FeedReply reply) {
+        Long userId = reply.getAccount().getId();
+        feedReplyRepository.findById(userId)
+                .orElseThrow(() ->  new IllegalArgumentException("해당 사용자가 없습니다. id=" + userId));
+
+        feedReplyRepository.delete(reply);
+    }
 }
