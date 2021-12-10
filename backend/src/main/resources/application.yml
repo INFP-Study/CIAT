@@ -1,5 +1,10 @@
 server:
   port: 9400
+  servlet:
+    session:
+      cookie:
+        http-only: false
+        secure: false
 
 logging:
   level:
