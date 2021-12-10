@@ -10,7 +10,10 @@ public class webconfigProd implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://ciat.choicloudlab.com")
+                .allowedOriginPatterns("http://localhost:3000")
+                .allowedOriginPatterns("http://localhost:8070")
+                .allowedOriginPatterns("https://vuelogin.choicloudlab.com")
+                .allowedOriginPatterns("https://ciat-frontend.choicloudlab.com")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .allowedMethods("*");
