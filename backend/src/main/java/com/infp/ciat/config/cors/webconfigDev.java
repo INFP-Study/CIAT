@@ -11,7 +11,11 @@ public class webconfigDev implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns("http://localhost:3000")
+                .allowedOriginPatterns("https://vuelogin.choicloudlab.com")
+                .allowedOriginPatterns("http://localhost:8070")
+                .allowedOriginPatterns("https://ciat-frontend.choicloudlab.com")
+//                .allowedOrigins("*")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .allowedMethods("*");
