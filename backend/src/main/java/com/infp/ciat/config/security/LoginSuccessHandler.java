@@ -17,9 +17,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         log.info("[login success] username: " + authentication.getName());
-//        Cookie cookie = new Cookie("sample", "A");
-
-//        response.addCookie(cookie);
         HttpSession session = request.getSession();
         response.getWriter().write(session.getId());
         response.getWriter().flush();
