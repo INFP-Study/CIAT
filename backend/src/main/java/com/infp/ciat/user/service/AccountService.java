@@ -20,8 +20,10 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @Slf4j
 public class AccountService {
-    private final AccountRepository accountRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /***
      * 회원가입서비스
