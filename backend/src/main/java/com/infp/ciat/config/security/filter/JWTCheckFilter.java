@@ -1,5 +1,8 @@
 package com.infp.ciat.config.security.filter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.google.gson.JsonObject;
 import com.infp.ciat.config.auth.PrincipalDetails;
 import com.infp.ciat.config.security.jwt.JWTUtils;
 import com.infp.ciat.config.security.jwt.JWTVerifyResult;
@@ -17,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Optional;
 
 /***
@@ -50,25 +54,51 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             return;
         }
 
-        JWTVerifyResult verify_result = this.jwtUtils.verify(authorization.substring("Bearer ".length()));
-        if(verify_result.isStatus()){
-            Optional<Account> user = accountService.findUserByEmailOrNull(verify_result.getUser());
-            if(!user.isPresent()){
-                log.error("JWT토큰 검사는 성공했지만 계정이 존재하지 않음(계정이 삭제된 경우)");
-                throw new UsernameNotFoundException("사용자가 존재하지 않습니다.");
-            }
+        JWTVerifyResult verify_result = null;
+        try{
+            verify_result = this.jwtUtils.verify(authorization.substring("Bearer ".length()));
+        }catch(TokenExpiredException ex){
+            log.error("[Auth]JWTtoken is expired");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
-            // 스프링시큐리티 인증정보 초기화(인가설정 적용을 위해)
-            PrincipalDetails principalDetails = new PrincipalDetails(user.get());
-            UsernamePasswordAuthenticationToken auth_token = new UsernamePasswordAuthenticationToken(
-                    principalDetails,
-                    null,
-                    principalDetails.getAuthorities()
-            );
-            SecurityContextHolder.getContext().setAuthentication(auth_token);
-            filterChain.doFilter(request, response);
-        }else {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
+            PrintWriter out = response.getWriter();
+            JsonObject json = new JsonObject();
+            json.addProperty("error", "JWT error");
+            json.addProperty("error_deatils", "JWT token is expired");
+            out.print(json);
+            out.flush();
+            return;
+        }catch(JWTVerificationException ex){
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+
+            PrintWriter out = response.getWriter();
+            JsonObject json = new JsonObject();
+            json.addProperty("error", "JWT error");
+            json.addProperty("error_deatils", "JWT Format is not unvalid");
+            out.print(json);
+            out.flush();
+            return;
         }
+
+        Optional<Account> user = accountService.findUserByEmailOrNull(verify_result.getUser());
+        if(!user.isPresent()){
+            log.error(String.format("[Auth]JWT Token is passed. but %s is not exist", verify_result.getUser()));
+            throw new UsernameNotFoundException(String.format("%s is not exist. but try login", verify_result.getUser()));
+        }
+
+        // 스프링시큐리티 인증정보 초기화(인가설정 적용을 위해)
+        PrincipalDetails principalDetails = new PrincipalDetails(user.get());
+        UsernamePasswordAuthenticationToken auth_token = new UsernamePasswordAuthenticationToken(
+                principalDetails,
+                null,
+                principalDetails.getAuthorities()
+        );
+        SecurityContextHolder.getContext().setAuthentication(auth_token);
+
+        filterChain.doFilter(request, response);
     }
 }
