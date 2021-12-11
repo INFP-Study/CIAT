@@ -1,7 +1,8 @@
-package com.infp.ciat.config.security;
+package com.infp.ciat.config.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infp.ciat.config.auth.PrincipalDetails;
+import com.infp.ciat.config.security.jwt.JWTUtils;
 import com.infp.ciat.user.controller.dto.request.LoginRequestDTO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

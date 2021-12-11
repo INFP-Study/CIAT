@@ -1,4 +1,4 @@
-package com.infp.ciat.config.security;
+package com.infp.ciat.config.security.jwt;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;

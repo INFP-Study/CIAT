@@ -1,9 +1,12 @@
-package com.infp.ciat.config.security;
+package com.infp.ciat.config.security.filter;
 
 import com.infp.ciat.config.auth.PrincipalDetails;
+import com.infp.ciat.config.security.jwt.JWTUtils;
+import com.infp.ciat.config.security.jwt.JWTVerifyResult;
 import com.infp.ciat.user.entity.Account;
 import com.infp.ciat.user.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -63,8 +66,9 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                     principalDetails.getAuthorities()
             );
             SecurityContextHolder.getContext().setAuthentication(auth_token);
+            filterChain.doFilter(request, response);
+        }else {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
         }
-
-        filterChain.doFilter(request, response);
     }
 }

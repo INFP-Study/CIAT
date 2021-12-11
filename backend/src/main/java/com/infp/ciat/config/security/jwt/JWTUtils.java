@@ -1,4 +1,4 @@
-package com.infp.ciat.config.security;
+package com.infp.ciat.config.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class JWTUtils {
     private String secret_key = "sample";
     private Algorithm AL = Algorithm.HMAC512(secret_key);
-    private long lifetime = 180;
+    private long lifetime = 30;
 
     /***
      * jwt 토큰 생성
