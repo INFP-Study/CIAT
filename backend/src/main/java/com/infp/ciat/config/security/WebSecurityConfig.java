@@ -7,13 +7,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.cors.CorsConfiguration;
@@ -56,39 +59,58 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 필터등록
+        JWTFilter jwtFilter = new JWTFilter(authenticationManagerBean());
+        jwtFilter.setFilterProcessesUrl("/api/v1/user/signin");
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.formLogin().disable()
+            .httpBasic().disable();
+
         http
-            .csrf().disable()
             .authorizeRequests()
+            .antMatchers("/api/v1/user/signin").permitAll()
             .antMatchers("/api/v1/user/signup").permitAll()
             .antMatchers("/api/v1/session/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
-            .anyRequest().authenticated()
-            .and()
-        .formLogin()
-            .loginProcessingUrl ("/api/v1/user/login")
-            .usernameParameter("email")
-            .passwordParameter("password")
-            .failureHandler(new LoginFailHandler())
-            .successHandler(new LoginSuccessHandler())
-            .and()
-        .logout()
-          .logoutUrl("/api/v1/user/logout")
-          .permitAll()
-          .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
-          .and()
-                .sessionManagement()
-                .invalidSessionUrl("/api/v1/session/invalid")
-                .and()
-        .cors()
-            .configurationSource(corsConfigurationSource())
-            .and()
-        .oauth2Login()
-                .userInfoEndpoint()
-                    .userService(oAuth2DetailesService);
+            .anyRequest().permitAll();
+//        .addFilter(jwtFilter)
+//        .formLogin()
+//            .loginProcessingUrl ("/api/v1/user/login")
+//            .usernameParameter("email")
+//            .passwordParameter("password")
+//            .failureHandler(new LoginFailHandler())
+//            .successHandler(new LoginSuccessHandler())
+//            .and()
+//        .logout()
+//          .logoutUrl("/api/v1/user/logout")
+//          .permitAll()
+//          .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+//          .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+////                .invalidSessionUrl("/api/v1/session/invalid")
+//                .and()
+        http.cors()
+            .configurationSource(corsConfigurationSource());
+
+        http.oauth2Login().userInfoEndpoint().userService(oAuth2DetailesService);
     }
 
+    /***
+     * 기본 authenticationManger를 Bean으로 등록한다.
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
