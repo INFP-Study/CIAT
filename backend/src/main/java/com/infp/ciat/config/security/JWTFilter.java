@@ -20,9 +20,11 @@ import java.io.IOException;
 @Slf4j
 public class JWTFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private JWTUtils jwtUtils;
 
-    public JWTFilter(AuthenticationManager authenticationManager1) {
-        this.authenticationManager = authenticationManager1;
+    public JWTFilter(AuthenticationManager authenticationManager, JWTUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
     }
 
     /***
@@ -60,8 +62,7 @@ public class JWTFilter extends UsernamePasswordAuthenticationFilter {
         PrincipalDetails user = (PrincipalDetails) authResult.getPrincipal();
         log.info("[Auth]login success. username: " + user.getUsername());
 
-        JWTUtils jwtUtils = new JWTUtils();
-        String jwt_token = jwtUtils.generate(
+        String jwt_token = this.jwtUtils.generate(
                 user.getUsername(),
                 user.getAuthorities()
         );

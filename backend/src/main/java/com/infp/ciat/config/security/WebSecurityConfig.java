@@ -39,10 +39,9 @@ import java.io.IOException;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
     private OAuth2DetailsService oAuth2DetailesService;
-
+    private JWTUtils jwtUtils = new JWTUtils();
     /***
      * default 패스워드 암호화알고리즘 사용 설정
      * @return
@@ -60,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 필터등록
-        JWTFilter jwtFilter = new JWTFilter(authenticationManagerBean());
+        JWTFilter jwtFilter = new JWTFilter(authenticationManagerBean(), jwtUtils);
         jwtFilter.setFilterProcessesUrl("/api/v1/user/signin");
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -79,22 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
             .anyRequest().permitAll();
-//        .addFilter(jwtFilter)
-//        .formLogin()
-//            .loginProcessingUrl ("/api/v1/user/login")
-//            .usernameParameter("email")
-//            .passwordParameter("password")
-//            .failureHandler(new LoginFailHandler())
-//            .successHandler(new LoginSuccessHandler())
-//            .and()
-//        .logout()
-//          .logoutUrl("/api/v1/user/logout")
-//          .permitAll()
-//          .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
-//          .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-////                .invalidSessionUrl("/api/v1/session/invalid")
-//                .and()
+
         http.cors()
             .configurationSource(corsConfigurationSource());
 
