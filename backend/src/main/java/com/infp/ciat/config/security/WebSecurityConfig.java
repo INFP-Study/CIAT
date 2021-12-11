@@ -54,11 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 필터등록
-        JWTFilter jwtFilter = new JWTFilter(authenticationManagerBean(), jwtUtils);
-        jwtFilter.setFilterProcessesUrl("/api/v1/user/signin");
-        JWTCheckFilter jwtCheckFilter = new JWTCheckFilter(authenticationManagerBean(), accountService, jwtUtils);
-        http.addFilter(jwtFilter)
-            .addFilterBefore(jwtCheckFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(new JWTFilter(authenticationManagerBean(), jwtUtils))
+            .addFilterBefore(new JWTCheckFilter(authenticationManagerBean(),
+                    accountService, jwtUtils), UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
