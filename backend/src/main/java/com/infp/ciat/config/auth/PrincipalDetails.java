@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-/***
- * 인증정보 관리
- */
+// Authentication 객체에 저장할 수 있는 유일한 타입
 public class PrincipalDetails implements UserDetails, OAuth2User, Serializable {
+
   private Account account;
   private Map<String, Object> attributes;
 
@@ -48,12 +47,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User, Serializable {
     return (String) attributes.get("name");
   }
 
-  /***
-   * role 리턴
-   * @return
-   */
+  // account의 권한을 리턴한다.
   @Override
-  public Collection<GrantedAuthority> getAuthorities() {
+  public Collection<? extends GrantedAuthority> getAuthorities() {
     Collection<GrantedAuthority> collect = new ArrayList<>();
     collect.add(new GrantedAuthority() {
       @Override
