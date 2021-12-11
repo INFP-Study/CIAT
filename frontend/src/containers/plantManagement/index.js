@@ -1,0 +1,85 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Col, Row } from 'antd';
+import Memo from '../../components/plantManagement/memo';
+import Log from '../../components/plantManagement/log';
+import PlantCard from '../../components/plantManagement/plant-card';
+import CareCard from '../../components/plantManagement/care-card';
+import ImageCard from '../../components/plantManagement/image-card';
+
+const collStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexDirection: 'column',
+  maxWidth: '300px',
+  maxHeight: '300px',
+};
+
+const Wrapper = styled.div`
+  height: 100%;
+`;
+
+const PlantManagementContainer = () => {
+  const [plantInfo, setPlantInfo] = useState({
+    title: '토마토',
+    subTitle: '가지목 가지과',
+    content: '남아메리카, 중앙아메리카',
+  });
+  const [careInfo, setCareInfo] = useState({
+    title: '관리방법',
+    content:
+      '방울토마토를 비롯해 집에서 채소를 키우려면 상토를 화분에 넣고, 중앙에 2/3나 3/4 정도 너무 깊지 않게 씨앗이나 모종을 심는 것이 중요',
+  });
+
+  return (
+    <Wrapper>
+      <Row gutter={[16, 16]} style={{ height: '100%' }}>
+        <Col
+          className="gutter-row"
+          span={6}
+          style={{ maxHeight: '300px', maxWidth: '300px' }}
+        >
+          <ImageCard />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={12}
+          style={{ maxHeight: '300px', maxWidth: '600px' }}
+        >
+          <ImageCard />
+        </Col>
+        <Col className="gutter-row" span={6} style={collStyle}>
+          <PlantCard plantInfo={plantInfo} />
+          <CareCard careInfo={careInfo} />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={6}
+          style={{ maxHeight: '300px', maxWidth: '300px' }}
+        >
+          <ImageCard />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={6}
+          style={{ maxHeight: '300px', maxWidth: '300px' }}
+        >
+          <ImageCard />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={6}
+          style={{ maxHeight: '300px', maxWidth: '300px' }}
+        >
+          <ImageCard />
+        </Col>
+        <Col className="gutter-row" span={6} style={collStyle}>
+          <Log />
+          <Memo />
+        </Col>
+      </Row>
+    </Wrapper>
+  );
+};
+
+export default PlantManagementContainer;
