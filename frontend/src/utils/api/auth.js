@@ -9,4 +9,7 @@ export const SIGN_UP_API =
   'https://ciat-bakend.choicloudlab.com/api/v1/user/signup';
 
 export const SIGN_IN_API =
-  'https://ciat-bakend.choicloudlab.com/api/v1/user/login';
+  'https://ciat-bakend.choicloudlab.com/api/v1/user/signin';
+
+export const IS_SUCCESS =
+  'https://ciat-bakend.choicloudlab.com/api/v1/user/success';
