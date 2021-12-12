@@ -3,18 +3,28 @@ package com.infp.ciat.config.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
+
 import java.time.Instant;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Component
 public class JWTUtils {
-    private String secret_key = "sample";
-    private Algorithm AL = Algorithm.HMAC512(secret_key);
-    // 10분
-    private long lifetime = 600;
+    private String secret_key;
+    private Algorithm AL;
+    private long lifetime;
 
-    /***
+  public JWTUtils(@Value("${jwt.secret}")String secret_key) {
+    this.secret_key = secret_key;
+    this.AL =  Algorithm.HMAC512(secret_key);
+    // 10분
+    this.lifetime = 600;
+  }
+
+  /***
      * jwt 토큰 생성
      * @param username
      * @return

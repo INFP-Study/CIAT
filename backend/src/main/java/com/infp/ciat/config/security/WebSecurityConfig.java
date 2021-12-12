@@ -39,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AccountService accountService;
     @Autowired
     private OAuth2DetailsService oAuth2DetailesService;
-    private JWTUtils jwtUtils = new JWTUtils();
+    @Autowired
+    private JWTUtils jwtUtils;
+
     /***
      * default 패스워드 암호화알고리즘 사용 설정
      * @return

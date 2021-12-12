@@ -27,6 +27,8 @@ spring:
       hibernate:
         format_sql: true
         ddl-auto: create
+jwt:
+  secret: ENC(1MBsToCDbYBEvJkfxlSkoBb30kG1MYPqYOcyUcKZOhnodcSkYMncHeTYNyKr0GfYocr9yI3G1cR6DJHykIZTpQ==)
 
 logging:
   level:
