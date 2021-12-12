@@ -5,10 +5,15 @@ import com.infp.ciat.config.auth.PrincipalDetails;
 import com.infp.ciat.feed.controller.dto.CreateFeedRequestForm;
 import com.infp.ciat.feed.controller.dto.FeedDto;
 import com.infp.ciat.feed.controller.dto.FeedSaveRequestDto;
+import com.infp.ciat.feed.entity.Feed;
 import com.infp.ciat.feed.repository.FeedRepository;
 import com.infp.ciat.user.entity.Account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -56,9 +61,16 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public List<FeedDto> getList() {
-        return feedRepository.findAllNotDeleted().stream()
+    public List<FeedDto> getList(Long lastFeedId, int size) {
+        return fetchPages(lastFeedId, size).getContent()
+                .stream()
                 .map(f -> new FeedDto(f))
                 .collect(Collectors.toList());
+    }
+
+    private Page<Feed> fetchPages(Long lastFeedId, int size) {
+        Pageable pageable = PageRequest.of(0, size, Sort.by("id").descending());
+
+        return feedRepository.findAllNotDeletedWithPaging(lastFeedId, pageable);
     }
 }

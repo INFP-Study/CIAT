@@ -25,7 +25,7 @@ public class Feed extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "picture_list")
     private List<String> pictureList = new ArrayList<>();
 

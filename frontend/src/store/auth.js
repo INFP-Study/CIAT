@@ -10,7 +10,7 @@ const initialState = {
     passwordConfirm: '',
   },
   userId: '',
-  isLogin: '',
+  accessToken: '',
   error: null,
 };
 const authSlice = createSlice({
@@ -28,8 +28,9 @@ const authSlice = createSlice({
       console.debug('error', action.payload);
       return state;
     },
+    signIn: (state) => state,
     signInSuccess: (state, action) => {
-      state.isLogin = action.payload;
+      state.accessToken = action.payload;
       state.error = null;
       return state;
     },
@@ -43,12 +44,18 @@ const authSlice = createSlice({
 
 const { actions, reducer: authReducer } = authSlice;
 
-export const { signUp, signUpSuccess, signUpFail, signInSuccess, signInFail } =
-  actions;
+export const {
+  signUp,
+  signUpSuccess,
+  signUpFail,
+  signIn,
+  signInSuccess,
+  signInFail,
+} = actions;
 
 export { authReducer };
 
 export function* authSaga() {
   yield takeLatest(signUp.type, signUpSaga);
-  yield takeLatest(signInSuccess.type, signInSaga);
+  yield takeLatest(signIn.type, signInSaga);
 }

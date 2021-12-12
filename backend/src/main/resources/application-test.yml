@@ -27,12 +27,17 @@ spring:
       hibernate:
         format_sql: true
         ddl-auto: create
+jwt:
+  secret: ENC(1MBsToCDbYBEvJkfxlSkoBb30kG1MYPqYOcyUcKZOhnodcSkYMncHeTYNyKr0GfYocr9yI3G1cR6DJHykIZTpQ==)
 
 logging:
   level:
     com:
       infp:
         ciat: debug
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 
 #공공포탈 api service key, public url
 forest:

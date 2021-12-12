@@ -39,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AccountService accountService;
     @Autowired
     private OAuth2DetailsService oAuth2DetailesService;
-    private JWTUtils jwtUtils = new JWTUtils();
+    @Autowired
+    private JWTUtils jwtUtils;
+
     /***
      * default 패스워드 암호화알고리즘 사용 설정
      * @return
@@ -77,6 +79,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
             .antMatchers("/api/v1/user/signin").permitAll()
             .antMatchers("/api/v1/user/signup").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/feed").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/feed/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/feeds").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/feeds/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
             .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()

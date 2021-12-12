@@ -23,7 +23,6 @@ export const EMPTY_EMAIL = '이메일 주소를 입력해주세요.';
 export const EMPTY_NICKNAME = '닉네임을 입력해주세요.';
 export const EMPTY_PASSWORD = '비밀번호를 입력해주세요.';
 export const EMPTY_PASSWORD_CONFIRM = '비밀번호 확인을 입력해주세요.';
-export const SIGN_IN_SUCCESS = '씨앗에 오신 것을 환영합니다.';
 export const SIGN_UP_SUCCESS = '회원가입이 완료되었습니다.';
 export const REQUIRED_CHECK = '필수항목을 입력해주세요.';
 export const EMAIL_CHECK = '이메일 형식이 올바르지 않습니다.';
@@ -32,6 +31,7 @@ export const NICKNAME_CHECK =
 export const PASSWORD_SAME_CHECK = '입력한 비밀번호가 다릅니다.';
 export const PASSWORD_CHECK =
   '비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요 (길이 8자~20자)';
+export const SIGN_IN_ERROR = '가입이 되어있지 않거나, 비밀번호가 틀렸습니다.';
 
 export const HOME = '홈으로';
 export const ERROR_CONTENT_F = '찾을수 없는 페이지 입니다.';

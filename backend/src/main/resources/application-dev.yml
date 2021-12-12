@@ -5,13 +5,17 @@ server:
       cookie:
         http-only: false
         secure: false
+jwt:
+  secret: ENC(1MBsToCDbYBEvJkfxlSkoBb30kG1MYPqYOcyUcKZOhnodcSkYMncHeTYNyKr0GfYocr9yI3G1cR6DJHykIZTpQ==)
 
 logging:
   level:
     com:
       infp:
         ciat: debug
-
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 spring:
   security:
     oauth2:
