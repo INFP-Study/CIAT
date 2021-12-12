@@ -35,6 +35,9 @@ logging:
     com:
       infp:
         ciat: debug
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 
 #공공포탈 api service key, public url
 forest:
