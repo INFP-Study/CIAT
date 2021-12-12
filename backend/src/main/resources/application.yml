@@ -11,6 +11,9 @@ logging:
     com:
       infp:
         ciat: debug
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 
 spring:
   servlet:
