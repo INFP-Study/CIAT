@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 public class JWTUtils {
     private String secret_key = "sample";
     private Algorithm AL = Algorithm.HMAC512(secret_key);
-    // 4 hours
-    private long lifetime = 14400;
+    // 10분
+    private long lifetime = 600;
 
     /***
      * jwt 토큰 생성

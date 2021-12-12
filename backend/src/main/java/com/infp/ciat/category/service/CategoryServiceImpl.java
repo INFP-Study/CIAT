@@ -5,6 +5,7 @@ import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.entity.Category;
 import com.infp.ciat.category.repository.CategoryRepository;
+import com.infp.ciat.category.repository.MenuRepository;
 import com.infp.ciat.user.entity.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    private final MenuRepository menuRepository;
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -29,18 +32,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> getList() {
-        return categoryRepository.findAllNotDeleted()
-                .stream()
-                .map(c -> CategoryDto.builder()
-                        .id(c.getId())
-//                        .uid(c.getUid())
-                        .name(c.getName())
-                        .icon(c.getIcon())
-                        .url(c.getUrl())
-                        .orders(c.getOrders())
-                        .menuId(c.getMenu().getId())
-                        .build())
+    public List<CategoryDto> getList(Long menuId, Long accountId) {
+
+        List<Category> categoryList;
+
+        if ("식물관리".equals(menuRepository.findByIdNotDeleted(menuId).get().getName())) {
+            categoryList = categoryRepository.findAllNotDeletedOnlyForPlantMenu(menuId, accountId);
+        } else {
+            categoryList = categoryRepository.findAllNotDeleted(menuId);
+        }
+
+        return categoryList.stream()
+                .map(c -> new CategoryDto(c))
                 .sorted(Comparator.comparing(CategoryDto::getOrders))
                 .collect(Collectors.toList());
     }
