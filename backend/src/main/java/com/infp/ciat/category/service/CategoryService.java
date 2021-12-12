@@ -13,7 +13,7 @@ public interface CategoryService {
 
     List<CategoryDto> getList(Long menuId, Long accountId);
 
-    CategoryDto getDetail(Long id);
+    CategoryDto getDetail(Long categoryId, Long accountId);
 
     Long update(Long id, CategoryUpdateRequestDto requestDto, Account account);
 
