@@ -1,30 +1,30 @@
 import { put } from 'redux-saga/effects';
 import * as authStore from '../store/auth';
-import { SIGN_IN_API, SIGN_UP_API } from '../utils/api/auth';
+import { IS_SUCCESS, SIGN_IN_API, SIGN_UP_API } from '../utils/api/auth';
 import axios from 'axios';
-import { INNER_ERROR, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from '../constants';
+import { INNER_ERROR, SIGN_IN_ERROR, SIGN_UP_SUCCESS } from '../constants';
 import { finishLoading, startLoading } from '../store/loding';
-import { notification } from 'antd';
+import { message, notification } from 'antd';
 
-// 로그인 사가 수정 예정
 function* signInSaga(action) {
   try {
-    let params = new URLSearchParams();
-    params.append('email', 'test-email-1209-01@test.com');
-    params.append('password', '@test1234');
-    axios
-      .post('https://ciat-bakend.choicloudlab.com/api/v1/user/login', params)
-      .then((response) => {
-        console.log('Success');
-        console.log(response.status);
-        console.log(response.headers);
-      })
-      .catch((error) => {
-        console.debug('error');
-        console.log(error.response.status);
-      });
+    const params = {
+      email: action.data.email,
+      password: action.data.password,
+    };
+    yield put(startLoading(authStore.signIn));
+    const data = yield axios.post(SIGN_IN_API, params);
+    axios.defaults.headers.common['Authorization'] = data.headers.authorization;
+    const success = yield axios.get(IS_SUCCESS);
+    yield put({
+      type: authStore.signInSuccess,
+      payload: success.config.headers.Authorization,
+    });
+
+    window.location.href = '/';
   } catch (error) {
-    console.debug(error);
+    message.error(SIGN_IN_ERROR, 5);
+    yield console.debug(error.response);
   } finally {
     yield put(finishLoading(authStore.signInSuccess));
   }
@@ -47,6 +47,9 @@ function* signUpSaga(action) {
   } catch (e) {
     // 이메일 중복 확인 로직 추가예정
     alert('이미 등록된 이메일입니다.');
+    if (axios.isAxiosError(e)) {
+      console.log(e.response);
+    }
     /* if (axios.isAxiosError(e)) {
       const { errorMessage } = e.response.data;
       console.log('errorMessage: ', errorMessage);
