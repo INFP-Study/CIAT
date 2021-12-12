@@ -15,14 +15,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/feed")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Slf4j
 public class FeedController {
 
     private final FeedService feedService;
 
-    @PostMapping("/create")
+    @PostMapping("/feed")
     public ResponseEntity<?> create(@RequestParam(value = "content") String content,
                                     MultipartHttpServletRequest multipartHttpServletRequest,
                                     @AuthenticationPrincipal PrincipalDetails user)
@@ -31,8 +31,8 @@ public class FeedController {
         return new ResponseEntity<>(feedService.create(content, multipartHttpServletRequest, user), HttpStatus.CREATED);
     }
 
-    @GetMapping({"", "/"})
-    public ResponseEntity<List<FeedDto>> getList() {
-        return new ResponseEntity<>(feedService.getList(), HttpStatus.OK);
+    @GetMapping("/feeds")
+    public ResponseEntity<List<FeedDto>> getList(@RequestParam Long lastFeedId, @RequestParam int size) {
+        return new ResponseEntity<>(feedService.getList(lastFeedId, size), HttpStatus.OK);
     }
 }
