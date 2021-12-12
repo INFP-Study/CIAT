@@ -14,21 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 @RestController
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/api/v1/category")
+    @PostMapping("/category")
     public ResponseEntity<CategoryDto> newCategory(@RequestBody CategorySaveRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         CategoryDto newCategory = categoryService.create(requestDto, principalDetails.getAccount());
 
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
-    @GetMapping("/api/v1/category")
-    public ResponseEntity<List<CategoryDto>> categoryList() {
-        return new ResponseEntity<>(categoryService.getList(), HttpStatus.OK);
+    @GetMapping("/categories") // 식물관리 제외한 나머지 메뉴
+    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam Long menuId, @RequestBody Long accountId) {
+        return new ResponseEntity<>(categoryService.getList(menuId, accountId), HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/category/{id}")
@@ -36,13 +37,13 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getDetail(id), HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/category/{id}")
+    @PutMapping("/category/{id}")
     public ResponseEntity<Long> updateCategory(@PathVariable Long id, @RequestBody CategoryUpdateRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long updateResult = categoryService.update(id, requestDto, principalDetails.getAccount());
         return new ResponseEntity<>(updateResult, HttpStatus.OK);
     }
 
-    @PatchMapping("/api/v1/category/{id}")
+    @PatchMapping("/category/{id}")
     public ResponseEntity<Long> deleteCategory(@PathVariable Long id) {
         return new ResponseEntity<>(categoryService.delete(id), HttpStatus.OK);
     }
