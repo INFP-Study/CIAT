@@ -1,11 +1,19 @@
 server:
   port: 9400
+  servlet:
+    session:
+      cookie:
+        http-only: false
+        secure: false
 
 logging:
   level:
     com:
       infp:
         ciat: debug
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 
 spring:
   servlet:

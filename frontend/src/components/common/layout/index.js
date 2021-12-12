@@ -6,10 +6,11 @@ import SiteHeader from './header';
 import SiteFooter from './footer';
 import Nav from './nav';
 import styled from 'styled-components';
-import { FEED_URL } from '../../../constants/urls';
+import { FEED_DETAIL_URL } from '../../../constants/urls';
 import { theme } from '../../../style/theme';
 import { getMenuList } from '../../../store/menu';
 import { useLocation } from 'react-router';
+import Category from './category';
 
 const LayoutAntd = styled(Layout)`
   display: flex;
@@ -51,13 +52,14 @@ function SiteLayout({ children }) {
     <LayoutAntd>
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
         {isMenu && <Nav menuList={menuList} location={location} />}
+        {isMenu && <Category menuList={menuList} location={location} />}
       </Layout>
       <Layout style={{ background: theme.colorWhite, width: '100%' }}>
         <SiteHeader />
         <ContentAntd>
           <ContentInner>{children}</ContentInner>
         </ContentAntd>
-        <SiteFooter />
+        <SiteFooter location={location} />
       </Layout>
     </LayoutAntd>
   );

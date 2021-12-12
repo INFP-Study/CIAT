@@ -56,16 +56,6 @@ function Nav({ menuList, location }) {
       );
     });
   };
-
-  const getCategory = (menuList) => {
-    return menuList.filter((menu) => {
-      return (
-        menu.categoryList.length !== 0 && (
-          <Category categoryList={menu.categoryList} />
-        )
-      );
-    });
-  };
   return (
     <>
       <Affix offsetTop={0}>
@@ -123,7 +113,6 @@ function Nav({ menuList, location }) {
           </BottomMenu>
         </Wrapper>
       </Affix>
-      {menuList.length !== 0 && getCategory(menuList)}
     </>
   );
 }

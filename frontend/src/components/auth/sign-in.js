@@ -71,7 +71,7 @@ const SNSLogin = styled.div`
   padding: 30px;
 `;
 
-function SignIn() {
+function SignIn({ handleChange, handleSignIn }) {
   return (
     <Wrapper>
       <InnerWrapper>
@@ -79,19 +79,27 @@ function SignIn() {
         <Div>
           {EMAIL}
           <Input
+            name="email"
             placeholder="이메일 주소를 입력해주세요."
             style={{ marginTop: '10px' }}
+            onChange={handleChange}
           />
         </Div>
         <Div>
           {PASSWORD}
           <Input.Password
+            name="password"
             placeholder="비밀번호를 입력해주세요."
             style={{ marginTop: '10px' }}
+            onChange={handleChange}
           />
         </Div>
         <Div>
-          <ButtonAntd type="primary" style={{ height: '44px' }}>
+          <ButtonAntd
+            type="primary"
+            style={{ height: '44px' }}
+            onClick={handleSignIn}
+          >
             {SIGN_IN}
           </ButtonAntd>
         </Div>

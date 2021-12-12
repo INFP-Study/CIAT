@@ -3,8 +3,9 @@ import { Space } from 'antd';
 import FeedTop from './feed-card-top';
 import FeedBottom from './feed-card-bottom';
 import { Link } from 'react-router-dom';
+import { FEED_DETAIL_URL, FEED_URL } from '../../../constants/urls';
 
-function FeedCotent({ id, content, author, date, comment, src, like }) {
+function FeedCotent({ id, content, author, date, comment, src, like, isLike }) {
   return (
     <Space direction="vertical" size="small" style={{ width: '100%' }}>
       <div style={{ paddingLeft: '16px', paddingRight: '16px' }}>
@@ -19,13 +20,13 @@ function FeedCotent({ id, content, author, date, comment, src, like }) {
         {content}
       </div>
       {src.length === 1 ? (
-        <Link to={`/feed/${id}`}>
+        <Link to={`${FEED_DETAIL_URL}/${id}`}>
           <img width={642} height={642} src={src} />
         </Link>
       ) : (
         <Space size={2} wrap>
           {src.map((src, i) => (
-            <Link to={`/feed/${id}`} key={i}>
+            <Link to={`${FEED_DETAIL_URL}/${id}`} key={i}>
               <img width={319} height={320} src={src} />
             </Link>
           ))}
@@ -33,11 +34,11 @@ function FeedCotent({ id, content, author, date, comment, src, like }) {
       )}
       <div
         style={{
-          paddingLeft: '16px',
-          paddingRight: '16px',
+          paddingLeft: '26px',
+          paddingRight: '26px',
         }}
       >
-        <FeedBottom like={like} comment={comment} />
+        <FeedBottom like={like} isLike={isLike} comment={comment} />
       </div>
     </Space>
   );
