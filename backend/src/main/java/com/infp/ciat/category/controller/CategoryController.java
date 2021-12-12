@@ -27,14 +27,18 @@ public class CategoryController {
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
-    @GetMapping("/categories") // 식물관리 제외한 나머지 메뉴
-    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam Long menuId, @RequestBody Long accountId) {
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam Long menuId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        Long accountId = getLoginedUserId(principalDetails);
+
         return new ResponseEntity<>(categoryService.getList(menuId, accountId), HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/category/{id}")
-    public ResponseEntity<CategoryDto> getOneCategory(@PathVariable Long id) {
-        return new ResponseEntity<>(categoryService.getDetail(id), HttpStatus.OK);
+    @GetMapping("/category/{id}")
+    public ResponseEntity<CategoryDto> getOneCategory(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long accountId = getLoginedUserId(principalDetails);
+        return new ResponseEntity<>(categoryService.getDetail(id, accountId), HttpStatus.OK);
     }
 
     @PutMapping("/category/{id}")
@@ -46,6 +50,12 @@ public class CategoryController {
     @PatchMapping("/category/{id}")
     public ResponseEntity<Long> deleteCategory(@PathVariable Long id) {
         return new ResponseEntity<>(categoryService.delete(id), HttpStatus.OK);
+    }
+
+    private Long getLoginedUserId(PrincipalDetails principalDetails) {
+        Long accountId = principalDetails.getAccount().getId();
+
+        return accountId == null ? 0L : accountId;
     }
 
 }

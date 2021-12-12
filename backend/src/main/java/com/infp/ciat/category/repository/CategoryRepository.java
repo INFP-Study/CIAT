@@ -16,6 +16,10 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM category WHERE menu_id = :menu_id AND account_id = :account_id AND show_yn = 'Y'")
     List<Category> findAllNotDeletedOnlyForPlantMenu(@Param("menu_id") Long menuId, @Param("account_id") Long account_id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM category WHERE id = :id AND show_yn = 'Y'")
-    Optional<Category> findByIdNotDeleted(@Param("id") Long id);
+    @Query(nativeQuery = true, value = "SELECT * FROM category WHERE id = :category_id AND show_yn = 'Y'")
+    Optional<Category> findByIdNotDeleted(@Param("category_id") Long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM category WHERE account_id = :account_id AND id = :category_id AND show_yn = 'Y'")
+    Optional<Category> findByIdNotDeletedOnlyForPlantMenu(@Param("category_id") Long categoryId, @Param("account_id") Long accountId);
+
 }
