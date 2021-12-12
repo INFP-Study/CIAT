@@ -5,6 +5,7 @@ import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.service.CategoryService;
 import com.infp.ciat.config.auth.PrincipalDetails;
+import com.infp.ciat.user.entity.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,9 +54,8 @@ public class CategoryController {
     }
 
     private Long getLoginedUserId(PrincipalDetails principalDetails) {
-        Long accountId = principalDetails.getAccount().getId();
 
-        return accountId == null ? 0L : accountId;
+        return principalDetails == null ? 0L : principalDetails.getAccount().getId();
     }
 
 }
