@@ -11,5 +11,5 @@ public interface FeedService {
 
     Long create(String content, MultipartHttpServletRequest multipartHttpServletRequest, PrincipalDetails user) throws FailCreateFeed;
 
-    List<FeedDto> getList();
+    List<FeedDto> getList(Long lastFeedId, int size);
 }
