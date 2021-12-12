@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -49,9 +50,20 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto getDetail(Long id) {
-        return categoryRepository.findByIdNotDeleted(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."))
+    public CategoryDto getDetail(Long categoryId, Long accountId) {
+
+        Optional<Category> category;
+
+        if ("식물관리".equals(categoryRepository.findById(categoryId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 메뉴입니다."))
+                .getMenu().getName())) {
+            category = categoryRepository.findByIdNotDeletedOnlyForPlantMenu(categoryId, accountId);
+        } else {
+            category = categoryRepository.findByIdNotDeleted(categoryId);
+        }
+
+        return category.orElseThrow(()->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 카테고리거나 접근 권한이 없습니다."))
                 .fromEntity();
     }
 
