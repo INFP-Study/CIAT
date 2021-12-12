@@ -58,28 +58,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 필터등록
         http.addFilter(new JWTFilter(authenticationManagerBean(), jwtUtils))
             .addFilterBefore(new JWTCheckFilter(authenticationManagerBean(),
-                    accountService, jwtUtils), UsernamePasswordAuthenticationFilter.class);
-
-        http.csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.formLogin().disable()
-            .httpBasic().disable();
-
-        http
-            .authorizeRequests()
+                    accountService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
+        .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+        .formLogin().disable()
+        .httpBasic().disable()
+        .authorizeRequests()
             .antMatchers("/api/v1/user/signin").permitAll()
             .antMatchers("/api/v1/user/signup").permitAll()
-//            .antMatchers("/api/v1/session/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
-            .anyRequest().authenticated();
-
-        http.cors()
+            .anyRequest().authenticated()
+            .and()
+        .cors()
             .configurationSource(corsConfigurationSource());
-
-        http.oauth2Login().userInfoEndpoint().userService(oAuth2DetailesService);
+//            .and()
+//        .oauth2Login().userInfoEndpoint().userService(oAuth2DetailesService);
     }
 
     /***
