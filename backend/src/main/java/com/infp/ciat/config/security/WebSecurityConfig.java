@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -48,6 +49,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+      web.ignoring().antMatchers("/static/css/**, /static/js/**, *.ico"); // swagger
+      web.ignoring().antMatchers(
+        "/v2/api-docs/**", "/configuration/ui/**",
+        "/swagger-resources/**", "/configuration/security/**",
+        "/swagger-ui.html/**", "/webjars/**","/swagger/**");
+    }
+
     /***
      * 스프링시큐리티 http 설정
      * @param http
@@ -69,7 +79,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/v1/user/signup").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
+
             .anyRequest().authenticated()
             .and()
         .cors()
