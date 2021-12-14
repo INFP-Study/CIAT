@@ -11,8 +11,6 @@ const FooterAntd = styled(Footer)`
 `;
 
 function SiteFooter({ location }) {
-  console.log(location.pathname);
-
   return location.pathname.includes(FEED_DETAIL_URL) ? (
     ''
   ) : (

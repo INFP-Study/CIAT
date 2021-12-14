@@ -1,18 +1,12 @@
 import Sider from 'antd/lib/layout/Sider';
 import { Affix, Menu } from 'antd';
-import React, { useState } from 'react';
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../../style/theme';
-import { FEED } from '../../../constants';
-import { MdAccountCircle } from 'react-icons/md';
-import { FEED_DAILY_URL } from '../../../constants/urls';
 import { Link } from 'react-router-dom';
-import { FcShop, FcAlarmClock, FcCalendar, FcSteam } from 'react-icons/fc';
+import { FcShop } from 'react-icons/fc';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategoryList } from '../../../store/menu';
 
 const SiderAntd = styled(Sider)`
   width: 200px;
@@ -42,41 +36,59 @@ const CategoryTitle = styled.p`
   margin-top: 5.5px;
 `;
 
-function Category({ menuList }) {
-  const [collapsed, setCollapsed] = useState(false);
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
+function Category({ location }) {
+  const dispatch = useDispatch();
 
-  const getCategoryList = (menuList) => {
-    return menuList
-      .filter((menu) => menu.url === location.pathname)
-      .map((menuItem) => menuItem.categoryList)
-      .map((arr) =>
-        arr.map((category, i) => {
-          return (
-            <Menu.Item
-              key={category.id}
-              icon={<FcShop style={{ fontSize: theme.fontSizeIcon }} />}
-            >
-              <Link to={category.url}> {category.name}</Link>
-            </Menu.Item>
-          );
-        })
+  const [collapsed, setCollapsed] = useState(false);
+  const [categoryTitle, setCategoryTitle] = useState();
+  const [categoryList, setCategoryList] = useState([]);
+  const [isCategory, setIsCategory] = useState(false);
+
+  //카테고리 리스트 가져오기
+  const _categoryList = useSelector((state) => state.menu.categoryList);
+
+  //useSelector로 가져온 카테고리 리스트 state에 담기
+  useEffect(() => {
+    setCategoryList(_categoryList);
+  }, [_categoryList]);
+
+  //카테고리 리스트 비어있으면 카테고리 컴포넌트 렌더링 안하게 하는 로직
+  useEffect(() => {
+    categoryList.length === 0 ? setIsCategory(false) : setIsCategory(true);
+  }, [categoryList]);
+
+  //현재 pathname의 카테고리 가져오기
+  useEffect(() => {
+    dispatch({ type: getCategoryList.type, payload: location.pathname });
+  }, [location.pathname]);
+
+  //현재 메뉴 이름 가져오기 => 백엔드에서 현재 메뉴 이름 포함해서 return해달라고 요청 필요
+  useEffect(() => {
+    setCategoryTitle('스토리');
+  }, [categoryList]);
+
+  const getCategorys = (categoryList) => {
+    return categoryList.map((category) => {
+      return (
+        <Menu.Item
+          key={category.id}
+          icon={<FcShop style={{ fontSize: theme.fontSizeIcon }} />}
+        >
+          <Link to={category.url}> {category.name}</Link>
+        </Menu.Item>
       );
+    });
   };
 
   return (
-    <Affix offsetTop={0}>
-      <SiderAntd trigger={null} collapsible collapsed={collapsed}>
-        <CategoryTitle>
-          {menuList.map((menu) => menu.url === location.pathname && menu.name)}
-        </CategoryTitle>
-        <MenuAntd mode="inline" defaultSelectedKeys={['0']}>
-          {getCategoryList(menuList)}
-        </MenuAntd>
-      </SiderAntd>
-    </Affix>
+    isCategory && (
+      <Affix offsetTop={0}>
+        <SiderAntd trigger={null} collapsible collapsed={collapsed}>
+          <CategoryTitle>{categoryTitle}</CategoryTitle>
+          <MenuAntd mode="inline">{getCategorys(categoryList)}</MenuAntd>
+        </SiderAntd>
+      </Affix>
+    )
   );
 }
 
