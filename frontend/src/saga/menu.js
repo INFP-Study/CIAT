@@ -35,7 +35,7 @@ function* getCategorySaga(action) {
   let menuId = 0;
   if (action.payload === '/') menuId = 1;
   if (action.payload === '/plantmanagement') menuId = 2;
-  if (action.payload === '/feed') menuId = 3;
+  if (action.payload.includes('/feed')) menuId = 3;
 
   try {
     yield put(startLoading(menuStore.getCategoryList));
