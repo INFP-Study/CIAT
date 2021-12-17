@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'antd';
 import styled from 'styled-components';
+import { HiArrowCircleLeft } from 'react-icons/hi';
 
 const Wrapper = styled.div`
   min-width: 0px;
@@ -58,7 +59,12 @@ function FeedDetailSlide({ images }) {
     return (
       <div
         className={className}
-        style={{ background: 'red', zIndex: 100 }}
+        style={{
+          zIndex: 1,
+          right: '3%',
+          background: 'gray',
+          borderRadius: '50%',
+        }}
         onClick={onClick}
       />
     );
@@ -69,7 +75,12 @@ function FeedDetailSlide({ images }) {
     return (
       <div
         className={className}
-        style={{ background: 'green', zIndex: 100 }}
+        style={{
+          zIndex: 1,
+          left: '3%',
+          background: 'gray',
+          borderRadius: '50%',
+        }}
         onClick={onClick}
       />
     );
