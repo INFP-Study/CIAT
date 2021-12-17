@@ -1,7 +1,6 @@
 import React from 'react';
 import { Carousel } from 'antd';
 import styled from 'styled-components';
-import { HiArrowCircleLeft } from 'react-icons/hi';
 
 const Wrapper = styled.div`
   min-width: 0px;
