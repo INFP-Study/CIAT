@@ -1,5 +1,6 @@
 package com.infp.ciat.feed.controller;
 
+import com.infp.ciat.feed.controller.dto.FeedDetailDto;
 import com.infp.ciat.feed.controller.dto.FeedDto;
 import com.infp.ciat.feed.controller.dto.FeedUpdateRequestDto;
 import com.infp.ciat.feed.service.FeedService;
@@ -36,6 +37,11 @@ public class FeedController {
     @GetMapping("/feeds")
     public ResponseEntity<List<FeedDto>> getList(@RequestParam Long lastFeedId, @RequestParam int size) {
         return new ResponseEntity<>(feedService.getList(lastFeedId, size), HttpStatus.OK);
+    }
+
+    @GetMapping("/feed/{feedId}")
+    public ResponseEntity<FeedDetailDto> getOneFeed(@PathVariable Long feedId) {
+        return new ResponseEntity<>(feedService.getOneFeed(feedId), HttpStatus.OK);
     }
 
     @PutMapping("/feed/{feedId}")

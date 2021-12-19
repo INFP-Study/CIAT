@@ -2,10 +2,7 @@ package com.infp.ciat.feed.service;
 
 import com.infp.ciat.common.exceptions.FailCreateFeed;
 import com.infp.ciat.config.auth.PrincipalDetails;
-import com.infp.ciat.feed.controller.dto.CreateFeedRequestForm;
-import com.infp.ciat.feed.controller.dto.FeedDto;
-import com.infp.ciat.feed.controller.dto.FeedSaveRequestDto;
-import com.infp.ciat.feed.controller.dto.FeedUpdateRequestDto;
+import com.infp.ciat.feed.controller.dto.*;
 import com.infp.ciat.feed.entity.Feed;
 import com.infp.ciat.feed.repository.FeedRepository;
 import com.infp.ciat.user.entity.Account;
@@ -22,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -67,12 +64,21 @@ public class FeedServiceImpl implements FeedService {
         return feedRepository.save(requestDto.toEntity()).getId();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<FeedDto> getList(Long lastFeedId, int size) {
         return fetchPages(lastFeedId, size).getContent()
                 .stream()
                 .map(f -> new FeedDto(f))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public FeedDetailDto getOneFeed(Long feedId) {
+        return Optional.of(findById(feedId))
+                .map(FeedDetailDto::new)
+                .get();
     }
 
     @Transactional
