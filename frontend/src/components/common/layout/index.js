@@ -34,25 +34,25 @@ function SiteLayout({ children }) {
   const [menuList, setMenuList] = useState([]);
   const [isMenu, setIsMenu] = useState(false);
 
+  const location = useLocation();
+
+  const _menuList = useSelector((state) => state.menu.menuList);
+
   //메뉴 리스트 가져오기
   useEffect(() => {
     dispatch({ type: getMenuList.type });
   }, []);
 
-  const menu = useSelector((state) => state.menu.menuList);
-
   useEffect(() => {
-    setMenuList(menu);
+    setMenuList(_menuList);
     setIsMenu(true);
-  }, [menu]);
-
-  const location = useLocation();
+  }, [_menuList]);
 
   return (
     <LayoutAntd>
       <Layout style={{ minHeight: '100vh', flexDirection: 'row' }}>
         {isMenu && <Nav menuList={menuList} location={location} />}
-        {isMenu && <Category menuList={menuList} location={location} />}
+        <Category location={location} />
       </Layout>
       <Layout style={{ background: theme.colorWhite, width: '100%' }}>
         <SiteHeader />

@@ -47,17 +47,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-      web.ignoring().antMatchers("/static/css/**, /static/js/**, *.ico"); // swagger
-      web.ignoring().antMatchers(
-        "/v2/api-docs/**", "/configuration/ui/**",
-        "/swagger-resources/**", "/configuration/security/**",
-        "/swagger-ui.html/**", "/webjars/**","/swagger/**");
+        web.ignoring().antMatchers("/static/css/**, /static/js/**, *.ico"); // swagger
+        web.ignoring().antMatchers(
+                "/v2/api-docs/**", "/configuration/ui/**",
+                "/swagger-resources/**", "/configuration/security/**",
+                "/swagger-ui.html/**", "/webjars/**", "/swagger/**");
     }
 
     /***
@@ -69,31 +69,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 필터등록
         http.addFilter(new JWTFilter(authenticationManagerBean(), jwtUtils))
-            .addFilterBefore(new JWTCheckFilter(authenticationManagerBean(),
-                    accountService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
-        .csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-        .formLogin().disable()
-        .httpBasic().disable()
-        .authorizeRequests()
-            .antMatchers("/api/v1/user/signin").permitAll()
-            .antMatchers("/api/v1/user/signup").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/feed").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/feed/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/feeds").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/feeds/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/categories").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/category/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()
-            .antMatchers("/healthcheck").permitAll()
+                .addFilterBefore(new JWTCheckFilter(authenticationManagerBean(),
+                        accountService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .authorizeRequests()
+                .antMatchers("/api/v1/user/signin").permitAll()
+                .antMatchers("/api/v1/user/signup").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/feed").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/feed/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/feeds").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/feeds/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/menu").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/menu/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/categories").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/category/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/gardenList").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/gardenDtl/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()
+                .antMatchers("/healthcheck").permitAll()
 
-            .anyRequest().authenticated()
-            .and()
-        .cors()
-            .configurationSource(corsConfigurationSource());
+                .anyRequest().authenticated()
+                .and()
+                .cors()
+                .configurationSource(corsConfigurationSource());
 //            .and()
 //        .oauth2Login().userInfoEndpoint().userService(oAuth2DetailesService);
     }
@@ -117,7 +119,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         corsConfiguration.addAllowedOrigin("http://localhost:8070");
         corsConfiguration.addAllowedOrigin("https://vuelogin.choicloudlab.com");
         corsConfiguration.addAllowedOrigin("https://ciat-frontend.choicloudlab.com");
-        corsConfiguration.setAllowedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type","Accept","Authorization"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
                 "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));

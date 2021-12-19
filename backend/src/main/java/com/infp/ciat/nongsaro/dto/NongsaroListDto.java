@@ -1,4 +1,4 @@
-package com.infp.ciat.common.forest.model;
+package com.infp.ciat.nongsaro.dto;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "response")
-public class ForestListSearch {
+public class NongsaroListDto {
     private Header header;
     private Body body;
 
@@ -32,7 +32,6 @@ public class ForestListSearch {
         private String pageNo;
         private String totalCount;
 
-
     }
 
     @Data
@@ -40,18 +39,16 @@ public class ForestListSearch {
     @XmlRootElement(name = "item")
     static public class Item {
 
-        private String cprtCtnt;        // 저작권
-        private String detailYn;        // 상세정보유무
-        private String familyKorNm;     // 과국명
-        private String familyNm;        // 과명
-        private String genusKorNm;      // 속국명
-        private String genusNm;         // 속명
-        private String imgUrl;          // 이미지 url
-        private String frstRgstnDtm;    // 속국명
-        private String notRcmmGnrlNm;   // 비추쳔명
-        private String plantGnrlNm;     // 국명
-        private String plantPilbkNo;       // 도감번호
-        private String plantSpecsScnm;  // 정명학명
+        private String cntntsNo;            // 컨텐츠 번호
+        private String cntntsSj;            // 식물명
+        private String rtnFileSeCode;       // 파일구분코드
+        private String rtnFileSn;           // 파일순번
+        private String rtnOrginlFileNm;     // 원본 파일명
+        private String rtnStreFileNm;       // 저장 파일명
+        private String rtnFileCours;        // 파일경로
+        private String rtnImageDc;          // 이미지설명
+        private String rtnThumbFileNm;      // 섬네일파일명
+        private String rtnImgSeCode;        // 이미지구분코드
 
     }
 }

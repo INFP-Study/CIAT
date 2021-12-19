@@ -82,8 +82,11 @@ pw :
 ## 실행 방법
 
 ### 클라이언트 실행
-```
-...
+```js
+cd frontend
+yarn install
+yarn start
+
 ```
 ### 서버 실행
 ```
