@@ -52,9 +52,9 @@ spring:
       database-platform: ENC(HUPevaLfmLDzFPVbGkeMOkOm3Y38mg6zxfNXUJsckzCwJEnVl6rhURSMQSf8lHh8WIBkBvmMNq2CVz0Uhu3fX1AjmQHIpcOOJHONm8X0eHA=)
 
 #공공포탈 api service key, public url
-forest:
-  url: http://openapi.nature.go.kr/openapi/service/rest/PlantService/
-  key: ENC(MdrFVAlwH9q22dxui/hBNU+NfR/Co0MZ+uJsApaszAEHSMkbay050trrzbEZXNqpWUxpPkJdEHZqpRuzWw65X568JeC+mNDLGcvAWuCoRAGlXHoBm1iFsDlrEI4s7FZB7xh87r9OswyBW7IQKMxLLlfPFeH/PX6nsEBNZNlyV2ULB8zAA7YZaLFMRvUdwbQK)
+nongsaro:
+  url: http://api.nongsaro.go.kr/service/garden/
+  key: ENC(53HGLcuFthBpODy/ksdZzUFiyznV5LG4QhgoFUlZvtIMUEU1Mc7Pwtvqd+h8wDidfZmt+aQLx/jmrpM+u7ZUhg==)
 
 cloud:
   aws:
