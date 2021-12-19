@@ -1,6 +1,7 @@
 package com.infp.ciat.feed.controller;
 
 import com.infp.ciat.feed.controller.dto.FeedDto;
+import com.infp.ciat.feed.controller.dto.FeedUpdateRequestDto;
 import com.infp.ciat.feed.service.FeedService;
 import com.infp.ciat.common.exceptions.FailCreateFeed;
 import com.infp.ciat.config.auth.PrincipalDetails;
@@ -35,4 +36,17 @@ public class FeedController {
     public ResponseEntity<List<FeedDto>> getList(@RequestParam Long lastFeedId, @RequestParam int size) {
         return new ResponseEntity<>(feedService.getList(lastFeedId, size), HttpStatus.OK);
     }
+
+    @PatchMapping("/feed/{feedId}")
+    public ResponseEntity<FeedDto> updateFeed(
+            @PathVariable Long feedId,
+            @RequestBody FeedUpdateRequestDto requestDto,
+            @AuthenticationPrincipal PrincipalDetails user)
+    {
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(feedService.updateFeed(feedId, requestDto, user.getAccount().getId()), HttpStatus.OK);
+    }
+
 }

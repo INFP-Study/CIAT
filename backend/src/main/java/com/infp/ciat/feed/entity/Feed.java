@@ -1,6 +1,7 @@
 package com.infp.ciat.feed.entity;
 
 import com.infp.ciat.common.BaseTimeEntity;
+import com.infp.ciat.feed.controller.dto.FeedDto;
 import com.infp.ciat.user.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Builder
 @AllArgsConstructor
@@ -51,4 +53,14 @@ public class Feed extends BaseTimeEntity {
     public void prePersist() {
         this.showYn = this.showYn == null ? "Y" : this.showYn;
     }
+
+    public Feed update(String content) {
+        this.content = content;
+        return this;
+    }
+
+    public boolean isSameContent(String content) {
+        return this.content.equals(content);
+    }
+
 }
