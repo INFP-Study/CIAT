@@ -9,6 +9,8 @@ import com.infp.ciat.feed.controller.dto.FeedUpdateRequestDto;
 import com.infp.ciat.feed.entity.Feed;
 import com.infp.ciat.feed.repository.FeedRepository;
 import com.infp.ciat.user.entity.Account;
+import com.infp.ciat.user.entity.Role;
+import com.infp.ciat.user.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 public class FeedServiceImpl implements FeedService {
 
     private final FeedRepository feedRepository;
+    private final AccountRepository accountRepository;
     private final UploadImagesService uploadImagesService;
 
     @Transactional
@@ -89,6 +92,17 @@ public class FeedServiceImpl implements FeedService {
         return toFeedDto(feed.update(requestDto.getContent()));
     }
 
+    @Transactional
+    @Override
+    public void deleteFeed(Long feedId, Long userId) {
+        Feed feed = findById(feedId);
+
+        if (!(isAdmin(userId) || isAuthor(feed, userId))) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "삭제 권한이 없습니다.");
+        }
+        feed.delete();
+    }
+
     private Page<Feed> fetchPages(Long lastFeedId, int size) {
         Pageable pageable = PageRequest.of(0, size, Sort.by("id").descending());
 
@@ -102,6 +116,12 @@ public class FeedServiceImpl implements FeedService {
 
     private boolean isAuthor(Feed feed, Long userId) {
         return feed.getAccount().getId() == userId;
+    }
+
+    private boolean isAdmin(Long userId) {
+        return accountRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "탈퇴했거나, 존재하지 않는 회원입니다."))
+                .getRole().equals(Role.ROLE_ADMIN);
     }
 
     public FeedDto toFeedDto(Feed feed) {

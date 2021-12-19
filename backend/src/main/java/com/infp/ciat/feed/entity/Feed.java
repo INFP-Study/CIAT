@@ -63,4 +63,8 @@ public class Feed extends BaseTimeEntity {
         return this.content.equals(content);
     }
 
+    public void delete() {
+        this.showYn = "N";
+    }
+
 }

@@ -15,4 +15,6 @@ public interface FeedService {
     List<FeedDto> getList(Long lastFeedId, int size);
 
     FeedDto updateFeed(Long feedId, FeedUpdateRequestDto requestDto, Long userId);
+
+    void deleteFeed(Long feedId, Long userId);
 }

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -37,16 +38,28 @@ public class FeedController {
         return new ResponseEntity<>(feedService.getList(lastFeedId, size), HttpStatus.OK);
     }
 
-    @PatchMapping("/feed/{feedId}")
+    @PutMapping("/feed/{feedId}")
     public ResponseEntity<FeedDto> updateFeed(
             @PathVariable Long feedId,
             @RequestBody FeedUpdateRequestDto requestDto,
             @AuthenticationPrincipal PrincipalDetails user)
     {
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        loginCheck(user);
         return new ResponseEntity<>(feedService.updateFeed(feedId, requestDto, user.getAccount().getId()), HttpStatus.OK);
     }
 
+    @PatchMapping("/feed/{feedId}")
+    public ResponseEntity<?> deleteFeed(@PathVariable Long feedId, @AuthenticationPrincipal PrincipalDetails user) {
+        loginCheck(user);
+
+        feedService.deleteFeed(feedId, user.getAccount().getId());
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public void loginCheck(PrincipalDetails user) {
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+    }
 }
