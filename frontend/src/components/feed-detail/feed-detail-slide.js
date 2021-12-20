@@ -58,7 +58,12 @@ function FeedDetailSlide({ images }) {
     return (
       <div
         className={className}
-        style={{ background: 'red', zIndex: 100 }}
+        style={{
+          zIndex: 1,
+          right: '3%',
+          background: 'gray',
+          borderRadius: '50%',
+        }}
         onClick={onClick}
       />
     );
@@ -69,7 +74,12 @@ function FeedDetailSlide({ images }) {
     return (
       <div
         className={className}
-        style={{ background: 'green', zIndex: 100 }}
+        style={{
+          zIndex: 1,
+          left: '3%',
+          background: 'gray',
+          borderRadius: '50%',
+        }}
         onClick={onClick}
       />
     );

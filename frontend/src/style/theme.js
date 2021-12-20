@@ -58,7 +58,7 @@ export const theme = {
   fontSizeBody02: '14px',
   fontSizeBody03: '12px',
   fontSizeIcon: '22px',
-  fontSizeUserIcon: 50,
+  fontSizeUserIcon: 40,
 
   borderLine: '0.5px solid #E4E4E4',
 };
