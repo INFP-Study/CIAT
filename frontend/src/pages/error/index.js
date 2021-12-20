@@ -36,18 +36,19 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-weight: ${theme.weightBold};
 `;
 
 const ErrorContent = styled.div`
   font-family: ${theme.fontBasic};
   font-size: ${theme.fontSizeTitle02};
-  font-weight: ${theme.weightBold};
+  font-weight: ${theme.weightMid};
   text-align: center;
   line-height: 40px;
 `;
 
 const Logo = styled.img`
-  width: 150px;
+  width: 140px;
 `;
 
 function NotFound() {
