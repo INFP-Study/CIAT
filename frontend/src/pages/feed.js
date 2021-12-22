@@ -21,7 +21,7 @@ function Feed() {
       <BackTop>
         <UpOutlined style={upButton} />
       </BackTop>
-      <FeedContainer />;
+      <FeedContainer />
     </>
   );
 }
