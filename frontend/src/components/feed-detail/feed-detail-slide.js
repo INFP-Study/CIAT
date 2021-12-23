@@ -29,46 +29,73 @@ const InnerCarousel = styled.div`
   display: flex;
   min-height: 100%;
   height: 100%;
-  width: auto;
+  width: 100%;
   align-items: center;
 
   div > img {
-    width: auto;
+    width: 100%;
     height: 100%;
     max-height: calc(100vh - 70px);
     object-fit: contain;
   }
 `;
 
-function onChange(a, b, c) {
-  console.log(a, b, c);
-}
+function FeedDetailSlide({ images }) {
+  const getSlide = (images) => {
+    return images.map((src, i) => {
+      return (
+        <InnerCarousel key={i}>
+          <div style={contentStyle}>
+            <img src={src} />
+          </div>
+        </InnerCarousel>
+      );
+    });
+  };
 
-function FeedDetailSlide() {
+  const NextArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          zIndex: 1,
+          right: '3%',
+          background: 'gray',
+          borderRadius: '50%',
+        }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const PrevArrow = (props) => {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          zIndex: 1,
+          left: '3%',
+          background: 'gray',
+          borderRadius: '50%',
+        }}
+        onClick={onClick}
+      />
+    );
+  };
+  const settings = {
+    swipeToSlide: true,
+    arrows: true,
+    draggable: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+
   return (
     <Wrapper>
-      <Carousel swipeToSlide draggable style={{ backgroundColor: '#3F3D3D' }}>
-        <InnerCarousel>
-          <div style={contentStyle}>
-            <img src="https://images.unsplash.com/photo-1619463284209-1215aeda42c8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
-          </div>
-        </InnerCarousel>
-        <InnerCarousel>
-          <div style={contentStyle}>
-            <img src="https://images.unsplash.com/photo-1619463284209-1215aeda42c8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" />
-          </div>
-        </InnerCarousel>
-        <InnerCarousel>
-          <div style={contentStyle}>
-            <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80" />
-          </div>
-        </InnerCarousel>
-        <InnerCarousel>
-          <h3 style={contentStyle}>3</h3>
-        </InnerCarousel>
-        <InnerCarousel>
-          <h3 style={contentStyle}>4</h3>
-        </InnerCarousel>
+      <Carousel {...settings} style={{ backgroundColor: '#3F3D3D' }}>
+        {getSlide(images)}
       </Carousel>
     </Wrapper>
   );

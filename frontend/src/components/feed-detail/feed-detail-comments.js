@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Input, Space } from 'antd';
 import styled from 'styled-components';
@@ -31,7 +31,19 @@ const CommentWrite = styled(Card)`
   }
 `;
 
-function FeedDetailComments() {
+function FeedDetailComments({ content }) {
+  const getComments = (content) => {
+    return content.comments.map((comment, i) => {
+      return (
+        <FeedComment
+          key={i}
+          author={comment.author}
+          comment={comment.comment}
+          regDate={comment.regDate}
+        />
+      );
+    });
+  };
   return (
     <Wrapper>
       <CardAntd
@@ -42,10 +54,13 @@ function FeedDetailComments() {
           borderRadius: 0,
         }}
       >
-        <FeedTop author={'홍길동'} date={''} />
+        <FeedTop author={content.author} date={''} />
         <br />
         <br />
-        <FeedBottom like={2} comment={3} />
+        <FeedBottom
+          like={content.like.length}
+          comment={content.comments.length}
+        />
       </CardAntd>
       <CardAntd
         style={{
@@ -55,33 +70,7 @@ function FeedDetailComments() {
           borderTop: 0,
         }}
       >
-        <FeedComment
-          author={'홍길동'}
-          comment={'반가워요 사진 좋네요'}
-          regDate={'2일전'}
-        />
-        <FeedComment
-          author={'홍길순'}
-          comment={
-            '반가워요 사진 좋네요반가워요 사진 좋네요반가워요 사진 좋네요반가워요 사진 좋네요반가워요 사진 좋네요반가워요 사진 좋네요반가워요 사진 좋네요반가워요 사진 좋네요'
-          }
-          regDate={'1일전'}
-        />
-        <FeedComment
-          author={'홍길동'}
-          comment={'반가워요 사진 좋네요'}
-          regDate={'방금'}
-        />
-        <FeedComment
-          author={'홍길동'}
-          comment={'반가워요 사진 좋네요'}
-          regDate={'방금'}
-        />
-        <FeedComment
-          author={'홍길동'}
-          comment={'반가워요 사진 좋네요'}
-          regDate={'방금'}
-        />
+        {getComments(content)}
       </CardAntd>
       <CommentWrite>
         <Space

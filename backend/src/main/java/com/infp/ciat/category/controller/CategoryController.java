@@ -5,6 +5,7 @@ import com.infp.ciat.category.controller.dto.CategorySaveRequestDto;
 import com.infp.ciat.category.controller.dto.CategoryUpdateRequestDto;
 import com.infp.ciat.category.service.CategoryService;
 import com.infp.ciat.config.auth.PrincipalDetails;
+import com.infp.ciat.user.entity.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,37 +15,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 @RestController
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/api/v1/category")
+    @PostMapping("/category")
     public ResponseEntity<CategoryDto> newCategory(@RequestBody CategorySaveRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         CategoryDto newCategory = categoryService.create(requestDto, principalDetails.getAccount());
 
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
-    @GetMapping("/api/v1/category")
-    public ResponseEntity<List<CategoryDto>> categoryList() {
-        return new ResponseEntity<>(categoryService.getList(), HttpStatus.OK);
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam Long menuId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        Long accountId = getLoginedUserId(principalDetails);
+
+        return new ResponseEntity<>(categoryService.getList(menuId, accountId), HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/category/{id}")
-    public ResponseEntity<CategoryDto> getOneCategory(@PathVariable Long id) {
-        return new ResponseEntity<>(categoryService.getDetail(id), HttpStatus.OK);
+    @GetMapping("/category/{id}")
+    public ResponseEntity<CategoryDto> getOneCategory(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long accountId = getLoginedUserId(principalDetails);
+        return new ResponseEntity<>(categoryService.getDetail(id, accountId), HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/category/{id}")
+    @PutMapping("/category/{id}")
     public ResponseEntity<Long> updateCategory(@PathVariable Long id, @RequestBody CategoryUpdateRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long updateResult = categoryService.update(id, requestDto, principalDetails.getAccount());
         return new ResponseEntity<>(updateResult, HttpStatus.OK);
     }
 
-    @PatchMapping("/api/v1/category/{id}")
+    @PatchMapping("/category/{id}")
     public ResponseEntity<Long> deleteCategory(@PathVariable Long id) {
         return new ResponseEntity<>(categoryService.delete(id), HttpStatus.OK);
+    }
+
+    private Long getLoginedUserId(PrincipalDetails principalDetails) {
+
+        return principalDetails == null ? 0L : principalDetails.getAccount().getId();
     }
 
 }

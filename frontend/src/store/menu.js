@@ -1,9 +1,10 @@
 import { takeLatest } from 'redux-saga/effects';
 import { createSlice } from '@reduxjs/toolkit';
-import { getMenuSaga, googleLoginSaga } from '../saga/menu';
+import { getMenuSaga, getCategorySaga } from '../saga/menu';
 
 const initialState = {
   menuList: [],
+  categoryList: [],
   error: null,
 };
 const menuSlice = createSlice({
@@ -16,7 +17,16 @@ const menuSlice = createSlice({
       return state;
     },
     getMenuListFail: (state, action) => {
-      state.menuList.error = action.payload;
+      state.error = action.payload;
+      return state;
+    },
+    getCategoryList: (state) => state,
+    getCategoryListSuccess: (state, action) => {
+      state.categoryList = action.payload;
+      return state;
+    },
+    getCategoryListFail: (state, action) => {
+      state.error = action.payload;
       return state;
     },
   },
@@ -24,10 +34,18 @@ const menuSlice = createSlice({
 
 const { actions, reducer: menuReducer } = menuSlice;
 
-export const { getMenuList, getMenuListSuccess, getMenuListFail } = actions;
+export const {
+  getMenuList,
+  getMenuListSuccess,
+  getMenuListFail,
+  getCategoryList,
+  getCategoryListSuccess,
+  getCategoryListFail,
+} = actions;
 
 export { menuReducer, initialState };
 
 export function* menuSaga() {
   yield takeLatest(getMenuList.type, getMenuSaga);
+  yield takeLatest(getCategoryList.type, getCategorySaga);
 }

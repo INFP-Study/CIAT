@@ -97,7 +97,11 @@ function Wrapper({ contents }) {
 
   return (
     <Space direction="vertical" size={13}>
-      {createPost(contents)}
+      {contents.length !== 0 ? (
+        createPost(contents)
+      ) : (
+        <CardAntd>게시글이 없습니다.</CardAntd>
+      )}
     </Space>
   );
 }

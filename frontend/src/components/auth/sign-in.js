@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button, Space } from 'antd';
+import { Input, Button, Space, Form } from 'antd';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import SiteLayout from '../common/layout';
@@ -29,7 +29,7 @@ const Title = styled.p`
 
 const Div = styled.div`
   padding: 12.5px;
-  width: 500px;
+  width: 100%;
 `;
 
 const ButtonAntd = styled(Button)`
@@ -47,7 +47,7 @@ const ButtonAntd = styled(Button)`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 700px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,8 +58,8 @@ const InnerWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 700px;
-  height: 400px;
+  width: 100%;
+  height: 700px;
 `;
 
 const SNSLogin = styled.div`
@@ -71,30 +71,37 @@ const SNSLogin = styled.div`
   padding: 30px;
 `;
 
-function SignIn() {
+function SignIn({ handleChange, handleSignIn }) {
   return (
     <Wrapper>
       <InnerWrapper>
         <Title>{SIGN_IN}</Title>
-        <Div>
-          {EMAIL}
-          <Input
-            placeholder="이메일 주소를 입력해주세요."
-            style={{ marginTop: '10px' }}
-          />
-        </Div>
-        <Div>
-          {PASSWORD}
-          <Input.Password
-            placeholder="비밀번호를 입력해주세요."
-            style={{ marginTop: '10px' }}
-          />
-        </Div>
-        <Div>
-          <ButtonAntd type="primary" style={{ height: '44px' }}>
-            {SIGN_IN}
-          </ButtonAntd>
-        </Div>
+        <Form layout="vertical" onFinish={handleSignIn}>
+          <Form.Item
+            label="이메일"
+            name="email"
+            rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
+          >
+            <Input onChange={handleChange} />
+          </Form.Item>
+          <Form.Item
+            label="비밀번호"
+            name="password"
+            rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
+          >
+            <Input.Password onChange={handleChange} />
+          </Form.Item>
+          <Form.Item>
+            <ButtonAntd
+              type="primary"
+              htmlType="submit"
+              style={{ height: '45px' }}
+              onKeyPress={handleSignIn}
+            >
+              {SIGN_IN}
+            </ButtonAntd>
+          </Form.Item>
+        </Form>
         <Div
           style={{
             textAlign: 'center',
@@ -106,18 +113,6 @@ function SignIn() {
           <Link to={SIGN_UP_URL}> {SEARCH_ID} </Link> /
           <Link to={SIGN_UP_URL}> {SEARCH_PASSWORD}</Link>
         </Div>
-        <SNSLogin>
-          <Space>
-            <AppleOutlined style={{ fontSize: '30px' }} />
-            Apple 로그인
-            <FacebookOutlined style={{ fontSize: '30px' }} />
-            Facebook 로그인
-            <GithubOutlined style={{ fontSize: '30px' }} />
-            Github 로그인
-            <InstagramOutlined style={{ fontSize: '30px' }} />
-            Instagram 로그인
-          </Space>
-        </SNSLogin>
       </InnerWrapper>
     </Wrapper>
   );
