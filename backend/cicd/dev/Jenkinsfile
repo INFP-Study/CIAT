@@ -3,15 +3,15 @@ pipeline {
     tools {gradle "gradle"}
 
     environment {
-        APP_NAME = "siat-backend-dev"
+        APP_NAME = "ciat-backend-dev"
         NAMESPACE = "infp"
-        DOCKER_IMAGE = "siat-dev-backend"
+        DOCKER_IMAGE = "ciat-dev-backend"
         TAG = "${BUILD_NUMBER}"
         DOCKER_IMAGENAME = "${DOCKER_IMAGE}:${TAG}"
-        SVCTYPE = "NodePort"
-        NODEPORT = "30506"
         JASYPT_KEY = credentials('SIAT_DEV_JASYPT')
         MODE = "dev"
+        TLS_SECRETNAME = "ciat-dev"
+        INGRESS_HOST1 = "ciat-dev.choicloudlab.com"
     }
 
     stages {
@@ -49,9 +49,9 @@ pipeline {
                         sh 'sed -i "s/__IMAGENAME__/${dockerID}\\/${DOCKER_IMAGE}/g" charts/values.yaml'
                         sh 'sed -i "s/__TAGNAME__/${TAG}/g" charts/values.yaml'
                         sh 'sed -i "s/__JASYPT__/${JASYPT_KEY}/g" charts/values.yaml'
-                        sh 'sed -i "s/__SVCTYPE__/${SVCTYPE}/g" charts/values.yaml'
-                        sh 'sed -i "s/__NODEPORT__/${NODEPORT}/g" charts/values.yaml'
                         sh 'sed -i "s/__MODE__/${MODE}/g" charts/values.yaml'
+                        sh 'sed -i "s/__HOST1__/${INGRESS_HOST1}/g" charts/values.yaml'
+                        sh 'sed -i "s/__TLS__SECRETNAME__/${TLS_SECRETNAME}/g" charts/values.yaml'
                         sh "helm upgrade --install --namespace ${NAMESPACE} ${APP_NAME} ./charts"
                     }
                 }
