@@ -4,6 +4,7 @@ import { counterReducer, counterSaga } from './counter';
 import { loadingReducer } from './loding';
 import { authReducer, authSaga } from './auth';
 import { menuReducer, menuSaga } from './menu';
+import { feedReducer } from './feed';
 
 //리듀서 모음
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   counter: counterReducer,
   auth: authReducer,
   menu: menuReducer,
+  feed: feedReducer,
 });
 
 //사가 모음
