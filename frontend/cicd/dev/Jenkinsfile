@@ -3,14 +3,14 @@ pipeline {
     tools {nodejs "node1415"}
 
     environment {
-        APP_NAME = "siat-frontend-dev"
+        APP_NAME = "ciat-frontend-dev"
         NAMESPACE = "infp"
-        DOCKER_IMAGE = "siat-frontend-dev"
+        DOCKER_IMAGE = "ciat-frontend-dev"
         TAG = "${BUILD_NUMBER}"
         DOCKER_IMAGENAME = "${DOCKER_IMAGE}:${TAG}"
-        SVCTYPE = "NodePort"
-        NODEPORT = "30507"
         MODE = "dev"
+        TLS_SECRETNAME = "ciat-dev"
+        INGRESS_HOST1 = "ciat-dev.choicloudlab.com"
     }
 
     stages {
@@ -46,9 +46,9 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerID', variable: 'dockerID')]) {
                         sh 'sed -i "s/__IMAGENAME__/${dockerID}\\/${DOCKER_IMAGE}/g" charts/values.yaml'
                         sh 'sed -i "s/__TAGNAME__/${TAG}/g" charts/values.yaml'
-                        sh 'sed -i "s/__SVCTYPE__/${SVCTYPE}/g" charts/values.yaml'
-                        sh 'sed -i "s/__NODEPORT__/${NODEPORT}/g" charts/values.yaml'
                         sh 'sed -i "s/__MODE__/${MODE}/g" charts/values.yaml'
+                        sh 'sed -i "s/__HOST1__/${INGRESS_HOST1}/g" charts/values.yaml'
+                        sh 'sed -i "s/__TLS__SECRETNAME__/${TLS_SECRETNAME}/g" charts/values.yaml'
                         sh "helm upgrade --install --namespace ${NAMESPACE} ${APP_NAME} ./charts"
                     }
                 }
