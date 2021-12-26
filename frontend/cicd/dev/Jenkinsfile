@@ -10,7 +10,7 @@ pipeline {
         DOCKER_IMAGENAME = "${DOCKER_IMAGE}:${TAG}"
         MODE = "dev"
         TLS_SECRETNAME = "ciat-dev"
-        INGRESS_HOST1 = "https://ciat.choicloudlab.com"
+        INGRESS_HOST1 = "ciat-dev.choicloudlab.com"
     }
 
     stages {
