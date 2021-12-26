@@ -32,7 +32,7 @@ ingress:
   hosts:
     - host: __HOST1__
       paths:
-        - path: /
+        - path: /api/v1
           pathType: Prefix
   tls:
     - secretName: __TLS__SECRETNAME__
