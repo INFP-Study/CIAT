@@ -4,6 +4,7 @@ import { Card } from 'antd';
 
 const CardAntd = styled(Card)`
   height: 47%;
+  width: 40vh;
   .ant-card-head {
     min-height: 30px;
   }

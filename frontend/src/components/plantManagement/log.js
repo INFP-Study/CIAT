@@ -3,6 +3,7 @@ import { Card, Timeline } from 'antd';
 import styled from 'styled-components';
 
 const CardAntd = styled(Card)`
+  width: 40vh;
   .ant-card-head {
     min-height: 30px;
   }
@@ -23,7 +24,7 @@ const CardAntd = styled(Card)`
 
 const TimelineAntd = styled(Timeline)`
   .ant-timeline-item {
-    font-size: 10px;
+    font-size: 1em;
     padding-bottom: 1px;
   }
   .ant-timeline-item-last > .ant-timeline-item-content {

@@ -6,15 +6,35 @@ import Log from '../../components/plantManagement/log';
 import PlantCard from '../../components/plantManagement/plant-card';
 import CareCard from '../../components/plantManagement/care-card';
 import ImageCard from '../../components/plantManagement/image-card';
+import ActiveChart from '../../components/plantManagement/active-chart';
+import StateChart from '../../components/plantManagement/state-chart';
+import PlantDashBoard from '../../components/plantManagement/plant-dash-board';
+import Dday from '../../components/plantManagement/d-day';
+import Like from '../../components/plantManagement/Like';
 
 const collStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   flexDirection: 'column',
-  maxWidth: '300px',
-  maxHeight: '300px',
+  width: '40vh',
 };
 
+const colItemStyle = {
+  maxHeight: '40vh',
+  maxWidth: '40vh',
+  minWidth: '330px',
+  minHeight: '330px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between'
+};
+
+const colItemStyle2 = {
+  maxHeight: '40vh',
+  maxWidth: '80vh',
+  minWidth: '660px',
+  minHeight: '330px',
+};
 const Wrapper = styled.div`
   height: 100%;
 `;
@@ -30,50 +50,50 @@ const PlantManagementContainer = () => {
     content:
       '방울토마토를 비롯해 집에서 채소를 키우려면 상토를 화분에 넣고, 중앙에 2/3나 3/4 정도 너무 깊지 않게 씨앗이나 모종을 심는 것이 중요',
   });
-
   return (
     <Wrapper>
       <Row gutter={[16, 16]} style={{ height: '100%' }}>
         <Col
-          className="gutter-row"
+          className='gutter-row'
           span={6}
-          style={{ maxHeight: '300px', maxWidth: '300px' }}
+          style={colItemStyle}
         >
           <ImageCard />
         </Col>
         <Col
-          className="gutter-row"
+          className='gutter-row'
           span={12}
-          style={{ maxHeight: '300px', maxWidth: '600px' }}
+          style={colItemStyle2}
         >
-          <ImageCard />
+          <PlantDashBoard />
         </Col>
-        <Col className="gutter-row" span={6} style={collStyle}>
+        <Col className='gutter-row' span={6} style={collStyle}>
           <PlantCard plantInfo={plantInfo} />
           <CareCard careInfo={careInfo} />
         </Col>
         <Col
-          className="gutter-row"
+          className='gutter-row'
           span={6}
-          style={{ maxHeight: '300px', maxWidth: '300px' }}
+          style={colItemStyle}
         >
-          <ImageCard />
+          <StateChart />
         </Col>
         <Col
-          className="gutter-row"
+          className='gutter-row'
           span={6}
-          style={{ maxHeight: '300px', maxWidth: '300px' }}
+          style={colItemStyle}
         >
-          <ImageCard />
+          <ActiveChart />
         </Col>
         <Col
-          className="gutter-row"
+          className='gutter-row'
           span={6}
-          style={{ maxHeight: '300px', maxWidth: '300px' }}
+          style={colItemStyle}
         >
-          <ImageCard />
+          <Dday />
+          <Like />
         </Col>
-        <Col className="gutter-row" span={6} style={collStyle}>
+        <Col className='gutter-row' span={6} style={collStyle}>
           <Log />
           <Memo />
         </Col>

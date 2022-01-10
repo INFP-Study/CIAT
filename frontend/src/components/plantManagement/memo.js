@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Card } from 'antd';
 
 const CardAntd = styled(Card)`
+  width: 40vh;
   .ant-card-head {
     min-height: 30px;
   }
