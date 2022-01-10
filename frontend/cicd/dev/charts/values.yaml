@@ -3,7 +3,6 @@ replicaCount: 1
 image:
   repository: __IMAGENAME__
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: __TAGNAME__
 
 imagePullSecrets: []
@@ -11,48 +10,34 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
   create: false
-  # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
   name: ""
 
 podAnnotations: {}
-
 podSecurityContext: {}
-  # fsGroup: 2000
-
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
-  type: __SVCTYPE__
+  type: ClusterIP
   port: 80
   targetPort: 80
-  nodePort: __NODEPORT__
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: true
+  ingressClassName: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letencrypt-prod"
+    certmanager.k8s.io/acme-challenge-type: dns01
   hosts:
-    - host: chart-example.local
+    - host: __HOST1__
       paths:
         - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+          pathType: Prefix
+  tls:
+    - secretName: __TLS__SECRETNAME__
+      hosts:
+        - __HOST1__
 
 resources:
   limits:
@@ -70,9 +55,7 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
 application:
