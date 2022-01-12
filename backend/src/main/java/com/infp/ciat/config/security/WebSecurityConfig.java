@@ -117,8 +117,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("http://localhost:3000");
         corsConfiguration.addAllowedOrigin("http://localhost:8070");
-        corsConfiguration.addAllowedOrigin("https://vuelogin.choicloudlab.com");
-        corsConfiguration.addAllowedOrigin("https://ciat-frontend.choicloudlab.com");
+        corsConfiguration.addAllowedOrigin("https://ciat-dev.choicloudlab.com/");
+        corsConfiguration.addAllowedOrigin("https://ciat.choicloudlab.com/");
         corsConfiguration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
