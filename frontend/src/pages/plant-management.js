@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   height: 100%;
   min-width: 1500px;
   min-height: 680px;
+  max-width: 1653px;
   justify-content: center;
   align-items: center;
 `;

@@ -1,11 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Card } from 'antd';
 import { Column } from '@ant-design/charts';
-
-const cardStyle = {
-  width: '100%',
-  height: '100%',
-};
+import styled from 'styled-components';
 
 const colorObj = {
   '물주기': '#A0C4C9',
@@ -16,6 +12,14 @@ const colorObj = {
   '가지': '#7EA592',
   '분무': '#AD9CBB',
 };
+
+const AntdCard = styled(Card)`
+  width: 100%;
+  height: 100%;
+  .ant-card-body {
+    height: 33vh;
+  }
+`
 const StateChart = () => {
   const data = [
     {
@@ -48,16 +52,9 @@ const StateChart = () => {
     },
   ];
 
-  const chartRef = useRef(null);
-  const [chartHeight, setChartHeight ] = useState(220)
-  useEffect(() => {
-    setChartHeight(Math.floor(chartRef.current.offsetHeight * 0.8));
-    console.log(chartHeight)
-  })
 
   const config = {
     data,
-    height: chartHeight,
     xField: 'type',
     yField: 'value',
     seriesField: '',
@@ -79,10 +76,10 @@ const StateChart = () => {
   };
 
   return (
-    <div ref={chartRef} style={{height: '100%'}}>
-      <Card hoverable style={cardStyle} title={'최근 3개월 활동내역'}>
-        <Column {...config} style={{ marginTop: '10px' }} />
-      </Card>
+    <div style={{height: '100%'}}>
+      <AntdCard hoverable title={'최근 3개월 활동내역'}>
+        <Column {...config} style={{ marginTop: '10px', height: '100%'}} />
+      </AntdCard>
     </div>
   );
 };

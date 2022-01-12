@@ -12,7 +12,10 @@ const CardAntd = styled(Card)`
   }
   .ant-card-body {
     padding: 10px;
-    height: 75%;
+    height: 17vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .ant-card-head-title {
     padding: 3px 0;

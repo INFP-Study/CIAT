@@ -3,13 +3,17 @@ import styled from 'styled-components';
 import { Card } from 'antd';
 
 const CardAntd = styled(Card)`
+  height: 47%;
   width: 40vh;
   .ant-card-head {
     min-height: 30px;
   }
   .ant-card-body {
     padding: 10px;
-    height: 75%;
+    height: 17vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .ant-card-head-title {
     padding: 3px 0;

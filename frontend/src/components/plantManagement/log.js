@@ -3,16 +3,17 @@ import { Card, Timeline } from 'antd';
 import styled from 'styled-components';
 
 const CardAntd = styled(Card)`
+  height: 47%;
   width: 40vh;
   .ant-card-head {
     min-height: 30px;
   }
   .ant-card-body {
-    padding-bottom: 10px;
-  }
-  .memo > .ant-card-body {
-    padding-top: 10px;
-    height: 73%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 17vh;
   }
   .ant-card-head-title {
     padding: 3px 0;

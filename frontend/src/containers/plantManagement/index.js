@@ -51,54 +51,32 @@ const PlantManagementContainer = () => {
       '방울토마토를 비롯해 집에서 채소를 키우려면 상토를 화분에 넣고, 중앙에 2/3나 3/4 정도 너무 깊지 않게 씨앗이나 모종을 심는 것이 중요',
   });
   return (
-    <Wrapper>
-      <Row gutter={[16, 16]} style={{ height: '100%' }}>
-        <Col
-          className='gutter-row'
-          span={6}
-          style={colItemStyle}
-        >
+      <Row gutter={[16, 16]} style={{ height: '100%', maxWidth: '1653px'}}>
+        <Col className='gutter-row' span={8} style={colItemStyle}>
           <ImageCard />
         </Col>
-        <Col
-          className='gutter-row'
-          span={12}
-          style={colItemStyle2}
-        >
+        <Col className='gutter-row' span={12} style={colItemStyle2}>
           <PlantDashBoard />
         </Col>
         <Col className='gutter-row' span={6} style={collStyle}>
           <PlantCard plantInfo={plantInfo} />
           <CareCard careInfo={careInfo} />
         </Col>
-        <Col
-          className='gutter-row'
-          span={6}
-          style={colItemStyle}
-        >
+        <Col className='gutter-row' span={6} style={colItemStyle}>
           <StateChart />
         </Col>
-        <Col
-          className='gutter-row'
-          span={6}
-          style={colItemStyle}
-        >
+        <Col className='gutter-row' span={6} style={colItemStyle}>
           <ActiveChart />
         </Col>
-        <Col
-          className='gutter-row'
-          span={6}
-          style={colItemStyle}
-        >
+        <Col className='gutter-row' span={6} style={colItemStyle}>
           <Dday />
           <Like />
         </Col>
-        <Col className='gutter-row' span={6} style={collStyle}>
+        <Col className='gutter-row' span={6} style={colItemStyle}>
           <Log />
           <Memo />
         </Col>
       </Row>
-    </Wrapper>
   );
 };
 
