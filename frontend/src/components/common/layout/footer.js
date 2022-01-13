@@ -8,6 +8,7 @@ import { theme } from '../../../style/theme';
 const FooterAntd = styled(Footer)`
   text-align: center;
   background-color: ${theme.colorWhite};
+  padding: 0px 0px 10px 0px;
 `;
 
 function SiteFooter({ location }) {

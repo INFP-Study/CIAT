@@ -1,8 +1,12 @@
 import React from 'react';
-import SiteLayout from '../components/common/layout';
+import PlantManagementContainer from '../containers/plant-management-container';
 
 function PlantManagement() {
-  return <>PlantManagement</>;
+  return (
+    <>
+      <PlantManagementContainer />
+    </>
+  );
 }
 
 export default PlantManagement;

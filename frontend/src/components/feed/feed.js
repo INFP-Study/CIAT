@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { FEED_DETAIL_URL, FEED_ROUTE, FEED_URL } from '../../constants/urls';
 
 const CardAntd = styled(Card)`
-  max-width: 652px;
+  width: 652px;
   border-color: ${theme.colorLine2};
 `;
 
@@ -100,7 +100,7 @@ function Wrapper({ contents }) {
       {contents.length !== 0 ? (
         createPost(contents)
       ) : (
-        <CardAntd>게시글이 없습니다.</CardAntd>
+        <CardAntd>게시글이 없습니다.😵</CardAntd>
       )}
     </Space>
   );

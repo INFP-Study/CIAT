@@ -1,11 +1,15 @@
 import React from 'react';
-import { Affix, Button, Menu, Popconfirm } from 'antd';
-import * as AntdIcons from '@ant-design/icons';
+import { Affix, Menu } from 'antd';
 import styled from 'styled-components';
 import { theme } from '../../../style/theme';
 import { Link } from 'react-router-dom';
 import { DOCUMENT_URL, GITHUB_URL, SETTING_URL } from '../../../constants/urls';
-import Category from './category';
+import {
+  FileTextOutlined,
+  GithubOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
+import useDynamicAntdIcon from '../../../hooks/useDynamicAntdIcon';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -39,23 +43,16 @@ const MenuAntd = styled(Menu)`
 `;
 
 function Nav({ menuList, location }) {
-  //아이콘 동적 로딩 -> 커스텀 hook으로 생성하면 좋을 듯?
-  const DynamicIcon = (iconName) => {
-    const { ...icons } = AntdIcons;
-    const TheIcon = icons[iconName];
-
-    return <TheIcon style={{ fontSize: theme.fontSizeIcon }} />;
-  };
-
   const getMenu = (menuList) => {
     return menuList.map((menu) => {
       return (
-        <Menu.Item key={menu.url} icon={DynamicIcon(menu.icon)}>
+        <Menu.Item key={menu.url} icon={useDynamicAntdIcon(menu.icon)}>
           <Link to={menu.url} />
         </Menu.Item>
       );
     });
   };
+
   return (
     <>
       <Affix offsetTop={0}>
@@ -81,9 +78,7 @@ function Nav({ menuList, location }) {
               <Menu.Item
                 key={SETTING_URL}
                 icon={
-                  <AntdIcons.SettingOutlined
-                    style={{ fontSize: theme.fontSizeIcon }}
-                  />
+                  <SettingOutlined style={{ fontSize: theme.fontSizeIcon }} />
                 }
               >
                 <Link to={SETTING_URL} />
@@ -91,9 +86,7 @@ function Nav({ menuList, location }) {
               <Menu.Item
                 key={DOCUMENT_URL}
                 icon={
-                  <AntdIcons.FileTextOutlined
-                    style={{ fontSize: theme.fontSizeIcon }}
-                  />
+                  <FileTextOutlined style={{ fontSize: theme.fontSizeIcon }} />
                 }
               >
                 <Link to={DOCUMENT_URL} />
@@ -102,9 +95,7 @@ function Nav({ menuList, location }) {
               <Menu.Item
                 key={GITHUB_URL}
                 icon={
-                  <AntdIcons.GithubOutlined
-                    style={{ fontSize: theme.fontSizeIcon }}
-                  />
+                  <GithubOutlined style={{ fontSize: theme.fontSizeIcon }} />
                 }
               >
                 <Link to={{ pathname: GITHUB_URL }} target="_blank" />
