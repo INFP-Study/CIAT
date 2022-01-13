@@ -1,11 +1,14 @@
 const path = require('path');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CracoLessPlugin = require('craco-less');
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //번들 시각화 도구
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 module.exports = {
-  mode: 'development',
+  mode: isDevelopment ? 'development' : 'production',
   // Where files should be sent once they are bundled
   entry: path.resolve(__dirname, '../src/index.js'),
   output: {
@@ -19,6 +22,7 @@ module.exports = {
     port: 3000,
     liveReload: true,
     historyApiFallback: { index: '/', disableDotRule: true }, //라우트 사용 위해 추가
+    hot: true,
   },
   // Rules of how webpack will take our files, complie & bundle them for the browser
   module: {
@@ -59,8 +63,9 @@ module.exports = {
     //   openAnalyzer: false, // 기본값 true
     // }),
     // new webpack.ProgressPlugin(), // 웹팩의 빌드 진행율을 표시해주는 플러그인
+    isDevelopment && new ReactRefreshWebpackPlugin(),
   ],
   performance: {
-    hints: process.env.NODE_ENV === 'production' ? "warning" : false
+    hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
   },
 };
