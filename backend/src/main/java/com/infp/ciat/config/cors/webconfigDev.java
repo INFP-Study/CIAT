@@ -16,7 +16,8 @@ public class webconfigDev implements WebMvcConfigurer {
                         "http://localhost:3000",
                         "https://vuelogin.choicloudlab.com",
                         "http://localhost:8070",
-                        "https://ciat-frontend.choicloudlab.com"
+                        "https://ciat-dev.choicloudlab.com",
+                        "https://ciat.choicloudlab.com"
                 )
                 .allowedMethods("*");
     }
