@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Space, Input, Select } from 'antd';
 import { POST_SUBMIT } from '../../../constants';
 import { theme } from '../../../style/theme';
 import FeedTop from './feed-card-top';
+import { useSelector } from 'react-redux';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 function FeedWrite() {
-  const children = [];
+  const [categoryList, setCategoryList] = useState([]);
 
-  for (let i = 10; i < 36; i++) {
-    children.push(
-      <Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>
-    );
-  }
+  //카테고리 리스트 가져오기
+  const _categoryList = useSelector((state) => state.menu.categoryList);
+
+  //useSelector로 가져온 카테고리 리스트 state에 담기
+  useEffect(() => {
+    setCategoryList(_categoryList);
+  }, [_categoryList]);
+
+  const getCategory = (categoryList) => {
+    return categoryList.map((category) => (
+      <Option key={category.id}>{category.name}</Option>
+    ));
+  };
 
   function handleChange(value) {
     console.log(`selected ${value}`);
@@ -30,7 +39,7 @@ function FeedWrite() {
           placeholder="주제를 선택해 주세요."
           onChange={handleChange}
         >
-          {children}
+          {getCategory(categoryList)}
         </Select>
         <TextArea rows={3} autoSize={false} allowClear={true} />
         <Button type="primary" style={{ float: 'right' }}>
