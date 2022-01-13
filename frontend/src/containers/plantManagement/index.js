@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import Memo from '../../components/plantManagement/memo';
 import Log from '../../components/plantManagement/log';
@@ -35,9 +34,6 @@ const colItemStyle2 = {
   minWidth: '660px',
   minHeight: '330px',
 };
-const Wrapper = styled.div`
-  height: 100%;
-`;
 
 const PlantManagementContainer = () => {
   const [plantInfo, setPlantInfo] = useState({
@@ -52,7 +48,7 @@ const PlantManagementContainer = () => {
   });
   return (
       <Row gutter={[16, 16]} style={{ height: '100%', maxWidth: '1653px'}}>
-        <Col className='gutter-row' span={8} style={colItemStyle}>
+        <Col className='gutter-row' span={6} style={colItemStyle}>
           <ImageCard />
         </Col>
         <Col className='gutter-row' span={12} style={colItemStyle2}>

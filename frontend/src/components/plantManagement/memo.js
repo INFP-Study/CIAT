@@ -5,6 +5,7 @@ import { Card } from 'antd';
 const CardAntd = styled(Card)`
   height: 47%;
   width: 40vh;
+  background: #fffce6;
   .ant-card-head {
     min-height: 30px;
   }
@@ -37,15 +38,8 @@ const Content = styled.textarea`
 
 const Memo = () => {
   return (
-    <CardAntd
-      className={'memo'}
-      hoverable
-      title={'메모'}
-      style={{ background: '#fffce6', height: '47%' }}
-    >
-      <Content
-        placeholder={'메모를 이용하여 나만의 식물 정보를 기록해보세요.'}
-      />
+    <CardAntd className={'memo'} hoverable title={'메모'}>
+      <Content placeholder={'메모를 이용하여 나만의 식물 정보를 기록해보세요.'} />
     </CardAntd>
   );
 };

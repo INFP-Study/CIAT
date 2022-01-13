@@ -3,8 +3,6 @@ import { Card } from 'antd';
 import { Pie } from '@ant-design/charts';
 import styled from 'styled-components';
 
-const cardStyle = {};
-
 const AntdCard = styled(Card)`
   width: 100%; 
   height: 100%;
@@ -122,7 +120,7 @@ const ActiveChart = () => {
   };
   return (
     <div style={{ height: '100%' }}>
-      <AntdCard hoverable style={cardStyle} title={'최근 3개월 식물상태'}>
+      <AntdCard hoverable title={'최근 3개월 식물상태'}>
         <Pie {...config} />
         <StateList>
           <li><Circle /><StateText>좋음</StateText></li>

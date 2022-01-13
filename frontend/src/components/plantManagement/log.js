@@ -38,7 +38,7 @@ const TimelineAntd = styled(Timeline)`
 
 const Log = () => {
   return (
-    <CardAntd hoverable title={'로그'} style={{ height: '47%' }}>
+    <CardAntd hoverable title={'로그'}>
       <TimelineAntd>
         <Timeline.Item>
           2021-09-03 금요일 <p>잘 자라나도록 영양제를 줬어요.</p>
