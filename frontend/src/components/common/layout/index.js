@@ -18,10 +18,10 @@ const LayoutAntd = styled(Layout)`
 `;
 
 const ContentAntd = styled(Content)`
-  margin: 24px 16px 0px;
+  /* margin: 24px 16px 0px; */
 `;
 const ContentInner = styled.div`
-  padding: 24px;
+  padding: 30px 30px 10px 30px;
   min-height: 100%;
   height: 100%;
   background: ${theme.colorWhite};

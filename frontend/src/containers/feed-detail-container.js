@@ -51,7 +51,7 @@ const Wrapper = styled.div`
   align-items: stretch;
   height: calc(100vh - 70px);
   max-height: calc(100vh - 70px);
-  margin: -48px -40px -24px;
+  margin: -30px -30px -10px -30px;
 `;
 
 function FeedDetailContainer() {
