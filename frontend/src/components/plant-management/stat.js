@@ -28,7 +28,7 @@ const Circle = styled.div`
   background: gray;
   ${({ type }) => {
     return type === 'water'
-      ? `background: #a0c4c9;` //물주기
+      ? `background: #8BCEE3;` //물주기
       : type === 'supplements'
       ? `background: #E3B074;` //영양제
       : `background: #DCC6A5;`; //분갈이
