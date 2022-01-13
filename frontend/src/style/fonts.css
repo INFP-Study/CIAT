@@ -10,3 +10,7 @@
   font-family: 'NotoSans';
   src: url(../assets/fonts/noto-sans-v21-latin-regular.woff) format('woff');
 }
+@font-face {
+  font-family: 'Righteous';
+  src: url(../assets/fonts/righteous-v9-latin-regular.woff) format('woff');
+}
