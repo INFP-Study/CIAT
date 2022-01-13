@@ -24,6 +24,26 @@ export const theme = {
   //   colorTextBeige: '#C2B39C',
 
   colorPrimary: '#7ea592',
+
+  colorAllActivity: {
+    물주기: '#A0C4C9',
+    햇빛: '#DA9393',
+    통풍: '#97A8CB',
+    분갈이: '#DCC6A5',
+    영양: '#E3B074',
+    가지: '#7EA592',
+    분무: '#AD9CBB',
+    관찰: '#3F3D3D',
+    좋음: '#96A8CB',
+    보통: '#7EA592',
+    나쁨: '#AD9CBB',
+    죽음: '#DA9393',
+    새싹: '#C0D3A7',
+    개화: '#FBD899',
+    마름: '#887665',
+    추움: '#ADEBFF',
+  },
+
   colorActivitiesChart: {
     물주기: '#A0C4C9',
     햇빛: '#DA9393',
@@ -32,6 +52,7 @@ export const theme = {
     영양: '#E3B074',
     가지: '#7EA592',
     분무: '#AD9CBB',
+    관찰: '#3F3D3D',
   },
 
   colorStatusChart: {

@@ -1,7 +1,9 @@
-import { Card } from 'antd';
+import { Card, Input } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from '../../style/theme';
+
+const { TextArea } = Input;
 
 const MemoCard = styled(Card)`
   width: 303px;
@@ -19,7 +21,13 @@ function Memo({ title }) {
   return (
     <MemoCard>
       <Title>{title}</Title>
-      메모를 이용하여 나만의 식물 정보를 기록해보세요.
+      <TextArea
+        placeholder={'메모를 이용하여 나만의 식물 정보를 기록해보세요.'}
+        rows={5}
+        bordered={false}
+        style={{ margin: 0, padding: 0 }}
+        maxLength={200}
+      />
     </MemoCard>
   );
 }

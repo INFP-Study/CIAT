@@ -19,14 +19,28 @@ const SubTitle = styled.p`
   font-size: ${theme.fontSizeBody01};
 `;
 
+const ItemWrapper = styled(Space)`
+  cursor: pointer;
+  &:hover * {
+    color: ${({ type }) => {
+      return theme.colorAllActivity[type];
+    }};
+  }
+`;
+
 const getItemList = (items) => {
   return (
     <Space size={40} style={{ display: 'flex', justifyContent: 'center' }}>
       {items.map((item) => (
-        <Space direction="vertical" key={item.id}>
+        <ItemWrapper
+          direction="vertical"
+          key={item.id}
+          type={item.name}
+          onClick={() => alert(`id :  ${item.id}   name :  ${item.name}`)}
+        >
           {useDynamicIcon(item.icon)}
           <p style={{ textAlign: 'center' }}>{item.name}</p>
-        </Space>
+        </ItemWrapper>
       ))}
     </Space>
   );
