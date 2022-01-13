@@ -19,9 +19,10 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 9400
   targetPort: 9400
+  nodePort: 30501
 
 ingress:
   enabled: true
