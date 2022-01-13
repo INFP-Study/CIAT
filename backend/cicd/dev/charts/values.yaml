@@ -30,7 +30,6 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: "letencrypt-prod"
     certmanager.k8s.io/acme-challenge-type: dns01
-    nginx.ingress.kubernetes.io/whitelist-source-range: 127.0.0.1/32
   hosts:
     - host: __HOST1__
       paths:
