@@ -41,5 +41,7 @@ backend/.vscode/
 
 frontend/node_modules
 frontend/dist/*
+frontend/build
+frontend/build/*
 frontend/*.log
 frontend/package-lock.json
