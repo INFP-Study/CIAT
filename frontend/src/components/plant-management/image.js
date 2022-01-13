@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const ImageCard = styled(Card)`
   width: 400px;
   height: 400px;
-  background: url('./image/식물이미지.png');
+  background-image: url(${require('../../assets/images/식물이미지.png')});
   background-size: cover;
 `;
 

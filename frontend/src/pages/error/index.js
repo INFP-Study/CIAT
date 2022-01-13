@@ -55,7 +55,11 @@ function NotFound() {
   return (
     <Wrapper>
       <InnerWrapper style={{ paddingTop: '100px' }}>
-        <Logo className="404image" alt="404logo" src="image/404logo.png" />
+        <Logo
+          className="404image"
+          alt="404logo"
+          src={require('../../assets/images/404logo.png')}
+        />
         <Box
           style={{
             textShadow:
