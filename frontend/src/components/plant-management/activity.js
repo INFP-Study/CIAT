@@ -23,7 +23,7 @@ const getItemList = (items) => {
   return (
     <Space size={40} style={{ display: 'flex', justifyContent: 'center' }}>
       {items.map((item) => (
-        <Space direction="vertical">
+        <Space direction="vertical" key={item.id}>
           {useDynamicIcon(item.icon)}
           <p style={{ textAlign: 'center' }}>{item.name}</p>
         </Space>
