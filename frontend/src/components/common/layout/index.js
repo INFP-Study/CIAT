@@ -21,7 +21,7 @@ const ContentAntd = styled(Content)`
   /* margin: 24px 16px 0px; */
 `;
 const ContentInner = styled.div`
-  padding: 20px 20px 2px 20px;
+  padding: 20px 30px 2px 30px;
   min-height: 100%;
   height: 100%;
   background: ${theme.colorWhite};
