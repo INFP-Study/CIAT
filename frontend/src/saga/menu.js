@@ -32,10 +32,10 @@ function* getMenuSaga() {
 
 function* getCategorySaga(action) {
   //백엔드 로직 수정 필요=> 현재 menuId값 넘겨줌 => pathname 넘겨주는 로직으로 수정
-  let menuId = 3;
-  // if (action.payload === '/') menuId = 1;
-  // if (action.payload === '/plantmanagement') menuId = 2;
-  // if (action.payload.includes('/feed')) menuId = 3;
+  let menuId = -1;
+  if (action.payload === '/') menuId = 1;
+  if (action.payload === '/plantmanagement') menuId = 3;
+  if (action.payload.includes('/feed')) menuId = 3;
 
   try {
     yield put(startLoading(menuStore.getCategoryList));

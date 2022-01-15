@@ -64,7 +64,7 @@ function Category({ location }) {
 
   //현재 메뉴 이름 가져오기 => 백엔드에서 현재 메뉴 이름 포함해서 return해달라고 요청 필요
   useEffect(() => {
-    setCategoryTitle('스토리');
+    setCategoryTitle(location.pathname === '/feed' ? '스토리' : '식물관리');
   }, [categoryList]);
 
   const getCategorys = (categoryList) => {

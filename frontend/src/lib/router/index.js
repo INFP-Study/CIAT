@@ -1,10 +1,11 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, Link, Redirect } from 'react-router-dom';
 import {
   DOCUMENT_URL,
   FEED_ROUTE,
   FEED_URL,
   MAIN_URL,
+  MOBILE_URL,
   PLANT_MANAGEMENT_URL,
   SETTING_URL,
   SIGN_IN_URL,
@@ -20,12 +21,21 @@ import SignUp from '../../pages/auth/sign-up';
 import FeedDetail from '../../pages/feed-detail';
 import NotFound from '../../pages/error';
 import SiteLayout from '../../components/common/layout';
+import Mobile from '../../pages/mobile';
+
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
 
 function index() {
   return (
     <BrowserRouter>
       <SiteLayout>
         <Switch>
+          {isMobile() && <Redirect to={MOBILE_URL}></Redirect>}
+          <Route exact path={MOBILE_URL} component={Mobile} />
           <Route exact path={SIGN_IN_URL} component={SignIn} />
           <Route exact path={SIGN_UP_URL} component={SignUp} />
           <Route
