@@ -11,7 +11,7 @@ public interface CategoryService {
 
     CategoryDto create(CategorySaveRequestDto requestDto, Account account);
 
-    List<CategoryDto> getList(Long menuId, Long accountId);
+    List<CategoryDto> getList(String url, Long accountId);
 
     CategoryDto getDetail(Long categoryId, Long accountId);
 

@@ -68,6 +68,7 @@ public class Category extends BaseTimeEntity {
                 .url(url)
                 .orders(orders)
                 .menuId(menu.getId())
+                .menuName(menu.getName())
                 .build();
     }
 
