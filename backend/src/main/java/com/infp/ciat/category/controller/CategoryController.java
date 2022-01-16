@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/api/v1")
 @RestController
 public class CategoryController {
-
     private final CategoryService categoryService;
 
     @PostMapping("/category")
@@ -29,11 +28,12 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam Long menuId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam String urlPath, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         Long accountId = getLoginedUserId(principalDetails);
+        urlPath = urlPath.replace("\"", "");
 
-        return new ResponseEntity<>(categoryService.getList(menuId, accountId), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.getList(urlPath, accountId), HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")

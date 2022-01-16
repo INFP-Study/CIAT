@@ -33,11 +33,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> getList(Long menuId, Long accountId) {
+    public List<CategoryDto> getList(String url, Long accountId) {
 
         List<Category> categoryList;
 
-        if ("식물관리".equals(menuRepository.findByIdNotDeleted(menuId).get().getName())) {
+        Long menuId = menuRepository.findByUrlNotDeleted(url).get().getId();
+        String menuName = menuRepository.findByUrlNotDeleted(url).get().getName();
+        if ("식물관리".equals(menuName)) {
             categoryList = categoryRepository.findAllNotDeletedOnlyForPlantMenu(menuId, accountId);
         } else {
             categoryList = categoryRepository.findAllNotDeleted(menuId);
