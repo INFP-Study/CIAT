@@ -15,4 +15,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM menu WHERE id = :id AND show_yn = 'Y'")
     Optional<Menu> findByIdNotDeleted(@Param("id") Long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM menu WHERE url = :url AND show_yn = 'Y'")
+    Optional<Menu> findByUrlNotDeleted(@Param("url") String url);
 }
