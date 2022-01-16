@@ -17,6 +17,7 @@ public class CategoryDto {
     private String url;
     private Long orders;
     private Long menuId;
+    private String menuName;
 
     public CategoryDto(Category category) {
         this.id = category.getId();
@@ -26,10 +27,11 @@ public class CategoryDto {
         this.url = category.getUrl();
         this.orders = category.getOrders();
         this.menuId = category.getMenu().getId();
+        this.menuName = category.getMenu().getName();
     }
 
     @Builder
-    public CategoryDto(Long id,/* String uid,*/ String name, String icon, String url, Long orders, Long menuId) {
+    public CategoryDto(Long id,/* String uid,*/ String name, String icon, String url, Long orders, Long menuId, String menuName) {
         this.id = id;
 //        this.uid = uid;
         this.name = name;
@@ -37,6 +39,7 @@ public class CategoryDto {
         this.url = url;
         this.orders = orders;
         this.menuId = menuId;
+        this.menuName = menuName;
     }
 
 }
