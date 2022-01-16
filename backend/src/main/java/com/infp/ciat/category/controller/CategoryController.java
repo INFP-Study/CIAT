@@ -29,11 +29,12 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam Long menuId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<List<CategoryDto>> categoryList(@RequestParam String urlPath, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         Long accountId = getLoginedUserId(principalDetails);
 
-        return new ResponseEntity<>(categoryService.getList(menuId, accountId), HttpStatus.OK);
+        urlPath = urlPath.replace("\"", "");
+        return new ResponseEntity<>(categoryService.getList(urlPath, accountId), HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")
