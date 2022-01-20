@@ -96,6 +96,7 @@ export const theme = {
   fontSizeBody02: '14px',
   fontSizeBody03: '12px',
   fontSizeIcon: '22px',
+  fontSizeCategoryIcon: '30px',
   fontSizeUserIcon: 40,
   fontSizeActivityIcon: 40,
 
