@@ -15,6 +15,10 @@ const SiderAntd = styled(Sider)`
   padding: 30px 0px;
   border-right: ${theme.borderLine};
   border-left: ${theme.borderLine};
+  .ant-layout-sider-trigger {
+    border-right: ${theme.borderLine};
+    border-left: ${theme.borderLine};
+  }
 `;
 
 const MenuAntd = styled(Menu)`
@@ -34,6 +38,7 @@ const CategoryTitle = styled.p`
   padding: 0px 15px;
   height: 40px;
   margin-top: 5.5px;
+  word-break: keep-all;
 `;
 
 function Category({ location }) {
@@ -43,6 +48,10 @@ function Category({ location }) {
   const [categoryTitle, setCategoryTitle] = useState();
   const [categoryList, setCategoryList] = useState([]);
   const [isCategory, setIsCategory] = useState(false);
+
+  const onCollapse = () => {
+    setCollapsed(!collapsed);
+  };
 
   //카테고리 리스트 가져오기
   const _categoryList = useSelector((state) => state.menu.categoryList);
@@ -72,7 +81,7 @@ function Category({ location }) {
       return (
         <Menu.Item
           key={category.id}
-          icon={<FcShop style={{ fontSize: theme.fontSizeIcon }} />}
+          icon={<FcShop style={{ fontSize: theme.fontSizeCategoryIcon }} />}
         >
           <Link to={category.url}> {category.name}</Link>
         </Menu.Item>
@@ -83,7 +92,7 @@ function Category({ location }) {
   return (
     isCategory && (
       <Affix offsetTop={0}>
-        <SiderAntd trigger={null} collapsible collapsed={collapsed}>
+        <SiderAntd collapsible collapsed={collapsed} onCollapse={onCollapse}>
           <CategoryTitle>{categoryTitle}</CategoryTitle>
           <MenuAntd mode="inline">{getCategorys(categoryList)}</MenuAntd>
         </SiderAntd>
