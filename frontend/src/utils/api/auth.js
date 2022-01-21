@@ -6,10 +6,10 @@ export const authAPI = {
 };
 
 export const SIGN_UP_API =
-  'https://ciat-bakend.choicloudlab.com/api/v1/user/signup';
+  'https://ciat-dev.choicloudlab.com/api/v1/user/signup';
 
 export const SIGN_IN_API =
-  'https://ciat-bakend.choicloudlab.com/api/v1/user/signin';
+  'https://ciat-dev.choicloudlab.com/api/v1/user/signin';
 
 export const IS_SUCCESS =
-  'https://ciat-bakend.choicloudlab.com/api/v1/user/success';
+  'https://ciat-dev.choicloudlab.com/api/v1/user/success';
