@@ -13,12 +13,10 @@ jobs:
         working-directory: ./backend
     steps:
     - uses: actions/checkout@v2
-    - name: Clone PRIVATE repository
-      uses: GuillaumeFalourd/clone-github-repo-action@v1
-      with:
-        owner: 'INFP-Study'
-        repository: 'CIAT_private'
-        access-token: ${{ secrets.GITHUBACTION_KEY }}
+    
+    - name: test print githubaction_key
+      run: |
+        echo "${{ secrets.GITHUBACTION_KEY }}"
 
     # - name: Set up JDK 11
     #   uses: actions/setup-java@v2
