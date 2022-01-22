@@ -1,11 +1,12 @@
-import React from 'react';
-import { Affix, Layout } from 'antd';
-import { SIGN_IN, TITLE } from '../../../constants';
+import React, { useEffect, useState } from 'react';
+import { Affix, Button, Layout, notification } from 'antd';
+import { SIGN_IN, SIGN_OUT, SIGN_OUT_SUCCESS, TITLE } from '../../../constants';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MAIN_URL, SIGN_IN_URL } from '../../../constants/urls';
 import { MdAccountCircle } from 'react-icons/md';
 import { theme } from '../../../style/theme';
+import { useSelector } from 'react-redux';
 
 const { Header } = Layout;
 
@@ -41,16 +42,33 @@ const UserInfo = styled(Link)`
 `;
 
 function SiteHeader() {
+  const signOut = () => {
+    notification.success({
+      message: 'CIAT',
+      description: SIGN_OUT_SUCCESS,
+    });
+    localStorage.removeItem('token');
+  };
+
   return (
     <Affix offsetTop={0}>
       <Header style={HeaderStyle}>
         <Logo to={MAIN_URL}>{TITLE}</Logo>
-        <UserInfo to={SIGN_IN_URL}>
-          <MdAccountCircle
-            style={{ fontSize: theme.fontSizeIcon, margin: '0px 10px' }}
-          />
-          {SIGN_IN}
-        </UserInfo>
+        {localStorage.getItem('token') === null ? (
+          <UserInfo to={SIGN_IN_URL}>
+            <MdAccountCircle
+              style={{ fontSize: theme.fontSizeIcon, margin: '0px 10px' }}
+            />
+            {SIGN_IN}
+          </UserInfo>
+        ) : (
+          <UserInfo to={MAIN_URL} onClick={signOut}>
+            <MdAccountCircle
+              style={{ fontSize: theme.fontSizeIcon, margin: '0px 10px' }}
+            />
+            {SIGN_OUT}
+          </UserInfo>
+        )}
       </Header>
     </Affix>
   );
