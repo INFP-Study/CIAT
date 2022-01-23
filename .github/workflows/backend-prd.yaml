@@ -57,7 +57,7 @@ jobs:
     - name: copy dockerfile
       run: |
         rm -rf ./Dockerfile
-        cp ./cicd/dev/Dockerfile ./Dockerfile
+        cp ./cicd/prd/Dockerfile ./Dockerfile
 
     - name: Build and push
       id: docker_build
@@ -67,7 +67,7 @@ jobs:
 
     - name: change override_values.yaml
       run: |
-        cat <<EOF > ./cicd/dev/charts/override_values.yaml
+        cat <<EOF > ./cicd/prd/charts/override_values.yaml
         image:
           tag: ${{ env.dockerimage_tag }}
         EOF
@@ -76,7 +76,7 @@ jobs:
       run: |
         git config --global user.email "GitHub Actions Bot@github.com"
         git config --global user.name "GitHub Actions Bot"
-        git add ./cicd/dev/charts/override_values.yaml
+        git add ./cicd/prd/charts/override_values.yaml
         git commit -m "change dockertag"
         git push origin production
     
