@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: choisunguk/siat-dev-backend
   pullPolicy: IfNotPresent
-  tag: __TAG__
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -62,4 +62,4 @@ tolerations: []
 affinity: {}
 
 application:  
-  mode: __MODE__
+  mode: dev
