@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "develop"
+    # ignore path
     paths-ignore:
       - ".github/workflows/backend-dev-unitest.yaml"
       - ".github/workflows/backend-prd.yaml"
