@@ -4,8 +4,10 @@ on:
   push:
     branches:
       - "develop"
-    paths-ignore:
-      - "backend/cicd/dev/charts/override_values.yaml"
+
+env:
+  dockerimage_tag: ${{ github.sha }}
+  dockerimage_name: choisunguk/siat-dev-backend:${{ github.sha }}
 
 jobs:
   build:
@@ -14,10 +16,6 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
-
-    env:
-      dockerimage_tag: ${{ github.sha }}
-      dockerimage_name: choisunguk/siat-dev-backend:${{ github.sha }}
 
     # 1. git submodule을 이용해서 스프링부트 프로파일 복사
     # 2. 스프링부트 프로젝트 빌드
@@ -64,22 +62,6 @@ jobs:
       run: |
         docker build -t ${{ env.dockerimage_name }} .
         docker push ${{ env.dockerimage_name }}
-
-    - name: change override_values.yaml
-      run: |
-        cat <<EOF > ./cicd/dev/charts/override_values.yaml
-        image:
-          tag: ${{ env.dockerimage_tag }}
-        EOF
-
-    - name: git push
-      run: |
-        git config --global user.email "GitHub Actions Bot@github.com"
-        git config --global user.name "GitHub Actions Bot"
-        git add ./cicd/dev/charts/override_values.yaml
-        git commit -m "change dockertag"
-        git push origin develop
-
     
     - name: Discord Alert Success
       uses: sarisia/actions-status-discord@v1
@@ -95,12 +77,6 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           description: "🔥 테스트를 실패하였습니다."
 
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: ${{ always() }}
-      with:
-          files: build/test-results/*/.xml
-
     - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
         # Restoring these files from a GitHub Actions cache might cause problems for future builds.
@@ -109,3 +85,31 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
   
+  update-argocd-metadata:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./dev/backend
+
+    steps:      
+      - uses: actions/checkout@v2
+        with:
+          ref: "charts"
+          ssh-key: ${{ secrets.GITHUBACTION_KEY }}
+          submodules: 'recursive'
+      
+      - name: change override_values.yaml
+        run: |
+          cat <<EOF > override_values.yaml
+          image:
+            tag: ${{ env.dockerimage_tag }}
+          EOF
+
+      - name: git push
+        run: |
+          git config --global user.email "GitHub Actions Bot@github.com"
+          git config --global user.name "GitHub Actions Bot"
+          git add ./cicd/dev/charts/override_values.yaml
+          git commit -m "change dockertag"
+          git push origin develop
