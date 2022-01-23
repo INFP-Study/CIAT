@@ -86,6 +86,7 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/gc.properties
   
   update-argocd-metadata:
+    needs: build
     runs-on: ubuntu-latest
 
     defaults:
