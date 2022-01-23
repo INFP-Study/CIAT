@@ -112,4 +112,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git add ./cicd/dev/charts/override_values.yaml
           git commit -m "change dockertag"
-          git push origin develop
+          git push origin charts
