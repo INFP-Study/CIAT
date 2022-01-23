@@ -1,0 +1,65 @@
+replicaCount: 1
+
+image:
+  repository: choisunguk/ciat-prd-backend
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: NodePort
+  port: 9400
+  targetPort: 9400
+  nodePort: 30502
+
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letencrypt-prod"
+    certmanager.k8s.io/acme-challenge-type: dns01
+  hosts:
+    - host: ciat.choicloudlab.com
+      paths:
+        - path: /api/v1
+          pathType: Prefix
+  tls:
+    - secretName: ciat-prd
+      hosts:
+        - ciat.choicloudlab.com
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 300m
+    memory: 512Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+application:  
+  mode: prd
