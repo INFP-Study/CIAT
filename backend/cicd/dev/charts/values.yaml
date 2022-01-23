@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: __IMAGENAME__
+  repository: choisunguk/siat-dev-backend
   pullPolicy: IfNotPresent
-  tag: __TAGNAME__
+  tag: __TAG__
 
 imagePullSecrets: []
 nameOverride: ""
@@ -31,14 +31,14 @@ ingress:
     cert-manager.io/cluster-issuer: "letencrypt-prod"
     certmanager.k8s.io/acme-challenge-type: dns01
   hosts:
-    - host: __HOST1__
+    - host: ciat-dev.choicloudlab.com
       paths:
         - path: /api/v1
           pathType: Prefix
   tls:
-    - secretName: __TLS__SECRETNAME__
+    - secretName: ciat-dev
       hosts:
-        - __HOST1__
+        - ciat-dev.choicloudlab.com
 
 resources:
   limits:
@@ -61,7 +61,5 @@ tolerations: []
 
 affinity: {}
 
-application:
-  secret:
-    jasypt: __JASYPT__
+application:  
   mode: __MODE__
