@@ -1,7 +1,7 @@
 name: backend-dev-junittest
 
 on:
-  push:
+  pull_request:
     branches:
       - "develop"
 
