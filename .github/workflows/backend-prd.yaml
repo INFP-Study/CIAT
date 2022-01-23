@@ -5,6 +5,10 @@ on:
     branches:
       - "prd"
 
+env:
+  dockerimage_tag: ${{ github.sha }}
+  dockerimage_name: choisunguk/ciat-prd-backend:${{ github.sha }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,10 +16,6 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
-
-    env:
-      dockerimage_tag: ${{ github.sha }}
-      dockerimage_name: choisunguk/ciat-prd-backend:${{ github.sha }}
 
     # 1. git submodule을 이용해서 스프링부트 프로파일 복사
     # 2. 스프링부트 프로젝트 빌드
