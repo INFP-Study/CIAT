@@ -1,3 +1,0 @@
-[submodule "CIAT_private"]
-	path = backend/src/main/resources/CIAT_private
-	url = git@github.com:INFP-Study/CIAT_private.git
