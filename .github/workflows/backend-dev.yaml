@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - "develop"
+    paths-ignore:
+      - ".github/workflows/backend-dev-unitest.yaml"
+      - ".github/workflows/backend-prd.yaml"
+      - ".github/workflows/frontend-**"
 
 env:
   dockerimage_tag: ${{ github.sha }}
