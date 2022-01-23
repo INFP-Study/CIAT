@@ -104,9 +104,9 @@
 #           ssh-key: ${{ secrets.GITHUBACTION_KEY }}
 #           submodules: 'recursive'
       
-#       - name: change override_values.yaml
+#       - name: change values-prd.yaml
 #         run: |
-#           cat <<EOF > override_values.yaml
+#           cat <<EOF > values-prd.yaml
 #           image:
 #             tag: ${{ env.dockerimage_tag }}
 #           EOF
@@ -115,7 +115,7 @@
 #         run: |
 #           git config --global user.email "GitHub Actions Bot@github.com"
 #           git config --global user.name "GitHub Actions Bot"
-#           git add override_values.yaml
+#           git add values-prd.yaml
 #           git commit -m "change dockertag"
 #           git pull origin charts
 #           git push origin charts
