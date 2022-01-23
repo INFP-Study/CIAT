@@ -110,6 +110,6 @@ jobs:
         run: |
           git config --global user.email "GitHub Actions Bot@github.com"
           git config --global user.name "GitHub Actions Bot"
-          git add ./cicd/dev/charts/override_values.yaml
+          git add override_values.yaml
           git commit -m "change dockertag"
           git push origin charts
