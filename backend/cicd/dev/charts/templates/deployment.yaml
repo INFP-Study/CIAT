@@ -40,12 +40,12 @@ spec:
           env:
             - name: JAVA_OPTS
               value: -Dspring.profiles.active={{ .Values.application.mode }} -Dcom.amazonaws.sdk.disableEc2Metadata=true
-          livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: http
-            initialDelaySeconds: 60
-            periodSeconds: 60
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: http
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 60
           readinessProbe:
             httpGet:
               path: /healthcheck
