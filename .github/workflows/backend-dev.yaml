@@ -113,4 +113,5 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git add override_values.yaml
           git commit -m "change dockertag"
+          git pull origin charts
           git push origin charts
