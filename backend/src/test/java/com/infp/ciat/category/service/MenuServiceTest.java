@@ -37,11 +37,11 @@ public class MenuServiceTest {
     @Autowired
     private MenuRepository menuRepository;
 
-    @BeforeAll
-    public static void beforeAll() {
-        String jasypt_password = System.getenv("jasypt.encryptor.password");
-        System.setProperty("jasypt.encryptor.password", jasypt_password);
-    }
+//    @BeforeAll
+//    public static void beforeAll() {
+//        String jasypt_password = System.getenv("jasypt.encryptor.password");
+//        System.setProperty("jasypt.encryptor.password", jasypt_password);
+//    }
 
     @BeforeEach
     void createAccount() {
