@@ -40,7 +40,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'com.sun.xml.bind:jaxb1-impl:2.2.5.1'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-  
+
+  implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 test {

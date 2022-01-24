@@ -79,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/signin").permitAll()
                 .antMatchers("/api/v1/user/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/user/resetPassword").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/feed").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/feed/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/feeds").permitAll()
@@ -90,6 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/v1/gardenList").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/gardenDtl/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html/**").permitAll()
+
                 .antMatchers("/healthcheck").permitAll()
 
                 .anyRequest().authenticated()

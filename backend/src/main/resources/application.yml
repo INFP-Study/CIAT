@@ -5,6 +5,10 @@ server:
       cookie:
         http-only: false
         secure: false
+
+
+
+
 jwt:
   secret: ENC(1MBsToCDbYBEvJkfxlSkoBb30kG1MYPqYOcyUcKZOhnodcSkYMncHeTYNyKr0GfYocr9yI3G1cR6DJHykIZTpQ==)
 
@@ -18,6 +22,14 @@ logging:
           EC2MetadataUtils: error
 
 spring:
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: developeraki@naver.com
+    password: onerooflab!
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
   servlet:
     multipart:
       max-file-size: 2MB
