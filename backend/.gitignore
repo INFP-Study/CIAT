@@ -35,9 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-# springboot profiles
-application.yml
-application-dev.yml
-application-prd.yml
-application-test.yml

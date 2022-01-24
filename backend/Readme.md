@@ -2,8 +2,11 @@
 * 이 프로젝트에서 연동된 데이터베이스정보 등 등록이 필요합니다.
 * CIAT repo에 등록된 멤버는 git submodule에 접근정보를 얻을 수 있습니다.
 ```sh
-git submodule update --recursive --remote --merge --force
+git submodule update --init --recursive
 ```
+<!-- ```sh
+git submodule update --recursive --remote --merge --force
+``` -->
 ## 스프링부트 프로파일 템플릿
 * 이 템플릿은 외부사용자를 위한 설명입니다.
 ```yaml
