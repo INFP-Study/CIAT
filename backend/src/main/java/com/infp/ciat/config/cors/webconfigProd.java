@@ -17,7 +17,8 @@ public class webconfigProd implements WebMvcConfigurer {
                         "http://localhost:8070",
                         "https://ciat-frontend.choicloudlab.com",
                         "https://ciat-dev.choicloudlab.com",
-                        "https://ciat.choicloudlab.com"
+                        "https://ciat.choicloudlab.com",
+                        "https://smtp.naver.com"
                 )
                 .allowedMethods("*");
     }
