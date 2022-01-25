@@ -45,3 +45,16 @@ frontend/build
 frontend/build/*
 frontend/*.log
 frontend/package-lock.json
+
+# backend
+# springboot profiles
+application.yml
+application-dev.yml
+application-prd.yml
+application-test.yml
+# springboot profiles
+application.yaml
+application-dev.yaml
+application-prd.yaml
+application-test.yaml
+

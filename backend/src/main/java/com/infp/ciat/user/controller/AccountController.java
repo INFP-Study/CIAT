@@ -4,6 +4,7 @@ import com.infp.ciat.config.auth.PrincipalDetails;
 import com.infp.ciat.user.controller.dto.request.ResetPasswordRequestDTO;
 import com.infp.ciat.user.controller.dto.request.SignupRequestDTO;
 import com.infp.ciat.user.controller.dto.response.LoginSuccessResponse;
+import com.infp.ciat.user.controller.dto.response.ResetPasswordResponse;
 import com.infp.ciat.user.controller.dto.response.SignUpResponse;
 import com.infp.ciat.user.service.AccountService;
 import lombok.RequiredArgsConstructor;

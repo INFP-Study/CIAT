@@ -20,7 +20,6 @@ public class webconfigDev implements WebMvcConfigurer {
                         "https://ciat.choicloudlab.com",
                         "https://smtp.naver.com",
                         "https://smtp.naver.com:465"
-
                 )
                 .allowedMethods("*");
     }
