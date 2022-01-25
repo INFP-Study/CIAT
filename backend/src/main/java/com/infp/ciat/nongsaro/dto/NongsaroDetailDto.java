@@ -123,5 +123,8 @@ public class NongsaroDetailDto {
         private String dlthtsCode;                     // 병충해 코드(콤마(,)로 구분)
         private String dlthtsCodeNm;                   // 병충해 코드(콤마(,)로 구분)
 
+        private String waterRequirement;               // 물 필요량
+        private String lightRequirement;               // 햇빛 필요량
+
     }
 }
