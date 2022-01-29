@@ -20,7 +20,7 @@ function* signInSaga(action) {
       type: authStore.signInSuccess,
       payload: success.config.headers.Authorization,
     });
-
+    localStorage.setItem('token', success.config.headers.Authorization);
     window.location.href = '/';
   } catch (error) {
     message.error(SIGN_IN_ERROR, 5);
@@ -46,7 +46,7 @@ function* signUpSaga(action) {
     }, 1500);
   } catch (e) {
     // 이메일 중복 확인 로직 추가예정
-    alert('이미 등록된 이메일입니다.');
+    alert('알수없는 오류가 발생하였습니다.');
     if (axios.isAxiosError(e)) {
       console.log(e.response);
     }
