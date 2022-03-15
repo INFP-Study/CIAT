@@ -5,13 +5,13 @@
 
 ## CIAT 프로젝트
 ### 주요 기능
-|홈|식물관리|
+|피드|식물관리|
 |---|---|
-|img|img|
+|![피드](https://user-images.githubusercontent.com/64685759/158285325-0e086ddd-0b87-4ded-b2ab-8f7ea2233a53.PNG)|![식물관리](https://user-images.githubusercontent.com/64685759/158285323-418691e2-9101-488d-a7e0-20ff74249ef9.PNG)|
 
-|로그인|게시판|
+|로그인|회원가입|
 |---|---|
-|img|img|
+|![로그인](https://user-images.githubusercontent.com/64685759/158285320-8abd0b73-ce92-42f4-9335-ce206227d04d.PNG)|![회원가입](https://user-images.githubusercontent.com/64685759/158285326-2b7bccfd-e26f-41d2-8e45-754fe3206e23.PNG)|
 
 ### 게스트 로그인🔑
 ```
